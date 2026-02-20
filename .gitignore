@@ -1,6 +1,12 @@
 # Dependencies
 node_modules
 
+# Lock files
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+package-lock.json
+
 # Editor
 .taskmaster
 
