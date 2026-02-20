@@ -1,0 +1,43 @@
+name: Build & Publish
+
+on:
+    push:
+        branches: ['production']
+
+jobs:
+    publish:
+        name: Build & Publish
+        if: github.repository == 'sgx4u/sgx4u-ui'
+        runs-on: ubuntu-latest
+        environment: production
+
+        steps:
+            # Step 1: Checkout repository
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            # Step 2: Setup Node
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+
+            # Step 3: Setup PNPM (version read from package.json "packageManager" field)
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v4
+
+            # Step 4: Install dependencies
+            - name: Install dependencies
+              run: pnpm install
+
+            # Step 5: Build
+            - name: Build Project
+              run: pnpm check
+
+            # Step 6: Publish to NPM
+            - name: Publish
+              run: |
+                  echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+                  pnpm publish --registry=https://registry.npmjs.org/ --no-git-checks
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

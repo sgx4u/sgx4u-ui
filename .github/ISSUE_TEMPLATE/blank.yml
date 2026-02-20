@@ -1,0 +1,15 @@
+name: 🪶 Blank
+description: Ask for a feature, raise an issue, or share feedback.
+labels: [unclassified]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Please describe your request, idea, or issue in detail.
+              Use Markdown to format your description.
+
+    - type: textarea
+      id: details
+      attributes:
+          label: Details
+          placeholder: Start typing here...

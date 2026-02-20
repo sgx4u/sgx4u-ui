@@ -1,0 +1,27 @@
+name: 📝 Documentation Issue
+description: Report errors or suggest improvements in the documentation.
+labels: [documentation]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thank you for helping improve our documentation!
+              Please describe what's wrong or missing.
+
+    - type: input
+      id: doc-page
+      attributes:
+          label: Documentation page or section
+          placeholder: e.g. /docs/button, /docs/accordion
+
+    - type: textarea
+      id: issue
+      attributes:
+          label: Problem description
+          placeholder: Describe the problem with the documentation.
+
+    - type: textarea
+      id: suggestion
+      attributes:
+          label: Suggested improvement
+          placeholder: Describe the suggested improvement.

@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"lib": ["es2020", "DOM", "DOM.Iterable"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "dist",
+		"resolveJsonModule": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"target": "es2020"
+	},
+	"include": ["src"],
+	"exclude": ["dist", "node_modules"]
+}

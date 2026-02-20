@@ -1,0 +1,51 @@
+name: 🐞 Bug Report
+description: Report a reproducible bug or unexpected behavior.
+labels: [bug]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thank you for taking the time to fill out this bug report!
+
+    - type: input
+      id: summary
+      attributes:
+          label: Short summary
+          description: Briefly describe the issue.
+          placeholder: Summary of the issue.
+
+    - type: textarea
+      id: current-behavior
+      attributes:
+          label: Current behavior
+          placeholder: Current behavior of the issue.
+
+    - type: textarea
+      id: expected-behavior
+      attributes:
+          label: Expected behavior
+          placeholder: Expected behavior of the issue.
+
+    - type: textarea
+      id: steps
+      attributes:
+          label: Steps to reproduce
+          description: How can we reproduce the issue?
+          placeholder: |
+              1. Go to ...
+              2. Click on ...
+              3. See error
+      validations:
+          required: true
+
+    - type: textarea
+      id: environment
+      attributes:
+          label: Environment
+          description: Please include details about your setup.
+          placeholder: |
+              - OS: Windows x.x / Linux x.x / MacOS x.x
+              - Browser: Chrome x.x / Firefox x.x / Safari x.x / Edge x.x
+              - Node.js Version: x.x.x
+              - Package Manager: pnpm/npm/yarn/bun.
+              - SGX4U UI Version: x.x.x

@@ -1,0 +1,3928 @@
+{
+    "name": "SGX4U UI - React",
+    "components": {
+        "accordion": {
+            "name": "Accordion",
+            "description": "A vertically stacked set of interactive headings that each reveal a section of content.",
+            "dependencies": [
+                "lucide-react",
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/accordion/index.ts",
+                    "outputPath": "ui/elements/accordion/index.ts"
+                },
+                {
+                    "name": "accordion.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/accordion/accordion.type.ts",
+                    "outputPath": "ui/elements/accordion/accordion.type.ts"
+                },
+                {
+                    "name": "Accordion.tsx",
+                    "path": "src/content/react/typescript/ui/elements/accordion/Accordion.tsx",
+                    "outputPath": "ui/elements/accordion/Accordion.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "accordion.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/accordion/accordion.helper.ts",
+                    "outputPath": "ui/elements/accordion/accordion.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                }
+            ]
+        },
+        "aspect-ratio": {
+            "name": "Aspect Ratio",
+            "description": "Responsive aspect-ratio wrapper that locks its children to a given proportion.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/aspect-ratio/index.ts",
+                    "outputPath": "ui/elements/aspect-ratio/index.ts"
+                },
+                {
+                    "name": "aspect-ratio.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/aspect-ratio/aspect-ratio.type.ts",
+                    "outputPath": "ui/elements/aspect-ratio/aspect-ratio.type.ts"
+                },
+                {
+                    "name": "AspectRatio.tsx",
+                    "path": "src/content/react/typescript/ui/elements/aspect-ratio/AspectRatio.tsx",
+                    "outputPath": "ui/elements/aspect-ratio/AspectRatio.tsx"
+                },
+                {
+                    "name": "number.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/number.util.ts",
+                    "outputPath": "ui/utils/number.util.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "auto-complete": {
+            "name": "Auto Complete",
+            "description": "Text input that suggests and lets users pick from a filtered list of options as they type.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/auto-complete/index.ts",
+                    "outputPath": "ui/elements/auto-complete/index.ts"
+                },
+                {
+                    "name": "auto-complete.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/auto-complete/auto-complete.type.ts",
+                    "outputPath": "ui/elements/auto-complete/auto-complete.type.ts"
+                },
+                {
+                    "name": "AutoComplete.tsx",
+                    "path": "src/content/react/typescript/ui/elements/auto-complete/AutoComplete.tsx",
+                    "outputPath": "ui/elements/auto-complete/AutoComplete.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                }
+            ]
+        },
+        "avatar": {
+            "name": "Avatar",
+            "description": "A visual representation of a user, typically displayed as a circular or rounded image with an optional fallback.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/avatar/index.ts",
+                    "outputPath": "ui/elements/avatar/index.ts"
+                },
+                {
+                    "name": "avatar.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/avatar/avatar.type.ts",
+                    "outputPath": "ui/elements/avatar/avatar.type.ts"
+                },
+                {
+                    "name": "Avatar.tsx",
+                    "path": "src/content/react/typescript/ui/elements/avatar/Avatar.tsx",
+                    "outputPath": "ui/elements/avatar/Avatar.tsx"
+                },
+                {
+                    "name": "string.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/string.util.ts",
+                    "outputPath": "ui/utils/string.util.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/image/index.ts",
+                    "outputPath": "ui/elements/image/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "image.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/image/image.type.ts",
+                    "outputPath": "ui/elements/image/image.type.ts"
+                },
+                {
+                    "name": "Image.tsx",
+                    "path": "src/content/react/typescript/ui/elements/image/Image.tsx",
+                    "outputPath": "ui/elements/image/Image.tsx"
+                },
+                {
+                    "name": "ProgressiveImage.tsx",
+                    "path": "src/content/react/typescript/ui/elements/image/ProgressiveImage.tsx",
+                    "outputPath": "ui/elements/image/ProgressiveImage.tsx"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "color.constant.ts",
+                    "path": "src/content/react/typescript/ui/constants/color.constant.ts",
+                    "outputPath": "ui/constants/color.constant.ts"
+                }
+            ]
+        },
+        "backdrop": {
+            "name": "Backdrop",
+            "description": "A blurred layer that sits behind overlays.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/index.ts",
+                    "outputPath": "ui/elements/backdrop/index.ts"
+                },
+                {
+                    "name": "backdrop.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/backdrop.type.ts",
+                    "outputPath": "ui/elements/backdrop/backdrop.type.ts"
+                },
+                {
+                    "name": "Backdrop.tsx",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/Backdrop.tsx",
+                    "outputPath": "ui/elements/backdrop/Backdrop.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "background": {
+            "name": "Background",
+            "description": "Decorative background components for applying animated gradients and ambient color effects behind your UI.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/background/index.ts",
+                    "outputPath": "ui/elements/background/index.ts"
+                },
+                {
+                    "name": "background.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/background/background.type.ts",
+                    "outputPath": "ui/elements/background/background.type.ts"
+                },
+                {
+                    "name": "Background.tsx",
+                    "path": "src/content/react/typescript/ui/elements/background/Background.tsx",
+                    "outputPath": "ui/elements/background/Background.tsx"
+                },
+                {
+                    "name": "BackgroundGradient.tsx",
+                    "path": "src/content/react/typescript/ui/elements/background/BackgroundGradient.tsx",
+                    "outputPath": "ui/elements/background/BackgroundGradient.tsx"
+                },
+                {
+                    "name": "GradientPulse.tsx",
+                    "path": "src/content/react/typescript/ui/elements/background/GradientPulse.tsx",
+                    "outputPath": "ui/elements/background/GradientPulse.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                }
+            ]
+        },
+        "badge": {
+            "name": "Badge",
+            "description": "Compact label used to display counts, statuses, or short pieces of metadata.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/badge/index.ts",
+                    "outputPath": "ui/elements/badge/index.ts"
+                },
+                {
+                    "name": "badge.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/badge/badge.type.ts",
+                    "outputPath": "ui/elements/badge/badge.type.ts"
+                },
+                {
+                    "name": "Badge.tsx",
+                    "path": "src/content/react/typescript/ui/elements/badge/Badge.tsx",
+                    "outputPath": "ui/elements/badge/Badge.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "breadcrumb": {
+            "name": "Breadcrumb",
+            "description": "A horizontal trail of links that helps users understand and navigate the hierarchy of a site or app.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/breadcrumb/index.ts",
+                    "outputPath": "ui/elements/breadcrumb/index.ts"
+                },
+                {
+                    "name": "breadcrumb.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/breadcrumb/breadcrumb.type.ts",
+                    "outputPath": "ui/elements/breadcrumb/breadcrumb.type.ts"
+                },
+                {
+                    "name": "Breadcrumb.tsx",
+                    "path": "src/content/react/typescript/ui/elements/breadcrumb/Breadcrumb.tsx",
+                    "outputPath": "ui/elements/breadcrumb/Breadcrumb.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "useWindowResize.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useWindowResize.hook.ts",
+                    "outputPath": "ui/hooks/useWindowResize.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/link/index.ts",
+                    "outputPath": "ui/elements/link/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/list/index.ts",
+                    "outputPath": "ui/elements/list/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/list-item/index.ts",
+                    "outputPath": "ui/elements/list-item/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "list-item.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/list-item/list-item.type.ts",
+                    "outputPath": "ui/elements/list-item/list-item.type.ts"
+                },
+                {
+                    "name": "ListItem.tsx",
+                    "path": "src/content/react/typescript/ui/elements/list-item/ListItem.tsx",
+                    "outputPath": "ui/elements/list-item/ListItem.tsx"
+                },
+                {
+                    "name": "list.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/list/list.type.ts",
+                    "outputPath": "ui/elements/list/list.type.ts"
+                },
+                {
+                    "name": "List.tsx",
+                    "path": "src/content/react/typescript/ui/elements/list/List.tsx",
+                    "outputPath": "ui/elements/list/List.tsx"
+                },
+                {
+                    "name": "link.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/link/link.type.ts",
+                    "outputPath": "ui/elements/link/link.type.ts"
+                },
+                {
+                    "name": "Link.tsx",
+                    "path": "src/content/react/typescript/ui/elements/link/Link.tsx",
+                    "outputPath": "ui/elements/link/Link.tsx"
+                },
+                {
+                    "name": "AdoptiveLink.tsx",
+                    "path": "src/content/react/typescript/ui/elements/link/AdoptiveLink.tsx",
+                    "outputPath": "ui/elements/link/AdoptiveLink.tsx"
+                }
+            ]
+        },
+        "button": {
+            "name": "Button",
+            "description": "Pressable control used to trigger actions or events, with support for visual variants, sizes, and loading states.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                }
+            ]
+        },
+        "button-group": {
+            "name": "Button Group",
+            "description": "Layout helper that visually groups adjacent `Button` instances, merging borders and radii for horizontal or vertical toolbars while keeping each button focusable.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button-group/index.ts",
+                    "outputPath": "ui/elements/button-group/index.ts"
+                },
+                {
+                    "name": "button-group.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button-group/button-group.type.ts",
+                    "outputPath": "ui/elements/button-group/button-group.type.ts"
+                },
+                {
+                    "name": "ButtonGroup.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button-group/ButtonGroup.tsx",
+                    "outputPath": "ui/elements/button-group/ButtonGroup.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "card": {
+            "name": "Card",
+            "description": "Layout wrapper used to display content in a card format.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/card/index.ts",
+                    "outputPath": "ui/elements/card/index.ts"
+                },
+                {
+                    "name": "card.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/card/card.type.ts",
+                    "outputPath": "ui/elements/card/card.type.ts"
+                },
+                {
+                    "name": "Card.tsx",
+                    "path": "src/content/react/typescript/ui/elements/card/Card.tsx",
+                    "outputPath": "ui/elements/card/Card.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                }
+            ]
+        },
+        "checkbox": {
+            "name": "Checkbox",
+            "description": "A square box that users can check or uncheck to represent boolean choices or multi-select lists.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/checkbox/index.ts",
+                    "outputPath": "ui/elements/checkbox/index.ts"
+                },
+                {
+                    "name": "checkbox.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/checkbox/checkbox.type.ts",
+                    "outputPath": "ui/elements/checkbox/checkbox.type.ts"
+                },
+                {
+                    "name": "Checkbox.tsx",
+                    "path": "src/content/react/typescript/ui/elements/checkbox/Checkbox.tsx",
+                    "outputPath": "ui/elements/checkbox/Checkbox.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                },
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "click-away-listener": {
+            "name": "Click Away Listener",
+            "description": "Click away listener that uses a unique data-click-away-id for outside click detection.",
+            "dependencies": [
+                "react"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/click-away-listener/index.ts",
+                    "outputPath": "ui/elements/click-away-listener/index.ts"
+                },
+                {
+                    "name": "click-away-listener.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/click-away-listener/click-away-listener.type.ts",
+                    "outputPath": "ui/elements/click-away-listener/click-away-listener.type.ts"
+                },
+                {
+                    "name": "ClickAwayListener.tsx",
+                    "path": "src/content/react/typescript/ui/elements/click-away-listener/ClickAwayListener.tsx",
+                    "outputPath": "ui/elements/click-away-listener/ClickAwayListener.tsx"
+                }
+            ]
+        },
+        "container": {
+            "name": "Container",
+            "description": "Layout wrapper used to arrange and align content using consistent flex or grid primitives.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "dialog": {
+            "name": "Dialog",
+            "description": "A window overlaid on the current page that focuses the user on a specific task or piece of information.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "useDialog.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/dialog/useDialog.hook.ts",
+                    "outputPath": "ui/elements/dialog/useDialog.hook.ts"
+                },
+                {
+                    "name": "dialog.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/dialog/dialog.type.ts",
+                    "outputPath": "ui/elements/dialog/dialog.type.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/index.ts",
+                    "outputPath": "ui/elements/backdrop/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "backdrop.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/backdrop.type.ts",
+                    "outputPath": "ui/elements/backdrop/backdrop.type.ts"
+                },
+                {
+                    "name": "Backdrop.tsx",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/Backdrop.tsx",
+                    "outputPath": "ui/elements/backdrop/Backdrop.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/dialog/index.ts",
+                    "outputPath": "ui/elements/dialog/index.ts"
+                },
+                {
+                    "name": "Dialog.tsx",
+                    "path": "src/content/react/typescript/ui/elements/dialog/Dialog.tsx",
+                    "outputPath": "ui/elements/dialog/Dialog.tsx"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                }
+            ]
+        },
+        "dropdown-menu": {
+            "name": "DropdownMenu",
+            "description": "A menu that appears when a user interacts with a trigger, typically used for contextual actions and navigation.",
+            "dependencies": [
+                "lucide-react",
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/dropdown-menu/index.ts",
+                    "outputPath": "ui/elements/dropdown-menu/index.ts"
+                },
+                {
+                    "name": "dropdown-menu.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/dropdown-menu/dropdown-menu.type.ts",
+                    "outputPath": "ui/elements/dropdown-menu/dropdown-menu.type.ts"
+                },
+                {
+                    "name": "DropdownMenu.tsx",
+                    "path": "src/content/react/typescript/ui/elements/dropdown-menu/DropdownMenu.tsx",
+                    "outputPath": "ui/elements/dropdown-menu/DropdownMenu.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "dropdown-menu-keydown.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/dropdown-menu/dropdown-menu-keydown.helper.ts",
+                    "outputPath": "ui/elements/dropdown-menu/dropdown-menu-keydown.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/index.ts",
+                    "outputPath": "ui/elements/label/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/index.ts",
+                    "outputPath": "ui/elements/separator/index.ts"
+                },
+                {
+                    "name": "separator.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/separator.type.ts",
+                    "outputPath": "ui/elements/separator/separator.type.ts"
+                },
+                {
+                    "name": "Separator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/separator/Separator.tsx",
+                    "outputPath": "ui/elements/separator/Separator.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "label.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/label.type.ts",
+                    "outputPath": "ui/elements/label/label.type.ts"
+                },
+                {
+                    "name": "Label.tsx",
+                    "path": "src/content/react/typescript/ui/elements/label/Label.tsx",
+                    "outputPath": "ui/elements/label/Label.tsx"
+                },
+                {
+                    "name": "Indicators.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/Indicators.tsx",
+                    "outputPath": "ui/elements/indicators/Indicators.tsx"
+                },
+                {
+                    "name": "indicators.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/indicators/indicators.type.ts",
+                    "outputPath": "ui/elements/indicators/indicators.type.ts"
+                },
+                {
+                    "name": "StarIndicator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/StarIndicator.tsx",
+                    "outputPath": "ui/elements/indicators/StarIndicator.tsx"
+                }
+            ]
+        },
+        "focus-trap": {
+            "name": "Focus Trap",
+            "description": "Focus management utility that traps keyboard focus within its children, restores the previously focused element on cleanup, and guards against focus escaping via mouse or script.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                }
+            ]
+        },
+        "highlight": {
+            "name": "Highlight",
+            "description": "Text helper that visually emphasizes matches within content, often used for search results.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/highlight/index.ts",
+                    "outputPath": "ui/elements/highlight/index.ts"
+                },
+                {
+                    "name": "highlight.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/highlight/highlight.type.ts",
+                    "outputPath": "ui/elements/highlight/highlight.type.ts"
+                },
+                {
+                    "name": "Highlight.tsx",
+                    "path": "src/content/react/typescript/ui/elements/highlight/Highlight.tsx",
+                    "outputPath": "ui/elements/highlight/Highlight.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "highlight.helper.tsx",
+                    "path": "src/content/react/typescript/ui/elements/highlight/highlight.helper.tsx",
+                    "outputPath": "ui/elements/highlight/highlight.helper.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                }
+            ]
+        },
+        "hover-card": {
+            "name": "Hover Card",
+            "description": "A small floating panel that reveals supplemental content when users hover or focus a trigger element.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/hover-card/index.ts",
+                    "outputPath": "ui/elements/hover-card/index.ts"
+                },
+                {
+                    "name": "hover-card.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/hover-card/hover-card.type.ts",
+                    "outputPath": "ui/elements/hover-card/hover-card.type.ts"
+                },
+                {
+                    "name": "HoverCard.tsx",
+                    "path": "src/content/react/typescript/ui/elements/hover-card/HoverCard.tsx",
+                    "outputPath": "ui/elements/hover-card/HoverCard.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                }
+            ]
+        },
+        "icons": {
+            "name": "Icons",
+            "description": "Small reusable icon components, including controls like the password show/hide toggle.",
+            "dependencies": [
+                "react",
+                "lucide-react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "PasswordShowHideIcon.tsx",
+                    "path": "src/content/react/typescript/ui/elements/icons/PasswordShowHideIcon.tsx",
+                    "outputPath": "ui/elements/icons/PasswordShowHideIcon.tsx"
+                },
+                {
+                    "name": "icons.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/icons/icons.type.ts",
+                    "outputPath": "ui/elements/icons/icons.type.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "icons-keydown.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/icons/icons-keydown.helper.ts",
+                    "outputPath": "ui/elements/icons/icons-keydown.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/icons/index.ts",
+                    "outputPath": "ui/elements/icons/index.ts"
+                },
+                {
+                    "name": "Icons.tsx",
+                    "path": "src/content/react/typescript/ui/elements/icons/Icons.tsx",
+                    "outputPath": "ui/elements/icons/Icons.tsx"
+                }
+            ]
+        },
+        "image": {
+            "name": "Image",
+            "description": "Enhanced image primitives for displaying pictures with optional progressive loading and performance-friendly defaults.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "ProgressiveImage.tsx",
+                    "path": "src/content/react/typescript/ui/elements/image/ProgressiveImage.tsx",
+                    "outputPath": "ui/elements/image/ProgressiveImage.tsx"
+                },
+                {
+                    "name": "image.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/image/image.type.ts",
+                    "outputPath": "ui/elements/image/image.type.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/image/index.ts",
+                    "outputPath": "ui/elements/image/index.ts"
+                },
+                {
+                    "name": "Image.tsx",
+                    "path": "src/content/react/typescript/ui/elements/image/Image.tsx",
+                    "outputPath": "ui/elements/image/Image.tsx"
+                }
+            ]
+        },
+        "indicators": {
+            "name": "Indicators",
+            "description": "Small visual markers, such as asterisks, used to call out required or special fields in forms.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "StarIndicator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/StarIndicator.tsx",
+                    "outputPath": "ui/elements/indicators/StarIndicator.tsx"
+                },
+                {
+                    "name": "indicators.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/indicators/indicators.type.ts",
+                    "outputPath": "ui/elements/indicators/indicators.type.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "Indicators.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/Indicators.tsx",
+                    "outputPath": "ui/elements/indicators/Indicators.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/indicators/index.ts",
+                    "outputPath": "ui/elements/indicators/index.ts"
+                }
+            ]
+        },
+        "input": {
+            "name": "Input",
+            "description": "Single-line text field for capturing short pieces of information such as names, emails, or search queries.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                }
+            ]
+        },
+        "label": {
+            "name": "Label",
+            "description": "Text caption that describes and links to a form control, often showing required or validation state.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "label.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/label.type.ts",
+                    "outputPath": "ui/elements/label/label.type.ts"
+                },
+                {
+                    "name": "Label.tsx",
+                    "path": "src/content/react/typescript/ui/elements/label/Label.tsx",
+                    "outputPath": "ui/elements/label/Label.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "Indicators.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/Indicators.tsx",
+                    "outputPath": "ui/elements/indicators/Indicators.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "indicators.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/indicators/indicators.type.ts",
+                    "outputPath": "ui/elements/indicators/indicators.type.ts"
+                },
+                {
+                    "name": "StarIndicator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/StarIndicator.tsx",
+                    "outputPath": "ui/elements/indicators/StarIndicator.tsx"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/index.ts",
+                    "outputPath": "ui/elements/label/index.ts"
+                }
+            ]
+        },
+        "link": {
+            "name": "Link",
+            "description": "A navigational element that takes users to another page, view, or section when activated.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "link.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/link/link.type.ts",
+                    "outputPath": "ui/elements/link/link.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "Link.tsx",
+                    "path": "src/content/react/typescript/ui/elements/link/Link.tsx",
+                    "outputPath": "ui/elements/link/Link.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "AdoptiveLink.tsx",
+                    "path": "src/content/react/typescript/ui/elements/link/AdoptiveLink.tsx",
+                    "outputPath": "ui/elements/link/AdoptiveLink.tsx"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/link/index.ts",
+                    "outputPath": "ui/elements/link/index.ts"
+                }
+            ]
+        },
+        "list": {
+            "name": "List",
+            "description": "A semantic container for ordered or unordered groups of related list items.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "list.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/list/list.type.ts",
+                    "outputPath": "ui/elements/list/list.type.ts"
+                },
+                {
+                    "name": "List.tsx",
+                    "path": "src/content/react/typescript/ui/elements/list/List.tsx",
+                    "outputPath": "ui/elements/list/List.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/list/index.ts",
+                    "outputPath": "ui/elements/list/index.ts"
+                }
+            ]
+        },
+        "list-item": {
+            "name": "List Item",
+            "description": "A single item inside a list, typically representing one entry in a collection of related content.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "ListItem.tsx",
+                    "path": "src/content/react/typescript/ui/elements/list-item/ListItem.tsx",
+                    "outputPath": "ui/elements/list-item/ListItem.tsx"
+                },
+                {
+                    "name": "list-item.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/list-item/list-item.type.ts",
+                    "outputPath": "ui/elements/list-item/list-item.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/list-item/index.ts",
+                    "outputPath": "ui/elements/list-item/index.ts"
+                }
+            ]
+        },
+        "loader": {
+            "name": "Loader",
+            "description": "Visual indicator that communicates to users that content or actions are in progress.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                }
+            ]
+        },
+        "popover": {
+            "name": "Popover",
+            "description": "A floating panel anchored to a trigger element, used to display contextual content without blocking the rest of the page.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                }
+            ]
+        },
+        "portal": {
+            "name": "Portal",
+            "description": "Mechanism for rendering content into a different part of the DOM tree, often used for overlays and dialogs.",
+            "dependencies": [
+                "react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                }
+            ]
+        },
+        "radio": {
+            "name": "Radio",
+            "description": "Single-selection form control typically used in groups where only one option can be active at a time.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "radio.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/radio/radio.type.ts",
+                    "outputPath": "ui/elements/radio/radio.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/index.ts",
+                    "outputPath": "ui/elements/label/index.ts"
+                },
+                {
+                    "name": "label.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/label/label.type.ts",
+                    "outputPath": "ui/elements/label/label.type.ts"
+                },
+                {
+                    "name": "Label.tsx",
+                    "path": "src/content/react/typescript/ui/elements/label/Label.tsx",
+                    "outputPath": "ui/elements/label/Label.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Indicators.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/Indicators.tsx",
+                    "outputPath": "ui/elements/indicators/Indicators.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "indicators.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/indicators/indicators.type.ts",
+                    "outputPath": "ui/elements/indicators/indicators.type.ts"
+                },
+                {
+                    "name": "StarIndicator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/indicators/StarIndicator.tsx",
+                    "outputPath": "ui/elements/indicators/StarIndicator.tsx"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                },
+                {
+                    "name": "Radio.tsx",
+                    "path": "src/content/react/typescript/ui/elements/radio/Radio.tsx",
+                    "outputPath": "ui/elements/radio/Radio.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/radio/index.ts",
+                    "outputPath": "ui/elements/radio/index.ts"
+                }
+            ]
+        },
+        "select": {
+            "name": "Select",
+            "description": "A dropdown control for choosing one or more options from a list, with an optional searchable variant.",
+            "dependencies": [
+                "react",
+                "lucide-react",
+                "clsx",
+                "tailwind-merge",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "SelectWithSearch.tsx",
+                    "path": "src/content/react/typescript/ui/elements/select/SelectWithSearch.tsx",
+                    "outputPath": "ui/elements/select/SelectWithSearch.tsx"
+                },
+                {
+                    "name": "select.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/select/select.type.ts",
+                    "outputPath": "ui/elements/select/select.type.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/index.ts",
+                    "outputPath": "ui/elements/popover/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/index.ts",
+                    "outputPath": "ui/elements/separator/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "separator.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/separator.type.ts",
+                    "outputPath": "ui/elements/separator/separator.type.ts"
+                },
+                {
+                    "name": "Separator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/separator/Separator.tsx",
+                    "outputPath": "ui/elements/separator/Separator.tsx"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "popover.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.type.ts",
+                    "outputPath": "ui/elements/popover/popover.type.ts"
+                },
+                {
+                    "name": "Popover.tsx",
+                    "path": "src/content/react/typescript/ui/elements/popover/Popover.tsx",
+                    "outputPath": "ui/elements/popover/Popover.tsx"
+                },
+                {
+                    "name": "usePopover.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/usePopover.hook.ts",
+                    "outputPath": "ui/elements/popover/usePopover.hook.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "popover.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/popover/popover.helper.ts",
+                    "outputPath": "ui/elements/popover/popover.helper.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                },
+                {
+                    "name": "Select.tsx",
+                    "path": "src/content/react/typescript/ui/elements/select/Select.tsx",
+                    "outputPath": "ui/elements/select/Select.tsx"
+                },
+                {
+                    "name": "select-keydown.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/select/select-keydown.helper.ts",
+                    "outputPath": "ui/elements/select/select-keydown.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/select/index.ts",
+                    "outputPath": "ui/elements/select/index.ts"
+                }
+            ]
+        },
+        "separator": {
+            "name": "Separator",
+            "description": "Thin rule used to visually divide groups of content or UI controls.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "separator.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/separator.type.ts",
+                    "outputPath": "ui/elements/separator/separator.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "Separator.tsx",
+                    "path": "src/content/react/typescript/ui/elements/separator/Separator.tsx",
+                    "outputPath": "ui/elements/separator/Separator.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/separator/index.ts",
+                    "outputPath": "ui/elements/separator/index.ts"
+                }
+            ]
+        },
+        "sheet": {
+            "name": "Sheet",
+            "description": "A panel that slides in from the edge of the screen to display contextual content without leaving the current page.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "useSheet.hook.ts",
+                    "path": "src/content/react/typescript/ui/elements/sheet/useSheet.hook.ts",
+                    "outputPath": "ui/elements/sheet/useSheet.hook.ts"
+                },
+                {
+                    "name": "sheet.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/sheet/sheet.type.ts",
+                    "outputPath": "ui/elements/sheet/sheet.type.ts"
+                },
+                {
+                    "name": "animated-overlay-store.helper.ts",
+                    "path": "src/content/react/typescript/ui/helpers/animated-overlay-store.helper.ts",
+                    "outputPath": "ui/helpers/animated-overlay-store.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/index.ts",
+                    "outputPath": "ui/elements/backdrop/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "backdrop.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/backdrop.type.ts",
+                    "outputPath": "ui/elements/backdrop/backdrop.type.ts"
+                },
+                {
+                    "name": "Backdrop.tsx",
+                    "path": "src/content/react/typescript/ui/elements/backdrop/Backdrop.tsx",
+                    "outputPath": "ui/elements/backdrop/Backdrop.tsx"
+                },
+                {
+                    "name": "Sheet.tsx",
+                    "path": "src/content/react/typescript/ui/elements/sheet/Sheet.tsx",
+                    "outputPath": "ui/elements/sheet/Sheet.tsx"
+                },
+                {
+                    "name": "useLockScroll.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useLockScroll.hook.ts",
+                    "outputPath": "ui/hooks/useLockScroll.hook.ts"
+                },
+                {
+                    "name": "useReducedMotion.hook.ts",
+                    "path": "src/content/react/typescript/ui/hooks/useReducedMotion.hook.ts",
+                    "outputPath": "ui/hooks/useReducedMotion.hook.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/index.ts",
+                    "outputPath": "ui/elements/focus-trap/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "focus-trap.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/focus-trap.type.ts",
+                    "outputPath": "ui/elements/focus-trap/focus-trap.type.ts"
+                },
+                {
+                    "name": "FocusTrap.tsx",
+                    "path": "src/content/react/typescript/ui/elements/focus-trap/FocusTrap.tsx",
+                    "outputPath": "ui/elements/focus-trap/FocusTrap.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/sheet/index.ts",
+                    "outputPath": "ui/elements/sheet/index.ts"
+                }
+            ]
+        },
+        "skeleton": {
+            "name": "Skeleton",
+            "description": "Placeholder UI used to represent content that is still loading.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "skeleton.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/skeleton/skeleton.type.ts",
+                    "outputPath": "ui/elements/skeleton/skeleton.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "Skeleton.tsx",
+                    "path": "src/content/react/typescript/ui/elements/skeleton/Skeleton.tsx",
+                    "outputPath": "ui/elements/skeleton/Skeleton.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/skeleton/index.ts",
+                    "outputPath": "ui/elements/skeleton/index.ts"
+                }
+            ]
+        },
+        "slot": {
+            "name": "Slot",
+            "description": "Composition utility that lets components render their children as the actual DOM element while still receiving styling and behavior.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                }
+            ]
+        },
+        "switch": {
+            "name": "Switch",
+            "description": "A two-state toggle used for turning a setting or feature on and off.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "switch.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/switch/switch.type.ts",
+                    "outputPath": "ui/elements/switch/switch.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/index.ts",
+                    "outputPath": "ui/elements/input/index.ts"
+                },
+                {
+                    "name": "input.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/input/input.type.ts",
+                    "outputPath": "ui/elements/input/input.type.ts"
+                },
+                {
+                    "name": "Input.tsx",
+                    "path": "src/content/react/typescript/ui/elements/input/Input.tsx",
+                    "outputPath": "ui/elements/input/Input.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "Switch.tsx",
+                    "path": "src/content/react/typescript/ui/elements/switch/Switch.tsx",
+                    "outputPath": "ui/elements/switch/Switch.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/switch/index.ts",
+                    "outputPath": "ui/elements/switch/index.ts"
+                }
+            ]
+        },
+        "table": {
+            "name": "Table",
+            "description": "A tabular data structure that organizes information into rows and columns.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "table.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/table/table.type.ts",
+                    "outputPath": "ui/elements/table/table.type.ts"
+                },
+                {
+                    "name": "Table.tsx",
+                    "path": "src/content/react/typescript/ui/elements/table/Table.tsx",
+                    "outputPath": "ui/elements/table/Table.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/table/index.ts",
+                    "outputPath": "ui/elements/table/index.ts"
+                }
+            ]
+        },
+        "tabs": {
+            "name": "Tabs",
+            "description": "A set of stacked triggers that switch between different views or panels in the same space.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "tabs.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/tabs/tabs.type.ts",
+                    "outputPath": "ui/elements/tabs/tabs.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "Tabs.tsx",
+                    "path": "src/content/react/typescript/ui/elements/tabs/Tabs.tsx",
+                    "outputPath": "ui/elements/tabs/Tabs.tsx"
+                },
+                {
+                    "name": "tabs-keydown.helper.ts",
+                    "path": "src/content/react/typescript/ui/elements/tabs/tabs-keydown.helper.ts",
+                    "outputPath": "ui/elements/tabs/tabs-keydown.helper.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/tabs/index.ts",
+                    "outputPath": "ui/elements/tabs/index.ts"
+                }
+            ]
+        },
+        "text": {
+            "name": "Text",
+            "description": "Typography primitive for rendering semantic headings, paragraphs, and inline text.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                }
+            ]
+        },
+        "text-style": {
+            "name": "Text Style",
+            "description": "Inline text formatting primitives for emphasizing, underlining, or annotating existing content.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "TextStyle.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text-style/TextStyle.tsx",
+                    "outputPath": "ui/elements/text-style/TextStyle.tsx"
+                },
+                {
+                    "name": "text-style.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text-style/text-style.type.ts",
+                    "outputPath": "ui/elements/text-style/text-style.type.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text-style/index.ts",
+                    "outputPath": "ui/elements/text-style/index.ts"
+                }
+            ]
+        },
+        "textarea": {
+            "name": "Textarea",
+            "description": "Multiline text field for collecting longer free-form input such as comments, notes, or descriptions.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "textarea.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/textarea/textarea.type.ts",
+                    "outputPath": "ui/elements/textarea/textarea.type.ts"
+                },
+                {
+                    "name": "Textarea.tsx",
+                    "path": "src/content/react/typescript/ui/elements/textarea/Textarea.tsx",
+                    "outputPath": "ui/elements/textarea/Textarea.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/textarea/index.ts",
+                    "outputPath": "ui/elements/textarea/index.ts"
+                }
+            ]
+        },
+        "timeline": {
+            "name": "Timeline",
+            "description": "Visual representation of a sequence of events or steps in a process.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "timeline.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/timeline/timeline.type.ts",
+                    "outputPath": "ui/elements/timeline/timeline.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "Timeline.tsx",
+                    "path": "src/content/react/typescript/ui/elements/timeline/Timeline.tsx",
+                    "outputPath": "ui/elements/timeline/Timeline.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/timeline/index.ts",
+                    "outputPath": "ui/elements/timeline/index.ts"
+                }
+            ]
+        },
+        "toggle": {
+            "name": "Toggle",
+            "description": "A pressable control that switches between on and off states, similar to a button with persistent pressed state.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "lucide-react"
+            ],
+            "files": [
+                {
+                    "name": "toggle.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/toggle/toggle.type.ts",
+                    "outputPath": "ui/elements/toggle/toggle.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/index.ts",
+                    "outputPath": "ui/elements/button/index.ts"
+                },
+                {
+                    "name": "button.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/button/button.type.ts",
+                    "outputPath": "ui/elements/button/button.type.ts"
+                },
+                {
+                    "name": "Button.tsx",
+                    "path": "src/content/react/typescript/ui/elements/button/Button.tsx",
+                    "outputPath": "ui/elements/button/Button.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/index.ts",
+                    "outputPath": "ui/elements/loader/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "loader.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/loader/loader.type.ts",
+                    "outputPath": "ui/elements/loader/loader.type.ts"
+                },
+                {
+                    "name": "Loader.tsx",
+                    "path": "src/content/react/typescript/ui/elements/loader/Loader.tsx",
+                    "outputPath": "ui/elements/loader/Loader.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "Toggle.tsx",
+                    "path": "src/content/react/typescript/ui/elements/toggle/Toggle.tsx",
+                    "outputPath": "ui/elements/toggle/Toggle.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/toggle/index.ts",
+                    "outputPath": "ui/elements/toggle/index.ts"
+                }
+            ]
+        },
+        "tooltip": {
+            "name": "Tooltip",
+            "description": "A brief, non-interactive label that appears on hover or focus to describe another element.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge",
+                "react-dom"
+            ],
+            "files": [
+                {
+                    "name": "tooltip.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/tooltip/tooltip.type.ts",
+                    "outputPath": "ui/elements/tooltip/tooltip.type.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/index.ts",
+                    "outputPath": "ui/elements/text/index.ts"
+                },
+                {
+                    "name": "text.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/text/text.type.ts",
+                    "outputPath": "ui/elements/text/text.type.ts"
+                },
+                {
+                    "name": "Text.tsx",
+                    "path": "src/content/react/typescript/ui/elements/text/Text.tsx",
+                    "outputPath": "ui/elements/text/Text.tsx"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Tooltip.tsx",
+                    "path": "src/content/react/typescript/ui/elements/tooltip/Tooltip.tsx",
+                    "outputPath": "ui/elements/tooltip/Tooltip.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/index.ts",
+                    "outputPath": "ui/elements/portal/index.ts"
+                },
+                {
+                    "name": "portal.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/portal/portal.type.ts",
+                    "outputPath": "ui/elements/portal/portal.type.ts"
+                },
+                {
+                    "name": "Portal.tsx",
+                    "path": "src/content/react/typescript/ui/elements/portal/Portal.tsx",
+                    "outputPath": "ui/elements/portal/Portal.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/tooltip/index.ts",
+                    "outputPath": "ui/elements/tooltip/index.ts"
+                }
+            ]
+        },
+        "visually-hidden": {
+            "name": "Visually Hidden",
+            "description": "Utility for content that should be available to screen readers but not visible on screen.",
+            "dependencies": [
+                "react",
+                "clsx",
+                "tailwind-merge"
+            ],
+            "files": [
+                {
+                    "name": "VisuallyHidden.tsx",
+                    "path": "src/content/react/typescript/ui/elements/visually-hidden/VisuallyHidden.tsx",
+                    "outputPath": "ui/elements/visually-hidden/VisuallyHidden.tsx"
+                },
+                {
+                    "name": "visually-hidden.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/visually-hidden/visually-hidden.type.ts",
+                    "outputPath": "ui/elements/visually-hidden/visually-hidden.type.ts"
+                },
+                {
+                    "name": "styles.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/styles.util.ts",
+                    "outputPath": "ui/utils/styles.util.ts"
+                },
+                {
+                    "name": "Container.tsx",
+                    "path": "src/content/react/typescript/ui/elements/container/Container.tsx",
+                    "outputPath": "ui/elements/container/Container.tsx"
+                },
+                {
+                    "name": "container.type.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/container.type.ts",
+                    "outputPath": "ui/elements/container/container.type.ts"
+                },
+                {
+                    "name": "variant.util.ts",
+                    "path": "src/content/react/typescript/ui/utils/variant.util.ts",
+                    "outputPath": "ui/utils/variant.util.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/slot/index.ts",
+                    "outputPath": "ui/elements/slot/index.ts"
+                },
+                {
+                    "name": "Slot.tsx",
+                    "path": "src/content/react/typescript/ui/elements/slot/Slot.tsx",
+                    "outputPath": "ui/elements/slot/Slot.tsx"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/container/index.ts",
+                    "outputPath": "ui/elements/container/index.ts"
+                },
+                {
+                    "name": "index.ts",
+                    "path": "src/content/react/typescript/ui/elements/visually-hidden/index.ts",
+                    "outputPath": "ui/elements/visually-hidden/index.ts"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "@sgx4u/ui",
+  "version": "1.0.5",
+  "private": false,
+  "license": "MIT",
+  "author": "Subhajit Ghosh",
+  "description": "Accessible, efficient and customizable components to start your own project. Use this to build any project of any scale.",
+  "keywords": [
+    "components",
+    "react",
+    "nextjs",
+    "sgx4u",
+    "sgx4u-ui",
+    "ui"
+  ],
+  "homepage": "https://ui.sgx4u.com",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "readme": "./README.md",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/sgx4u/sgx4u-ui.git"
+  },
+  "bin": {
+    "sgx4u-ui": "./dist/bin.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "packageManager": "pnpm@10.29.2",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsup",
+    "build:registry": "node scripts/build-registry.js",
+    "lint": "tsc",
+    "test": "jest",
+    "check": "pnpm lint && pnpm build",
+    "prepublishOnly": "pnpm build:registry && pnpm build",
+    "release": "pnpm lint && pnpm publish --no-git-checks"
+  },
+  "dependencies": {
+    "commander": "^14.0.3",
+    "fs-extra": "^11.3.3",
+    "inquirer": "^13.2.2",
+    "ora": "^9.3.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.9",
+    "esbuild": "latest",
+    "next": "16.1.6",
+    "tsup": "^8.5.1"
+  },
+  "peerDependencies": {
+    "@types/node": "^20.19.33",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.563.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist/",
+    "CHANGELOG.md",
+    "LICENSE",
+    "logo.svg",
+    "package.json",
+    "README.md",
+    "SECURITY.md",
+    "SUPPORT.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  }
+}

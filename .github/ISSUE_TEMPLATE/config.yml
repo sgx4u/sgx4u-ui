@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+issue_templates:
+    - name: 🐞 Bug Report
+      description: Report something that isn't working properly.
+      file: bug-report.yml
+
+    - name: 📝 Documentation Issue
+      description: Report a problem in the docs or suggest improvements.
+      file: doc-issue.yml
+
+    - name: 🪶 Blank Issue
+      description: Start with a blank issue.
+      file: blank-issue.yml

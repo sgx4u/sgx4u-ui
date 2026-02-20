@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Editor
+.taskmaster
+
+# ENV files
+.env
+.env*
+
+# Next.JS
+.next
+
+# Production
+.output
+build
+dist
+out
+
+# Temporary
+temp
+
+# TurboRepo
+.turbo
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
