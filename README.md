@@ -55,7 +55,7 @@
 
 ## 🔗 Links
 
-- [`SGX4U UI Docs`](ui.sgx4u.com) &dash; Package documentation and component examples.
+- [`SGX4U UI Docs`](https://ui.sgx4u.com) &dash; Package documentation and component examples.
 
 <br/>
 
@@ -137,7 +137,7 @@ pnpm dlx @sgx4u/ui@latest help
 - **Component overrides**: Because the source is fully accessible, you can copy and adapt components to your own conventions.
 - **Utility-first styling**: Use Tailwind utility classes to quickly adjust layout, spacing, and appearance without sacrificing consistency.
 
-For detailed theming guidance, see the docs in `ui.sgx4u.com/docs/styling`.
+For detailed theming guidance, see the docs in `https://ui.sgx4u.com/docs/styling`.
 
 <br/>
 
