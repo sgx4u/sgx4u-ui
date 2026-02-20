@@ -24,7 +24,7 @@ export async function showComponentInfo(componentName: string): Promise<void> {
 		const config = await getConfig(cwd);
 		if (!config) {
 			configSpinner.fail();
-			console.log('❌ No configuration found! Please run "sgx4u-ui init" first.');
+			console.log('❌ No configuration found! Please run "pnpm dlx @sgx4u/ui@latest init" first.');
 			process.exit(1);
 		}
 
@@ -33,7 +33,7 @@ export async function showComponentInfo(componentName: string): Promise<void> {
 		if (!component) {
 			configSpinner.fail();
 			console.log(`❌ Component "${componentName}" not found!`);
-			console.log('💡 Use "sgx4u-ui list" to see available components.');
+			console.log('💡 Use "pnpm dlx @sgx4u/ui@latest list" to see available components.');
 			process.exit(1);
 		}
 
@@ -44,7 +44,7 @@ export async function showComponentInfo(componentName: string): Promise<void> {
 		console.log('\n' + '='.repeat(50) + '\n');
 
 		console.log(`🚀 Installation Command:`);
-		console.log(`   sgx4u-ui add ${component.name}`);
+		console.log(`   pnpm dlx @sgx4u/ui@latest add ${component.name}`);
 
 		console.log(`📝 Description:`);
 		console.log(`   ${component.description}`);

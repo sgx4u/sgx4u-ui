@@ -16,7 +16,7 @@ export async function listComponents(): Promise<void> {
 		const config = await getConfig(cwd);
 		if (!config) {
 			configSpinner.fail();
-			console.log('❌ No configuration found! Please run "sgx4u-ui init" first.');
+			console.log('❌ No configuration found! Please run "pnpm dlx @sgx4u/ui@latest init" first.');
 			process.exit(1);
 		}
 
@@ -39,7 +39,7 @@ export async function listComponents(): Promise<void> {
 			const componentName = component.name ?? registryKey;
 
 			console.log(`${componentName}: ${component.description}`);
-			console.log(`    Install: sgx4u-ui add ${componentName}`);
+			console.log(`    Install: pnpm dlx @sgx4u/ui@latest add ${componentName}`);
 			console.log();
 		});
 

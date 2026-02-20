@@ -19,7 +19,7 @@ export async function manageConfig(): Promise<void> {
 		const config = await getConfig(cwd);
 		if (!config) {
 			configSpinner.fail();
-			console.log('❌ No configuration found. Please run "sgx4u-ui init" first!');
+			console.log('❌ No configuration found. Please run "pnpm dlx @sgx4u/ui@latest init" first!');
 			process.exit(1);
 		}
 

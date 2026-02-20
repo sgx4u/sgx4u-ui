@@ -13,12 +13,12 @@ export async function showHelp(): Promise<void> {
 
 	console.log('\n🔧 AVAILABLE COMMANDS');
 
-	console.log('   1. sgx4u-ui init - Initialize SGX4U UI in your project');
-	console.log('   2. sgx4u-ui add <component-name> - Install a component');
-	console.log('   3. sgx4u-ui list - Show available components');
-	console.log('   4. sgx4u-ui info <component-name> - Show information about a component');
-	console.log('   5. sgx4u-ui config - Show configuration');
-	console.log('   6. sgx4u-ui help - Show help information');
+	console.log('   1. pnpm dlx @sgx4u/ui@latest init - Initialize SGX4U UI in your project');
+	console.log('   2. pnpm dlx @sgx4u/ui@latest add <component-name> - Install a component');
+	console.log('   3. pnpm dlx @sgx4u/ui@latest list - Show available components');
+	console.log('   4. pnpm dlx @sgx4u/ui@latest info <component-name> - Show information about a component');
+	console.log('   5. pnpm dlx @sgx4u/ui@latest config - Show configuration');
+	console.log('   6. pnpm dlx @sgx4u/ui@latest help - Show help information');
 
 	console.log('\n✨ KEY FEATURES');
 	console.log('   ☄️ Access raw code - Flexibility and freedom from external dependencies');
@@ -34,9 +34,9 @@ export async function showHelp(): Promise<void> {
 
 	console.log('\n💡 TIPS');
 	console.log(
-		'   • Run "sgx4u-ui init" first to set up your project properly and avoid overwriting existing configuration',
+		'   • Run "pnpm dlx @sgx4u/ui@latest init" first to set up your project properly and avoid overwriting existing configuration',
 	);
-	console.log('   • Use "sgx4u-ui list" to explore available components');
+	console.log('   • Use "pnpm dlx @sgx4u/ui@latest list" to explore available components');
 
 	console.log('\n❓ NEED MORE HELP?');
 	console.log('   For more details please visit the documentation or reach out to me at sgx2050@gmail.com');

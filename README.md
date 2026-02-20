@@ -89,56 +89,42 @@ pnpm add @sgx4u/ui          # pnpm
 
 ## Quick Start
 
-1. **Install the library**.
+1. **Initialize SGX4U UI in your project**.
 
     ```sh
-    pnpm add @sgx4u/ui
+    pnpm dlx @sgx4u/ui@latest init
     ```
 
-2. **Initialize SGX4U UI in your project**.
+2. **Add components in your project**.
 
     ```sh
-    pnpm dlx @sgx4u/ui init
+    pnpm dlx @sgx4u/ui@latest add button
     ```
 
-3. **Add components in your project**.
-
-    ```sh
-    sgx4u-ui add button
-    ```
-
-4. **Start your dev server** (for example, with Next.js or Vite) and verify the component renders and behaves as expected.
+3. **Start your dev server** (for example, with Next.js or Vite) and verify the component renders and behaves as expected.
 
 <br/>
 
-## 🚀 CLI Usage
-
-Install and use the CLI via `pnpm` (recommended) or your preferred package manager.
-
-```sh
-pnpm add @sgx4u/ui
-```
-
-Then use the `sgx4u-ui` commands:
+## 🚀 CLI Commands
 
 ```sh
 # Initialize SGX4U UI in your project
-sgx4u-ui init
+pnpm dlx @sgx4u/ui@latest init
 
 # Install a component
-sgx4u-ui add <component-name>
+pnpm dlx @sgx4u/ui@latest add <component-name>
 
 # Show available components
-sgx4u-ui list
+pnpm dlx @sgx4u/ui@latest list
 
 # Show information about a component
-sgx4u-ui info
+pnpm dlx @sgx4u/ui@latest info
 
 # Show configuration
-sgx4u-ui config
+pnpm dlx @sgx4u/ui@latest config
 
 # Show this help information
-sgx4u-ui help
+pnpm dlx @sgx4u/ui@latest help
 ```
 
 <br/>
