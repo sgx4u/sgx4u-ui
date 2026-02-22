@@ -17,7 +17,7 @@ export function stringToNumber(value: string): number {
 
 /**
  * @description Converts a string or number to a Tailwind color class using a stable hash for even distribution across the color palette.
- * @param {object} props - The options for converting to a color.
+ * @param {object} props - The props for converting to a color.
  * @param {string | number} props.value - The string or number to convert to a color.
  * @param {'bg' | 'text' | 'border'} props.type - The type of color class to return.
  * @param {Array<string>} [props.colors] - Optional custom color palette to use instead of the built-in palettes.

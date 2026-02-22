@@ -3,7 +3,7 @@ import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 // eslint-disable-next-line no-secrets/no-secrets
 /**
  * @description Handles keyboard events for Enter and Spacebar keys to trigger toggle action.
- * @param {object} props - The options for the helper.
+ * @param {object} props - The props for the helper.
  * @param {ReactKeyboardEvent<SVGSVGElement>} props.event - The keyboard event.
  * @param {() => void} props.toggleVisibility - The function to toggle the visibility.
  * @returns {void}

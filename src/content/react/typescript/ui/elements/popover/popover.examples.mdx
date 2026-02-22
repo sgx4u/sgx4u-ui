@@ -1,0 +1,149 @@
+---
+component: Popover
+category: elements
+package: "@sgx4u/ui/elements/popover"
+subComponents: [PopoverTrigger, PopoverContent, PopoverTitle, PopoverDescription, PopoverClose]
+description: Non-modal floating panel anchored to a trigger element. Supports controlled/uncontrolled state, positioning, and optional focus trapping.
+keywords: [popover, floating, overlay, anchor, tooltip-like, controlled, uncontrolled, side, focus-trap]
+---
+
+# Popover Examples
+
+Usage examples for the `Popover` component from `@sgx4u/ui`.
+Import from `@sgx4u/ui/elements/popover`.
+
+## Uncontrolled Popover
+
+Minimal uncontrolled Popover. The open state is owned by the Popover component itself.
+`PopoverTrigger` toggles the panel open; clicking outside or pressing Escape closes it.
+
+```tsx
+'use client';
+
+import { Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from '@sgx4u/ui/elements/popover';
+
+export function PopoverUncontrolledExample() {
+	return (
+		<Popover>
+			<PopoverTrigger>Open popover</PopoverTrigger>
+
+			<PopoverContent>
+				<PopoverTitle>Popover heading</PopoverTitle>
+				<PopoverDescription>This is a short description inside the popover.</PopoverDescription>
+			</PopoverContent>
+		</Popover>
+	);
+}
+```
+
+## Controlled Popover
+
+Controlled Popover where the consumer owns the open state.
+Pass `open` and `onOpenChange` to keep the parent synchronised.
+Use this pattern when you need to open the popover from a different trigger or track its state externally.
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+
+import { Button } from '@sgx4u/ui/elements/button';
+import { Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from '@sgx4u/ui/elements/popover';
+
+export function PopoverControlledExample() {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<>
+			<Button onClick={() => setIsOpen((previous) => !previous)}>Toggle popover</Button>
+
+			<Popover open={isOpen} onOpenChange={setIsOpen}>
+				<PopoverTrigger>Trigger</PopoverTrigger>
+
+				<PopoverContent>
+					<PopoverTitle>Controlled popover</PopoverTitle>
+					<PopoverDescription>
+						The open state is driven by the parent. isOpen: {String(isOpen)}.
+					</PopoverDescription>
+				</PopoverContent>
+			</Popover>
+		</>
+	);
+}
+```
+
+## Popover with Explicit Close Button
+
+Popover that includes an explicit `PopoverClose` button inside the content panel
+in addition to the automatic close-on-click-outside behaviour.
+Useful when you want to give users a visible affordance to close the popover.
+
+```tsx
+'use client';
+
+import { Popover, PopoverClose, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from '@sgx4u/ui/elements/popover';
+
+export function PopoverWithCloseButtonExample() {
+	return (
+		<Popover>
+			<PopoverTrigger>Open with close button</PopoverTrigger>
+
+			<PopoverContent>
+				<PopoverTitle>Has a close button</PopoverTitle>
+				<PopoverDescription>Use the X button in the corner or click outside to dismiss.</PopoverDescription>
+				<PopoverClose />
+			</PopoverContent>
+		</Popover>
+	);
+}
+```
+
+## Popover Side Positioning
+
+Popover positioned to the right of its trigger instead of the default bottom placement.
+Pass `side` to control initial placement; the popover auto-flips when it would overflow the viewport.
+Use `sideOffset` to add spacing between the trigger and the panel.
+
+```tsx
+'use client';
+
+import { Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from '@sgx4u/ui/elements/popover';
+
+export function PopoverSideExample() {
+	return (
+		<Popover side="right" sideOffset={12}>
+			<PopoverTrigger>Open on right</PopoverTrigger>
+
+			<PopoverContent>
+				<PopoverTitle>Right-side popover</PopoverTitle>
+				<PopoverDescription>Rendered to the right of the trigger with a 12px offset.</PopoverDescription>
+			</PopoverContent>
+		</Popover>
+	);
+}
+```
+
+## Popover without Focus Trap
+
+Popover with focus trapping disabled.
+Useful for non-modal popovers that should not capture keyboard focus away from the rest of the page.
+Set `trapFocus={false}` when the popover is purely informational and does not require keyboard interaction inside it.
+
+```tsx
+'use client';
+
+import { Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger } from '@sgx4u/ui/elements/popover';
+
+export function PopoverNoTrapFocusExample() {
+	return (
+		<Popover trapFocus={false}>
+			<PopoverTrigger>Non-modal popover</PopoverTrigger>
+
+			<PopoverContent>
+				<PopoverTitle>No focus trap</PopoverTitle>
+				<PopoverDescription>Focus can move freely outside this popover while it is open.</PopoverDescription>
+			</PopoverContent>
+		</Popover>
+	);
+}
+```

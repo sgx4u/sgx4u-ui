@@ -39,7 +39,6 @@
     "build": "tsup",
     "build:registry": "node scripts/build-registry.js",
     "lint": "tsc",
-    "test": "jest",
     "check": "pnpm lint && pnpm build",
     "prepublishOnly": "pnpm build:registry && pnpm build",
     "release": "pnpm lint && pnpm publish --no-git-checks"
@@ -51,11 +50,24 @@
     "ora": "^9.3.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.9",
     "esbuild": "latest",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.1.6",
+    "eslint-plugin-jsdoc": "^62.5.4",
+    "eslint-plugin-no-secrets": "^2.2.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.3.0",
     "next": "16.1.6",
-    "tsup": "^8.5.1"
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.54.0"
   },
   "peerDependencies": {
     "@types/node": "^20.19.33",

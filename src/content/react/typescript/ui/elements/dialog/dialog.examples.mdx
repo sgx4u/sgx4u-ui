@@ -1,0 +1,140 @@
+---
+component: Dialog
+category: elements
+package: "@sgx4u/ui/elements/dialog"
+subComponents: [DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose]
+description: Modal overlay that captures focus and interrupts the user workflow for confirmations, forms, or critical actions.
+keywords: [modal, dialog, overlay, focus-trap, controlled, uncontrolled, backdrop]
+---
+
+# Dialog Examples
+
+Usage examples for the `Dialog` component from `@sgx4u/ui`.
+Import from `@sgx4u/ui/elements/dialog`.
+
+## Uncontrolled Dialog
+
+Minimal uncontrolled Dialog usage. The open/close state is managed internally by the component.
+Use `DialogTrigger` to open and `DialogClose` (rendered automatically inside `DialogContent`) to close.
+Clicking outside the dialog or pressing Escape also closes it.
+
+```tsx
+'use client';
+
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@sgx4u/ui/elements/dialog';
+
+export function DialogUncontrolledExample() {
+	return (
+		<Dialog>
+			<DialogTrigger>Open dialog</DialogTrigger>
+
+			<DialogContent>
+				<DialogTitle>Uncontrolled dialog</DialogTitle>
+				<DialogDescription>
+					This dialog manages its own open/closed state. Click outside or press Escape to close.
+				</DialogDescription>
+			</DialogContent>
+		</Dialog>
+	);
+}
+```
+
+## Controlled Dialog
+
+Controlled Dialog where the consumer owns the open state via `useState`.
+Pass `open` and `onOpenChange` to synchronise external state with the dialog.
+This pattern is necessary when you need to open the dialog programmatically or react to close events.
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+
+import { Button } from '@sgx4u/ui/elements/button';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@sgx4u/ui/elements/dialog';
+
+export function DialogControlledExample() {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<>
+			<Button onClick={() => setIsOpen(true)}>Open controlled dialog</Button>
+
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogContent>
+					<DialogTitle>Controlled dialog</DialogTitle>
+					<DialogDescription>
+						The open state is controlled externally. The dialog syncs with the parent via onOpenChange.
+					</DialogDescription>
+
+					<Button onClick={() => setIsOpen(false)} variant="primary-outline">
+						Close from outside
+					</Button>
+				</DialogContent>
+			</Dialog>
+		</>
+	);
+}
+```
+
+## Dialog with Actions
+
+Dialog with a confirmation action pattern — a trigger, descriptive body, and action buttons.
+`DialogClose` is used explicitly to dismiss the dialog from a cancel button.
+Ideal for destructive or irreversible operations that require explicit user confirmation.
+
+```tsx
+'use client';
+
+import { Button } from '@sgx4u/ui/elements/button';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@sgx4u/ui/elements/dialog';
+
+export function DialogWithActionsExample() {
+	return (
+		<Dialog>
+			<DialogTrigger variant="danger-outline">Delete item</DialogTrigger>
+
+			<DialogContent>
+				<DialogTitle>Confirm deletion</DialogTitle>
+				<DialogDescription>
+					This action cannot be undone. Are you sure you want to delete this item permanently?
+				</DialogDescription>
+
+				<div className="mt-4 flex justify-end gap-2">
+					<DialogClose>Cancel</DialogClose>
+					<Button variant="danger" onClick={() => console.info('Deleted.')}>
+						Delete
+					</Button>
+				</div>
+			</DialogContent>
+		</Dialog>
+	);
+}
+```
+
+## Dialog with Backdrop Close Disabled
+
+Dialog that stays open when the user clicks the backdrop.
+Useful for forms where accidental dismissal would lose unsaved data.
+Set `closeOnBackdropClick={false}` to keep the dialog open on outside clicks — only Escape or an explicit close button will dismiss it.
+
+```tsx
+'use client';
+
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@sgx4u/ui/elements/dialog';
+
+export function DialogNoBackdropCloseExample() {
+	return (
+		<Dialog closeOnBackdropClick={false}>
+			<DialogTrigger>Open persistent dialog</DialogTrigger>
+
+			<DialogContent>
+				<DialogTitle>Persistent dialog</DialogTitle>
+				<DialogDescription>
+					Clicking outside does not close this dialog. Use the close button or press Escape.
+				</DialogDescription>
+			</DialogContent>
+		</Dialog>
+	);
+}
+```

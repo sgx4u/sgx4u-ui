@@ -31,7 +31,7 @@ function easeInOutCubic(ratio: number): number {
 
 /**
  * @description Animates the accordion element open (slide down) or closed (slide up) using requestAnimationFrame with an ease-in-out cubic easing curve.
- * @param {object} props - The animation options.
+ * @param {object} props - The animation props.
  * @param {HTMLElement} props.element - The content element to animate.
  * @param {number} props.speed - Duration of the animation in milliseconds. Pass 0 to skip animation.
  * @param {'down' | 'up'} props.action - 'down' expands the element; 'up' collapses it.

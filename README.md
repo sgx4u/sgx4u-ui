@@ -1,6 +1,6 @@
 <p align="center">
-	<img src="https://github.com/sgx4u/sgx4u-ui/blob/production/logo.svg?raw=true" width="75px" align="center" alt="SGX4U" />
-	<h2 align="center">🌟 @sgx4u/ui 🌟</h2>
+	<img src="https://github.com/sgx4u/sgx4u-ui/blob/production/logo.svg?raw=true" width="75px" align="center" alt="sgx4u-ui" />
+	<h2 align="center">💠 SGX4U UI 💠</h2>
 	<p align="center">Accessible, efficient and customizable components to start your own project. Use this to build any project of any scale.</p>
 </p>
 

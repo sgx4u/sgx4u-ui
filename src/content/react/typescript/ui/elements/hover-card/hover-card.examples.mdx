@@ -1,0 +1,98 @@
+---
+component: HoverCard
+category: elements
+package: "@sgx4u/ui/elements/hover-card"
+subComponents: [HoverCardTrigger, HoverCardContent]
+description: Floating card that appears after hovering a trigger element. Supports configurable open/close delays and composition with other elements like Avatar.
+keywords: [hover-card, hover, floating, preview, card, delay, avatar, profile, tooltip-like]
+---
+
+# HoverCard Examples
+
+Usage examples for the `HoverCard` component from `@sgx4u/ui`.
+Import from `@sgx4u/ui/elements/hover-card`.
+
+## Basic Hover Card
+
+Minimal HoverCard usage. The card opens after hovering the trigger for the default 500ms delay
+and closes 300ms after the pointer leaves the trigger or the card itself.
+
+```tsx
+'use client';
+
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@sgx4u/ui/elements/hover-card';
+import { Text } from '@sgx4u/ui/elements/text';
+
+export function HoverCardBasicExample() {
+	return (
+		<HoverCard>
+			<HoverCardTrigger>@sgx4u</HoverCardTrigger>
+
+			<HoverCardContent>
+				<Text as="title">Subhajit Ghosh</Text>
+				<Text as="subtitle">Full-stack developer and creator of @sgx4u/ui.</Text>
+			</HoverCardContent>
+		</HoverCard>
+	);
+}
+```
+
+## Hover Card with Custom Delays
+
+HoverCard with faster open/close delays for interfaces where responsiveness is critical.
+`openDelay` controls how long the user must hover before the card appears.
+`closeDelay` controls how long the card stays visible after the pointer leaves.
+
+```tsx
+'use client';
+
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@sgx4u/ui/elements/hover-card';
+import { Text } from '@sgx4u/ui/elements/text';
+
+export function HoverCardCustomDelayExample() {
+	return (
+		<HoverCard openDelay={200} closeDelay={150}>
+			<HoverCardTrigger>Quick hover card</HoverCardTrigger>
+
+			<HoverCardContent>
+				<Text as="subtitle">Opens after 200ms, closes after 150ms.</Text>
+			</HoverCardContent>
+		</HoverCard>
+	);
+}
+```
+
+## Hover Card with Avatar
+
+HoverCard showing a user profile composed with an `Avatar` and descriptive text.
+Demonstrates composing the HoverCard with other `@sgx4u/ui` elements inside `HoverCardContent`.
+
+```tsx
+'use client';
+
+import { Avatar } from '@sgx4u/ui/elements/avatar';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@sgx4u/ui/elements/hover-card';
+import { Text } from '@sgx4u/ui/elements/text';
+
+export function HoverCardWithAvatarExample() {
+	return (
+		<HoverCard>
+			<HoverCardTrigger>
+				<Avatar src="https://github.com/sgx4u.png" alt="sgx4u avatar" />
+			</HoverCardTrigger>
+
+			<HoverCardContent>
+				<div className="flex items-center gap-3">
+					<Avatar src="https://github.com/sgx4u.png" alt="sgx4u avatar" />
+					<div>
+						<Text as="title">Subhajit Ghosh</Text>
+						<Text as="subtitle" className="text-muted-foreground">
+							github.com/sgx4u
+						</Text>
+					</div>
+				</div>
+			</HoverCardContent>
+		</HoverCard>
+	);
+}
+```
