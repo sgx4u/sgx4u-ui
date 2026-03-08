@@ -59,7 +59,7 @@ export function Card({
  * @description Title wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardTitle component.
  */
-export function CardTitle({ as = 'title', ...props }: CardTitlePropsType): JSX.Element {
+export function CardTitle({ as = 'h6', ...props }: CardTitlePropsType): JSX.Element {
 	return <Text as={as} data-slot="card-title" {...props} />;
 }
 
@@ -67,7 +67,7 @@ export function CardTitle({ as = 'title', ...props }: CardTitlePropsType): JSX.E
  * @description Description wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardDescription component.
  */
-export function CardDescription({ as = 'subtitle', className, ...props }: CardDescriptionPropsType): JSX.Element {
+export function CardDescription({ as = 'body', className, ...props }: CardDescriptionPropsType): JSX.Element {
 	return (
 		<Text
 			as={as}
@@ -84,12 +84,7 @@ export function CardDescription({ as = 'subtitle', className, ...props }: CardDe
  */
 export function CardContent({ className, ...props }: CardContentPropsType): JSX.Element {
 	return (
-		<Container
-			as="div"
-			className={cn('my-3 flex flex-col gap-2 p-5', className)}
-			data-slot="card-content"
-			{...props}
-		/>
+		<Container as="div" className={cn('mt-3 flex flex-col gap-2', className)} data-slot="card-content" {...props} />
 	);
 }
 
