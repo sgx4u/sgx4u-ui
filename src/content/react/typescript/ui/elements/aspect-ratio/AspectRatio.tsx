@@ -7,7 +7,6 @@ import { cn } from '../../utils/styles.util';
 import { Container } from '../container';
 
 /**
- * @name Aspect Ratio
  * @description Responsive aspect-ratio wrapper that locks its children to a given proportion.
  * @returns {JSX.Element} The AspectRatio component.
  */

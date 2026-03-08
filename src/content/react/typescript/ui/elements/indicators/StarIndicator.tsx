@@ -6,7 +6,6 @@ import { cn } from '../../utils/styles.util';
 import { Container } from '../container/Container';
 
 /**
- * @name Star Indicator
  * @description Small visual markers, such as asterisks, used to call out required or special fields in forms.
  * @returns {JSX.Element} The StarIndicator component.
  */

@@ -64,7 +64,6 @@ export const { variants: radioVariants, types: RadioVariantTypes } = makeVariant
 });
 
 /**
- * @name Radio
  * @description Single-selection form control typically used in groups where only one option can be active at a time.
  * @returns {JSX.Element} The Radio component.
  */

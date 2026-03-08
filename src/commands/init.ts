@@ -29,7 +29,7 @@ export async function initConfig(): Promise<void> {
 			]);
 
 			if (!overwrite) {
-				console.log('❌ Configuration initialization cancelled!');
+				console.log('❌ Configuration initialization cancelled');
 				process.exit(1);
 			}
 		}
@@ -37,12 +37,12 @@ export async function initConfig(): Promise<void> {
 		/** Get project information. */
 		const projectInfo = await getProjectInfo(cwd);
 		if (projectInfo.project === 'none') {
-			console.log('❌ No supported project detected!');
+			console.log('❌ No supported project detected');
 			process.exit(1);
 		}
 
 		if (projectInfo.tailwindVersion === 'none') {
-			console.log('📦 No supported Tailwind version detected!');
+			console.log('📦 No supported Tailwind version detected');
 
 			const { installTailwind } = await inquirer.prompt([
 				{
@@ -54,7 +54,7 @@ export async function initConfig(): Promise<void> {
 			]);
 
 			if (!installTailwind) {
-				console.log('❌ Tailwind CSS is required for the UI components to work properly!');
+				console.log('❌ Tailwind CSS is required for the UI components to work properly');
 				process.exit(1);
 			}
 
@@ -68,7 +68,7 @@ export async function initConfig(): Promise<void> {
 			if (tailwindInstalled) installTailwindSpinner.succeed();
 			else {
 				installTailwindSpinner.fail();
-				console.log('❌ Failed to install Tailwind CSS. Please install it manually!');
+				console.log('❌ Failed to install Tailwind CSS. Please install it manually');
 				process.exit(1);
 			}
 		}
@@ -76,9 +76,9 @@ export async function initConfig(): Promise<void> {
 		/** Create the config. */
 		const config = await createConfig({ cwd, projectInfo });
 		if (!config) {
-			console.log('❌ Failed to create configuration file!');
+			console.log('❌ Failed to create configuration file');
 			process.exit(1);
-		} else console.log('✔  Configuration file created successfully!');
+		} else console.log('✔  Configuration file created successfully');
 
 		/** Install Lucide Icons. */
 		const isCorrectLucideVersion = projectInfo.lucideVersion && projectInfo.lucideVersion >= 0.563 ? true : false;
@@ -89,7 +89,7 @@ export async function initConfig(): Promise<void> {
 				dependencies: ['clsx', 'lucide-react', 'tailwind-merge'],
 			});
 			if (!lucideInstalled) {
-				console.log('❌ Failed to install Lucide Icons. Please install it manually!');
+				console.log('❌ Failed to install Lucide Icons. Please install it manually');
 				process.exit(1);
 			}
 		}
@@ -100,14 +100,14 @@ export async function initConfig(): Promise<void> {
 		const createdThemeFile = await createThemeFile({ cwd, version: projectInfo.tailwindVersion });
 		if (!createdThemeFile) {
 			themeSpinner.fail();
-			console.log('❌ Failed to setup theme variables!');
+			console.log('❌ Failed to setup theme variables');
 			process.exit(1);
 		}
 
 		themeSpinner.succeed();
 
-		console.log('🎉 Project initialization completed successfully!');
-		console.log('💡 Feel free to update the values in the configuration file to your needs!');
+		console.log('🎉 Project initialization completed successfully');
+		console.log('💡 Feel free to update the values in the configuration file to your needs');
 		process.exit(1);
 	} catch (error) {
 		console.error(`❌ Error: ${error}`);

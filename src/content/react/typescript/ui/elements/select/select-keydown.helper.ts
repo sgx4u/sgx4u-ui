@@ -2,7 +2,6 @@ import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
 // eslint-disable-next-line no-secrets/no-secrets
 /**
- * @name selectItemOnKeyDownHelper
  * @description Handles arrow key navigation between select items. ArrowUp/ArrowDown navigates between select items, skipping disabled items.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.
  * @returns {void}

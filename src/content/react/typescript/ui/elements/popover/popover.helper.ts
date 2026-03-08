@@ -1,7 +1,6 @@
 import { PopoverAlignType, PopoverSideType } from './popover.type';
 
 /**
- * @name computeAlignLeft
  * @description Computes the left coordinate for the content based on align and alignOffset.
  * @param {object} props - The props object.
  * @param {number} props.triggerLeft - The left coordinate of the trigger.
@@ -38,7 +37,6 @@ function computeAlignLeft({
 }
 
 /**
- * @name clampNumber
  * @description Clamps a value between min and max.
  * @param {object} props - The props object.
  * @param {number} props.value - The value to clamp.
@@ -51,7 +49,6 @@ function clampNumber({ value, min, max }: { value: number; min: number; max: num
 }
 
 /**
- * @name hasRoomOnSide
  * @description Returns true if the content fits within the viewport on the given side of the trigger without overflowing, considering the window edge offset.
  * @param {object} props - The props object.
  * @param {DOMRect} props.triggerRect - The bounding rect of the trigger element.
@@ -101,7 +98,6 @@ const OPPOSITE_SIDE: Record<PopoverSideType, PopoverSideType> = {
 };
 
 /**
- * @name computePopoverPosition
  * @description Computes the fixed-position coordinates for the popover content based on the trigger's rect, preferred side, align, and offsets. Automatically flips to the opposite side when there is insufficient room on the preferred side. Falls back to viewport clamping as a last resort.
  * @param {DOMRect} triggerRect - The bounding rect of the trigger.
  * @param {DOMRect} contentRect - The bounding rect of the content.
@@ -193,7 +189,6 @@ export function computePopoverPosition(
 }
 
 /**
- * @name getClosedTranslateClass
  * @description Returns the Tailwind translate class for the closing/closed animation state based on side. The content starts offset toward the trigger and animates to its final position.
  * @param {PopoverSideType} side - The side the popover is anchored to.
  * @returns {string} The Tailwind translate class.

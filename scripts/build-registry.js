@@ -1,5 +1,5 @@
-import fs from 'fs-extra';
 import path from 'path';
+import fs from 'fs-extra';
 
 /**
  * Script to build component registries for each environment (React, Svelte).
@@ -56,7 +56,7 @@ async function buildRegistry() {
 			console.log(`✅ Registry created: ${registryPath}`);
 		}
 
-		console.log('🎉 All registries built successfully!');
+		console.log('🎉 All registries built successfully');
 	} catch (err) {
 		console.error('❌ Failed to build registry:', err);
 		process.exit(1);

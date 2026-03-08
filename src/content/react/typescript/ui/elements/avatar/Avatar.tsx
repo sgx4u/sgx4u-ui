@@ -45,7 +45,6 @@ export const { variants: avatarVariants, types: AvatarVariantTypes } = makeVaria
 });
 
 /**
- * @name Avatar
  * @description A visual representation of a user, typically displayed as a circular or rounded image with an optional fallback.
  * @returns {JSX.Element} The Avatar component.
  */
@@ -81,7 +80,6 @@ export function Avatar({
 }
 
 /**
- * @name Avatar Image
  * @description The image displayed within the avatar. Automatically hides when the image fails to load.
  * @returns {JSX.Element} The AvatarImage component.
  */
@@ -114,7 +112,6 @@ export function AvatarImage({ className, onError, ...props }: AvatarImagePropsTy
 }
 
 /**
- * @name Avatar Fallback
  * @description Fallback text displayed when the avatar image fails to load or is not provided.
  * @returns {JSX.Element} The AvatarFallback component.
  */

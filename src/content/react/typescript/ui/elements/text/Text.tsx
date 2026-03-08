@@ -13,21 +13,21 @@ export const { variants: textVariants, types: TextVariantTypes } = makeVariants(
 		as: {
 			/** Text tags. */
 			h1: `text-4xl font-bold tablet:text-[40px] laptop:text-5xl`,
-			h2: `text-2xl font-bold tablet:text-[33px] laptop:text-3xl`,
-			h3: `text-xl font-semibold tablet:text-[22px] laptop:text-2xl`,
-			h4: `text-lg font-semibold tablet:text-[19px] laptop:text-lg`,
-			h5: `text-base font-semibold laptop:text-lg`,
-			h6: `text-sm font-semibold laptop:text-base`,
+			h2: `text-3xl font-bold tablet:text-[36px] laptop:text-4xl`,
+			h3: `text-2xl font-bold tablet:text-[28px] laptop:text-3xl`,
+			h4: `text-xl font-bold tablet:text-[24px] laptop:text-2xl`,
+			h5: `text-lg font-bold laptop:text-xl`,
+			h6: `text-base font-bold laptop:text-lg`,
 			p: ``,
 			span: ``,
 			pre: ``,
 			code: ``,
 			/** Text heading tags. */
 			display: `text-4xl font-bold tablet:text-[40px] laptop:text-5xl`,
-			heading: `text-2xl font-bold tablet:text-[33px] laptop:text-3xl`,
-			subheading: `text-xl font-semibold tablet:text-[22px] laptop:text-2xl`,
-			title: `text-lg font-bold tablet:text-[19px] laptop:text-xl`,
-			subtitle: `text-sm font-semibold laptop:text-base`,
+			heading: `text-3xl font-bold tablet:text-[36px] laptop:text-4xl`,
+			subheading: `text-2xl font-semibold tablet:text-[28px] laptop:text-3xl`,
+			title: `text-xl font-bold tablet:text-[24px] laptop:text-2xl`,
+			subtitle: `text-lg font-semibold laptop:text-xl`,
 			/** Text body tags. */
 			body: `text-base`,
 			'body-small': `text-sm`,
@@ -90,7 +90,6 @@ const textTags: Record<typeof TextVariantTypes.as, keyof JSX.IntrinsicElements> 
 };
 
 /**
- * @name Text
  * @description Typography primitive for rendering semantic headings, paragraphs, and inline text.
  * @returns {JSX.Element} The Text component.
  */

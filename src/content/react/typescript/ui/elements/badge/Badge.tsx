@@ -61,7 +61,6 @@ export const { variants: badgeVariants, types: BadgeVariantTypes } = makeVariant
 });
 
 /**
- * @name Badge
  * @description Compact label used to display counts, statuses, or short pieces of metadata.
  * @returns {JSX.Element} The Badge component.
  */

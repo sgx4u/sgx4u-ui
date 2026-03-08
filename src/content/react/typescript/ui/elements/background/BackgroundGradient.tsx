@@ -23,7 +23,6 @@ const defaultColors = [
 ];
 
 /**
- * @name Background Gradient
  * @description Full-viewport background that smoothly cycles through a palette of Tailwind gradient utility classes to create a subtle animated color wash.
  * @returns {JSX.Element} The BackgroundGradient component.
  */

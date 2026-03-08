@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
+/** Main build configuration. */
 export default defineConfig([
-	/** Main build configuration. */
 	{
 		entryPoints: ['./src/index.ts', './src/bin.ts'],
 		format: ['cjs', 'esm'],

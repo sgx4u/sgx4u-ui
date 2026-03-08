@@ -8,7 +8,6 @@ import { cn } from '../../utils/styles.util';
 import { iconsOnKeyDownHelper } from './icons-keydown.helper';
 
 /**
- * @name Password Show Hide Icon
  * @description Stateful eye icon that toggles password visibility.
  * @returns {JSX.Element} The PasswordShowHideIcon component.
  */

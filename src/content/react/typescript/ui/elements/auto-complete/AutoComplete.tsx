@@ -13,7 +13,6 @@ import { Input } from '../input';
 import { Popover, PopoverContent } from '../popover';
 
 /**
- * @name TriggerAnchorRegistrar
  * @description Registers an arbitrary DOM element as the Popover's trigger anchor so that
  * PopoverContent can compute its position relative to that element. Must be rendered as a
  * child of the target Popover Provider.
@@ -33,7 +32,6 @@ function TriggerAnchorRegistrar({ anchorRef }: { anchorRef: RefObject<HTMLDivEle
 }
 
 /**
- * @name Auto Complete
  * @description Text input that suggests and lets users pick from a filtered list of options as they type.
  * @returns {JSX.Element} The AutoComplete component.
  */
@@ -84,9 +82,11 @@ export function AutoComplete({
 	/** Close only when focus actually left both the input and the popover (e.g. Tab out or click outside). */
 	const handleInputBlur = (): void => {
 		if (blurTimeoutRef.current !== null) clearTimeout(blurTimeoutRef.current);
+
 		blurTimeoutRef.current = setTimeout(() => {
 			blurTimeoutRef.current = null;
 			const activeElement = document.activeElement;
+
 			/** Keep dropdown open if focus moved into the popover content (focus trap). */
 			if (activeElement?.closest('[data-slot="PopoverContent"]') ?? false) return;
 			setIsFocused(false);
@@ -140,7 +140,6 @@ export function AutoComplete({
 }
 
 /**
- * @name Auto Complete Content
  * @description Internal dropdown content that renders each filtered option as a button-like listbox option wired to update the parent autocomplete value.
  * @returns {JSX.Element} The AutoCompleteContent component.
  */

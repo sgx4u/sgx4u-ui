@@ -48,7 +48,6 @@ export const { variants: switchThumbVariants } = makeVariants({
 });
 
 /**
- * @name Switch
  * @description A two-state toggle used for turning a setting or feature on and off.
  * @returns {JSX.Element} The Switch component.
  */

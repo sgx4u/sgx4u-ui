@@ -17,7 +17,6 @@ const defaultItemColors = [
 const defaultItemPositions = ['top-1/4 left-1/4', 'bottom-1/4 right-1/4', 'top-1/3 right-1/4', 'bottom-1/3 left-1/4'];
 
 /**
- * @name Gradient Pulse
  * @description Animated background helper that cycles blurred radial gradients across configured positions and color sets to create a soft pulsing glow effect.
  * @returns {JSX.Element} The GradientPulse component.
  */

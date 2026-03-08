@@ -40,7 +40,6 @@ export const { variants: separatorVariants, types: SeparatorVariantTypes } = mak
 });
 
 /**
- * @name Separator
  * @description Thin rule used to visually divide groups of content or UI controls.
  * @returns {JSX.Element} The Separator component.
  */

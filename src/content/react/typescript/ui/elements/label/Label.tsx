@@ -32,7 +32,6 @@ export const { variants: labelVariants, types: LabelVariantTypes } = makeVariant
 });
 
 /**
- * @name Label
  * @description Text caption that describes and links to a form control, often showing required or validation state.
  * @returns {JSX.Element} The Label component.
  */

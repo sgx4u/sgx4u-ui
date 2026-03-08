@@ -6,7 +6,6 @@ import { cn } from '../../utils/styles.util';
 import { Container } from '../container/Container';
 
 /**
- * @name Visually Hidden
  * @description Utility for content that should be available to screen readers but not visible on screen.
  * @returns {JSX.Element} The VisuallyHidden component.
  */

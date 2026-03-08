@@ -23,7 +23,6 @@ export const { variants: backdropVariants, types: BackdropVariantTypes } = makeV
 });
 
 /**
- * @name Backdrop
  * @description Reusable backdrop for overlays (dialogs, drawers, popovers).
  * @param {BackdropPropsType} props - The props for the Backdrop component.
  * @returns {JSX.Element} The Backdrop component.

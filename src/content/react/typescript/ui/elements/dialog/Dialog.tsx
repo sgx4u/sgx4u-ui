@@ -40,7 +40,6 @@ import { Portal } from '../portal';
 import { Text } from '../text';
 
 /**
- * @name Dialog
  * @description Root element for the Dialog element.
  * @param {DialogPropsType} props - The props for the Dialog component.
  * @returns {JSX.Element} The Dialog component.
@@ -109,7 +108,6 @@ export function Dialog({
 }
 
 /**
- * @name DialogTrigger
  * @description A trigger button that opens/toggles a dialog by id.
  * @param {DialogTriggerPropsType} props - The props for the DialogTrigger component.
  * @returns {JSX.Element} The DialogTrigger component.
@@ -160,7 +158,6 @@ export function DialogTrigger({
 }
 
 /**
- * @name DialogContent
  * @description Dialog UI that renders in a portal and animates in/out.
  * @param {DialogContentPropsType} props - The props for the DialogContent component.
  * @returns {JSX.Element} The DialogContent component.
@@ -306,7 +303,7 @@ export function DialogContent({
 							onKeyDown={handleKeyDown}
 							style={{ transitionDuration: `${transitionDuration}ms`, ...style }}
 							className={cn(
-								'relative z-1001 max-h-[85vh] w-[min(92vw,520px)] origin-center transform-gpu overflow-auto rounded-2xl bg-light p-6 shadow-xl transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
+								'relative z-1001 max-h-[85vh] w-[min(92vw,520px)] origin-center transform-gpu overflow-auto rounded-2xl bg-background p-6 shadow-xl transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
 								isVisible ? 'opacity-100' : 'opacity-0',
 								className,
 							)}
@@ -327,7 +324,6 @@ export function DialogContent({
 }
 
 /**
- * @name DialogClose
  * @description A button that closes a specific dialog by id.
  * @param {DialogClosePropsType} props - The props for the DialogClose component.
  * @returns {JSX.Element} The DialogClose component.
@@ -357,7 +353,7 @@ export function DialogClose({
 			onClick={handleClick}
 			variant="ghost"
 			size="icon-sm"
-			className="absolute top-1.5 right-1.5"
+			className="absolute top-1.5 right-1.5 hover:bg-danger-light hover:text-danger"
 			data-slot="DialogClose"
 			aria-label="Close dialog"
 			aria-controls={`dialog-${effectiveDialogId}`}
@@ -369,7 +365,6 @@ export function DialogClose({
 }
 
 /**
- * @name DialogTitle
  * @description Title wrapper used to display content in a dialog format.
  * @returns {JSX.Element} The DialogTitle component.
  */
@@ -378,7 +373,6 @@ export function DialogTitle({ as = 'title', ...props }: DialogTitlePropsType): J
 }
 
 /**
- * @name DialogDescription
  * @description Description wrapper used to display content in a dialog format.
  * @returns {JSX.Element} The DialogDescription component.
  */

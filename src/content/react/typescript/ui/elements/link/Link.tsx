@@ -67,7 +67,6 @@ export const { variants: activeLinkVariants, types: ActiveLinkVariantTypes } = m
 });
 
 /**
- * @name Link
  * @description A navigational element that takes users to another page, view, or section when activated.
  * @returns {JSX.Element} The Link component.
  */

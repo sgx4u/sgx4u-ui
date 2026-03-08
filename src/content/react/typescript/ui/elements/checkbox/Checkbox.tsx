@@ -39,7 +39,6 @@ export const { variants: checkboxVariants, types: CheckboxVariantTypes } = makeV
 });
 
 /**
- * @name Checkbox
  * @description A square box that users can check or uncheck to represent boolean choices or multi-select lists.
  * @returns {JSX.Element} The Checkbox component.
  */

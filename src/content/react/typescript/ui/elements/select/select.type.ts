@@ -1,4 +1,5 @@
-import { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
+import { Dispatch, ReactElement, RefObject, SetStateAction } from 'react';
+import { LucideProps } from 'lucide-react';
 
 import { ButtonPropsType } from '../button';
 import { InputPropsType } from '../input';
@@ -18,11 +19,8 @@ export type SelectContextType = {
 	/** Set select open state. */
 	onOpenChange: (open: boolean) => void;
 
-	/** Selected children. */
-	selectedChildren: Array<{ id: string; element: ReactNode }>;
-
-	/** Set selected children. */
-	setSelectedChildren: Dispatch<SetStateAction<Array<{ id: string; element: ReactNode }>>>;
+	/** Selected children (SelectItem elements for trigger display). */
+	selectedChildren: Array<ReactElement<SelectItemPropsType>>;
 
 	/** Select type. Default - single. */
 	type: SelectPropsType['type'];
@@ -67,10 +65,12 @@ export type SelectWithSearchContextType = {
 	onOpenChange: (open: boolean) => void;
 
 	/** Selected children. */
-	selectedChildren: Array<{ id: string; element: ReactNode }>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	selectedChildren: any;
 
 	/** Set selected children. */
-	setSelectedChildren: Dispatch<SetStateAction<Array<{ id: string; element: ReactNode }>>>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	setSelectedChildren: any;
 
 	/** Select type. Default - single. */
 	type: SelectPropsType['type'];
@@ -92,7 +92,13 @@ export type SelectWithSearchPropsType = SelectPropsType & {
 };
 
 /** Select trigger props type. */
-export type SelectTriggerPropsType = PopoverTriggerPropsType;
+export type SelectTriggerPropsType = PopoverTriggerPropsType & {
+	/** Class name for the arrow icon. */
+	arrowClassName?: string;
+
+	/** Props for the arrow icon. */
+	arrowProps?: LucideProps;
+};
 
 /** Select content props type. */
 export type SelectContentPropsType = PopoverContentPropsType;

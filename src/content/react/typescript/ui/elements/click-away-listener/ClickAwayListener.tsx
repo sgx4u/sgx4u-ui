@@ -5,7 +5,6 @@ import { cloneElement, isValidElement, JSX, useEffect, useId } from 'react';
 import { ClickAwayListenerPropsType } from './click-away-listener.type';
 
 /**
- * @name Click Away Listener
  * @description Click away listener that uses a unique data-click-away-id for outside click detection.
  * @returns {JSX.Element} The ClickAwayListener component.
  */

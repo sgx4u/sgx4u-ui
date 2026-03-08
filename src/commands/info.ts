@@ -17,7 +17,7 @@ export async function showComponentInfo(componentName: string): Promise<void> {
 		/** Basic validation. */
 		if (!componentName || !componentName.trim()) {
 			configSpinner.fail();
-			console.log('❌ Component name is required!');
+			console.log('❌ Component name is required');
 			process.exit(1);
 		}
 

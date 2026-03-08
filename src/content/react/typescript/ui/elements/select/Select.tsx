@@ -1,12 +1,18 @@
 'use client';
 
 import {
+	Children,
 	createContext,
 	Fragment,
+	isValidElement,
 	JSX,
+	JSXElementConstructor,
+	ReactElement,
 	KeyboardEvent as ReactKeyboardEvent,
+	ReactNode,
 	useContext,
 	useEffect,
+	useLayoutEffect,
 	useRef,
 	useState,
 } from 'react';
@@ -34,13 +40,11 @@ const SelectContext = createContext<SelectContextType>({
 	open: false,
 	onOpenChange: () => {},
 	selectedChildren: [],
-	setSelectedChildren: () => {},
 	type: 'single',
 	openedViaKeyboard: { current: false },
 });
 
 /**
- * @name Select
  * @description A dropdown control for choosing one or more options from a list, with an optional searchable variant.
  * @returns {JSX.Element} The Select component.
  */
@@ -60,16 +64,17 @@ export function Select({
 	const [internalOpen, setInternalOpen] = useState(false);
 	/** Internal selected value state when value is not provided. */
 	const [internalValue, setInternalValue] = useState<Array<string>>(value ?? defaultValue ?? []);
+	/** All select items state. */
+	const [allSelectItems, setAllSelectItems] = useState<Array<ReactElement<SelectItemPropsType>>>([]);
 
-	/** Selected children state. */
-	const [selectedChildren, setSelectedChildren] = useState<SelectContextType['selectedChildren']>([]);
+	/** Track if select was opened via keyboard. */
+	const openedViaKeyboardRef = useRef(false);
 
 	/** Controlled + Uncontrolled sync. */
 	const currentValue = value ?? internalValue;
 	const currentOpen = open ?? internalOpen;
 
-	/** Track if select was opened via keyboard. */
-	const openedViaKeyboardRef = useRef(false);
+	const selectedChildren = allSelectItems.filter((item) => currentValue.includes(item.props.value));
 
 	const handleValueChange = (newValue: Array<string>): void => {
 		onValueChange?.(newValue);
@@ -82,6 +87,47 @@ export function Select({
 		if (!newOpen) openedViaKeyboardRef.current = false;
 	};
 
+	/** Collect all select items when the children change. */
+	useEffect(() => {
+		const getAllSelectItems = (root: ReactNode): Array<ReactElement<SelectItemPropsType>> => {
+			const items: Array<ReactElement<SelectItemPropsType>> = [];
+
+			/* Traverse the children of the root node and collect all SelectItem elements. */
+			const traverse = (nodes: ReactNode, insideSelectContent: boolean): void => {
+				Children.forEach(nodes, (child) => {
+					if (!isValidElement(child)) return;
+					const props = child.props as { children?: ReactNode };
+					const isSelectContent =
+						(child.type as JSXElementConstructor<SelectContentPropsType>).name === 'SelectContent';
+					const isSelectItem =
+						(child.type as JSXElementConstructor<SelectItemPropsType>).name === 'SelectItem';
+
+					/* If the child is a SelectContent, traverse its children. */
+					if (isSelectContent) {
+						traverse(props.children, true);
+						return;
+					}
+					/* If the child is a SelectItem, add it to the items array. */
+					if (insideSelectContent && isSelectItem) {
+						items.push(child as ReactElement<SelectItemPropsType>);
+					}
+					/* If the child has children, traverse them. */
+					if (insideSelectContent && props.children != null) {
+						traverse(props.children, true);
+					}
+				});
+			};
+
+			/* Start the traversal from the root node. */
+			traverse(root, false);
+			return items;
+		};
+
+		const allSelectItems = getAllSelectItems(children);
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setAllSelectItems(allSelectItems);
+	}, [children]);
+
 	return (
 		<SelectContext.Provider
 			value={{
@@ -90,7 +136,6 @@ export function Select({
 				value: currentValue,
 				onValueChange: handleValueChange,
 				selectedChildren,
-				setSelectedChildren,
 				type,
 				openedViaKeyboard: openedViaKeyboardRef,
 			}}
@@ -103,11 +148,19 @@ export function Select({
 }
 
 /**
- * @name Select Trigger
  * @description Button trigger that renders the current selection as inline chips with separators and exposes listbox-related ARIA attributes.
  * @returns {JSX.Element} The SelectTrigger component.
  */
-export function SelectTrigger({ onKeyDown, className, children, ...props }: SelectTriggerPropsType): JSX.Element {
+export function SelectTrigger({
+	onKeyDown,
+	className,
+
+	arrowClassName,
+	arrowProps,
+
+	children,
+	...props
+}: SelectTriggerPropsType): JSX.Element {
 	const { open, selectedChildren, openedViaKeyboard: openedViaKeyboardRef } = useContext(SelectContext);
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
@@ -126,9 +179,9 @@ export function SelectTrigger({ onKeyDown, className, children, ...props }: Sele
 		>
 			{selectedChildren.length > 0 ? (
 				<Container className="flex items-center gap-2 overflow-hidden">
-					{selectedChildren.map((child, index) => (
-						<Fragment key={index}>
-							{child.element}
+					{selectedChildren.map((item, index) => (
+						<Fragment key={item.props.value}>
+							<Container>{item.props.children}</Container>
 							<Separator
 								orientation="vertical"
 								className={cn('h-5', index === selectedChildren.length - 1 && 'hidden')}
@@ -140,19 +193,59 @@ export function SelectTrigger({ onKeyDown, className, children, ...props }: Sele
 				children
 			)}
 
-			<ChevronDownIcon className={cn('ml-3 size-4 transition-all', open && 'rotate-180')} />
+			<ChevronDownIcon
+				className={cn('ml-3 size-4 transition-all', open && 'rotate-180', arrowClassName)}
+				{...arrowProps}
+			/>
 		</PopoverTrigger>
 	);
 }
 
 /**
- * @name Select Content
  * @description Popover content wrapper that lays out select options in a scrollable column.
  * @returns {JSX.Element} The SelectContent component.
  */
-export function SelectContent({ className, ...props }: SelectContentPropsType): JSX.Element {
+export function SelectContent({ className, style, ...props }: SelectContentPropsType): JSX.Element {
 	const { open, value: selectedValue, openedViaKeyboard } = useContext(SelectContext);
-	const { defaultPopoverId } = usePopoverContext();
+	const { defaultPopoverId, getTriggerElement } = usePopoverContext();
+
+	const [triggerWidth, setTriggerWidth] = useState<number | null>(null);
+
+	/** Match content width to trigger width when open. */
+	useLayoutEffect(() => {
+		/* If the select is not open, return. */
+		if (!open) return;
+		/* Get the trigger element. */
+		const triggerElement = getTriggerElement(defaultPopoverId);
+		if (!triggerElement) return;
+		/* Get the width of the trigger element. */
+		const width = triggerElement.getBoundingClientRect().width;
+		const timeoutId = setTimeout(() => setTriggerWidth(width), 0);
+		return (): void => clearTimeout(timeoutId);
+	}, [open, defaultPopoverId, getTriggerElement]);
+
+	/** Update content width when trigger or window resizes while open. */
+	useEffect(() => {
+		/* If the select is not open, return. */
+		if (!open) return;
+		/* Get the trigger element. */
+		const triggerElement = getTriggerElement(defaultPopoverId);
+		if (!triggerElement) return;
+
+		/* Get the width of the trigger element. */
+		const updateWidth = (): void => setTriggerWidth(triggerElement.getBoundingClientRect().width);
+
+		/* Add a resize listener to the window. */
+		window.addEventListener('resize', updateWidth);
+		const resizeObserver = new ResizeObserver(updateWidth);
+		resizeObserver.observe(triggerElement);
+
+		/* Remove the resize listener and the resize observer when the component unmounts. */
+		return (): void => {
+			window.removeEventListener('resize', updateWidth);
+			resizeObserver.disconnect();
+		};
+	}, [open, defaultPopoverId, getTriggerElement]);
 
 	/** Auto-focus first or selected item when select opens via keyboard. */
 	useEffect(() => {
@@ -186,7 +279,11 @@ export function SelectContent({ className, ...props }: SelectContentPropsType): 
 
 	return (
 		<PopoverContent
-			className={cn('flex flex-col p-1', className)}
+			style={{
+				...(triggerWidth != null && { width: triggerWidth }),
+				...style,
+			}}
+			className={cn('hide-scrollbar flex max-h-96 min-w-max flex-col p-1', className)}
 			data-slot="select-content"
 			role="listbox"
 			{...props}
@@ -195,18 +292,16 @@ export function SelectContent({ className, ...props }: SelectContentPropsType): 
 }
 
 /**
- * @name Select Item
  * @description Interactive option that toggles its value within the current selection array and visually marks selected items with a check icon.
  * @returns {JSX.Element} The SelectItem component.
  */
 export function SelectItem({ value, onKeyDown, className, children, ...props }: SelectItemPropsType): JSX.Element {
-	const { onOpenChange, onValueChange, value: selectedValue, setSelectedChildren, type } = useContext(SelectContext);
+	const { onOpenChange, onValueChange, value: selectedValue, type } = useContext(SelectContext);
 
 	const handleSelect = (): void => {
 		if (type === 'single') {
 			onValueChange([value]);
 			onOpenChange(false);
-			setSelectedChildren([{ id: value, element: children }]);
 			return;
 		}
 
@@ -215,13 +310,6 @@ export function SelectItem({ value, onKeyDown, className, children, ...props }: 
 			: [...selectedValue, value];
 
 		onValueChange(newSelectedValue);
-		onOpenChange(false);
-
-		if (selectedValue.includes(value)) {
-			setSelectedChildren((prev) => prev.filter((child) => child.id !== value));
-		} else {
-			setSelectedChildren((prev) => [...prev, { id: value, element: children }]);
-		}
 	};
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {

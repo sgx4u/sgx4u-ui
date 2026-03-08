@@ -35,7 +35,6 @@ function isEventHandlerProp(key: string): boolean {
 }
 
 /**
- * @name Slot
  * @description Composition utility that lets components render their children as the actual DOM element while still receiving styling and behavior. All event handlers from both the Slot and the child are composed so neither is silently dropped.
  * @returns {JSX.Element} The Slot component.
  */

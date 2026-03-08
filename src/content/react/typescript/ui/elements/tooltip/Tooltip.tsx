@@ -42,7 +42,6 @@ export const { variants: tooltipVariants } = makeVariants({
 });
 
 /**
- * @name Tooltip
  * @description A brief, non-interactive label that appears on hover or focus to describe another element.
  * @returns {JSX.Element} The Tooltip component.
  */

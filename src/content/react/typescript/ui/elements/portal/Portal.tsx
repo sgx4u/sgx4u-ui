@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom';
 import { PortalPropsType } from './portal.type';
 
 /**
- * @name Portal
  * @description Mechanism for rendering content into a different part of the DOM tree, often used for overlays and dialogs.
  * @returns {JSX.Element} The Portal component.
  */

@@ -30,7 +30,6 @@ const HoverCardContext = createContext<HoverCardContextValueType>({
 });
 
 /**
- * @name Hover Card
  * @description A small floating panel that reveals supplemental content when users hover or focus a trigger element.
  * @returns {JSX.Element} The HoverCard component.
  */
@@ -120,7 +119,6 @@ export function HoverCard({
 }
 
 /**
- * @name Hover Card Trigger
  * @description Wrapper around a trigger that coordinates open/close timers on mouse enter/leave.
  * @returns {JSX.Element} The HoverCardTrigger component.
  */
@@ -161,7 +159,6 @@ export function HoverCardTrigger({
 }
 
 /**
- * @name Hover Card Content
  * @description Positioned hover card body that keeps the panel open while hovered and closes gracefully when focus leaves.
  * @returns {JSX.Element} The HoverCardContent component.
  */

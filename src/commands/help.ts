@@ -3,7 +3,7 @@
  * @returns {Promise<void>} A promise that resolves when the help information is shown.
  */
 export async function showHelp(): Promise<void> {
-	console.log('✔  Help information!');
+	console.log('✔  Help information');
 
 	console.log('🚀 SGX4U UI - Component Library CLI');
 	console.log('\n' + '='.repeat(50) + '\n');

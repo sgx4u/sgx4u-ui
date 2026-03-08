@@ -33,7 +33,6 @@ const BreadcrumbContext = createContext<BreadcrumbContextType>({
 });
 
 /**
- * @name Breadcrumb
  * @description A horizontal trail of links that helps users understand and navigate the hierarchy of a site or app.
  * @param {BreadcrumbPropsType} props - The props for the Breadcrumb component.
  * @returns {JSX.Element} The Breadcrumb component.
@@ -314,7 +313,6 @@ export function Breadcrumb({
 }
 
 /**
- * @name Breadcrumb Item
  * @description Single breadcrumb entry that can render as a navigable link or current-page label and participates in the responsive collapsing logic.
  * @param {BreadcrumbItemPropsType} props - The props for the BreadcrumbItem component.
  * @returns {JSX.Element} The BreadcrumbItem component.
@@ -415,7 +413,6 @@ export function BreadcrumbItem({
 }
 
 /**
- * @name Breadcrumb Separator
  * @description Visual separator between breadcrumb items that automatically hides when its associated items are collapsed.
  * @param {BreadcrumbSeparatorPropsType} props - The props for the BreadcrumbSeparator component.
  * @returns {JSX.Element} The BreadcrumbSeparator component.
@@ -477,7 +474,6 @@ export function BreadcrumbSeparator({
 }
 
 /**
- * @name Breadcrumb Ellipsis
  * @description Ellipsis control that measures its own width and opens a popover listing all breadcrumb items that were hidden during responsive collapsing.
  * @param {BreadcrumbEllipsisPropsType} props - The props for the BreadcrumbEllipsis component.
  * @returns {JSX.Element} The BreadcrumbEllipsis component.

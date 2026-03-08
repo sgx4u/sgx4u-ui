@@ -6,7 +6,6 @@ import { BackgroundGradient } from './BackgroundGradient';
 import { GradientPulse } from './GradientPulse';
 
 /**
- * @name Background
  * @description Decorative background components for applying animated gradients and ambient color effects behind your UI.
  * @returns {JSX.Element} The Background component.
  */

@@ -25,7 +25,6 @@ export const { variants: highlightMarkVariants, types: HighlightMarkVariantTypes
 });
 
 /**
- * @name Highlight
  * @description Text helper that visually emphasizes matches within content, often used for search results.
  * @returns {JSX.Element} The Highlight component.
  */

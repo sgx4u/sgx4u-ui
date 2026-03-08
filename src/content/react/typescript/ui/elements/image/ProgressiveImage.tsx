@@ -8,7 +8,6 @@ import { cn } from '../../utils/styles.util';
 import { Container } from '../container/Container';
 
 /**
- * @name Progressive Image
  * @description Progressive image loader that fades from a low-quality placeholder into the final image using decode-aware loading and smooth opacity transitions.
  * @returns {JSX.Element} The ProgressiveImage component.
  */

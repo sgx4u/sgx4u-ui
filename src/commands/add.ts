@@ -1,7 +1,7 @@
+import path from 'path';
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import ora from 'ora';
-import path from 'path';
 
 import { getConfig } from './utils/config.util';
 import { getProjectInfo, installDependencies, isPackageInstalled } from './utils/package.util';
@@ -23,7 +23,7 @@ export async function addComponent(componentName: string): Promise<void> {
 
 		if (!validateComponentName(componentName)) {
 			validationSpinner.fail();
-			console.log('❌ Component name is invalid!');
+			console.log('❌ Component name is invalid');
 			process.exit(1);
 		}
 
@@ -31,14 +31,14 @@ export async function addComponent(componentName: string): Promise<void> {
 		const config = await getConfig(cwd);
 		if (!config) {
 			validationSpinner.fail();
-			console.log('❌ Failed to get configuration! Please initialize SGX4U UI first!');
+			console.log('❌ Failed to get configuration! Please initialize SGX4U UI first');
 			process.exit(1);
 		}
 
 		/** Get project information. */
 		const projectInfo = await getProjectInfo(cwd);
 		if (projectInfo.project === 'none') {
-			console.log('❌ No supported project detected!');
+			console.log('❌ No supported project detected');
 			process.exit(1);
 		}
 
@@ -52,7 +52,7 @@ export async function addComponent(componentName: string): Promise<void> {
 
 		if (!component) {
 			installingSpinner.fail();
-			console.log('❌ Failed to fetch component!');
+			console.log('❌ Failed to fetch component');
 			process.exit(1);
 		}
 
@@ -62,7 +62,7 @@ export async function addComponent(componentName: string): Promise<void> {
 
 		if (!normalizedUiDirectory || !validateDirectory(normalizedUiDirectory)) {
 			installingSpinner.fail();
-			console.log('❌ Invalid directory!');
+			console.log('❌ Invalid directory');
 			process.exit(1);
 		}
 
@@ -180,14 +180,14 @@ export async function addComponent(componentName: string): Promise<void> {
 						dependencies: missingDependencies,
 					});
 
-					if (dependencyInstalled) console.log('✔  Missing dependencies installed successfully!');
-					else console.log('❌ Failed to install missing dependencies!');
+					if (dependencyInstalled) console.log('✔  Missing dependencies installed successfully');
+					else console.log('❌ Failed to install missing dependencies');
 				} else {
 					console.log('⚠️ Please install missing dependencies manually:');
 					missingDependencies.forEach((dep) => console.log(`  • ${dep}`));
 				}
 			} else {
-				console.log('✔  All dependencies are already installed!');
+				console.log('✔  All dependencies are already installed');
 			}
 		}
 

@@ -34,7 +34,6 @@ export const { variants: textareaVariants, types: TextareaVariantTypes } = makeV
 });
 
 /**
- * @name Textarea
  * @description Multiline text field for collecting longer free-form input such as comments, notes, or descriptions.
  * @returns {JSX.Element} The Textarea component.
  */

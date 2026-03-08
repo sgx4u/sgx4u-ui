@@ -7,7 +7,6 @@ import { cn } from '../../utils/styles.util';
 import { Container } from '../container';
 
 /**
- * @name Spin Loader
  * @description Visual indicator that communicates to users that content or actions are in progress.
  * @returns {JSX.Element} The SpinLoader component.
  */

@@ -21,7 +21,6 @@ const textTags: Record<TextStyleVariant, keyof JSX.IntrinsicElements> = {
 };
 
 /**
- * @name Text Style
  * @description Inline text formatting primitives for emphasizing, underlining, or annotating existing content.
  * @returns {JSX.Element} The TextStyle component.
  */

@@ -2,7 +2,6 @@ import { KeyboardEvent as ReactKeyboardEvent, RefObject } from 'react';
 
 // eslint-disable-next-line no-secrets/no-secrets
 /**
- * @name dropdownMenuItemOnKeyDownHelper
  * @description Handles arrow key navigation between dropdown menu items. ArrowUp/ArrowDown navigates between menu items, skipping separators, labels, and disabled items.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.
  * @returns {void}
@@ -59,7 +58,6 @@ export function dropdownMenuItemOnKeyDownHelper(event: ReactKeyboardEvent<HTMLBu
 
 // eslint-disable-next-line no-secrets/no-secrets
 /**
- * @name dropdownMenuSubContentItemOnKeyDownHelper
  * @description Handles ArrowLeft when focus is on a menu item inside sub-content: closes the sub-menu and returns focus to the sub-trigger. Call from DropdownMenuItem when inside a sub-menu.
  * @param {object} props - The props object.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} props.event - The keyboard event.

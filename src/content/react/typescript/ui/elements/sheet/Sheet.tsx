@@ -34,7 +34,6 @@ import { Portal } from '../portal';
 import { Text } from '../text';
 
 /**
- * @name Sheet
  * @description A panel that slides in from the edge of the screen to display contextual content without leaving the current page.
  * @param {SheetPropsType} props - The props for the Sheet component.
  * @returns {JSX.Element} The Sheet component.
@@ -95,7 +94,6 @@ export function Sheet({
 }
 
 /**
- * @name SheetTrigger
  * @description Button trigger that toggles the associated sheet open state while preserving any custom click handlers and wiring ARIA dialog affordances.
  * @param {SheetTriggerPropsType} props - The props for the SheetTrigger component.
  * @returns {JSX.Element} The SheetTrigger component.
@@ -170,7 +168,6 @@ const closedTranslateClass: Record<NonNullable<SheetContentPropsType['side']>, s
 };
 
 /**
- * @name SheetContent
  * @description Fixed viewport overlay that houses the animated sheet panel, applies side-specific entrance transitions, and mounts a synchronized backdrop.
  * @param {SheetContentPropsType} props - The props for the SheetContent component.
  * @returns {JSX.Element} The SheetContent component.
@@ -269,7 +266,6 @@ export function SheetContent({
 }
 
 /**
- * @name SheetTitle
  * @description Heading element for the sheet.
  * @returns {JSX.Element} The SheetTitle component.
  */
@@ -278,7 +274,6 @@ export function SheetTitle({ ...props }: SheetTitlePropsType): JSX.Element {
 }
 
 /**
- * @name SheetDescription
  * @description Supporting text block for the sheet.
  * @returns {JSX.Element} The SheetDescription component.
  */
@@ -294,7 +289,6 @@ export function SheetDescription({ className, ...props }: SheetDescriptionPropsT
 }
 
 /**
- * @name SheetClose
  * @description Icon button that closes the sheet, with hover affordances and a screen-reader-only label for accessible dismissal.
  * @param {SheetClosePropsType} props - The props for the SheetClose component.
  * @returns {JSX.Element} The SheetClose component.

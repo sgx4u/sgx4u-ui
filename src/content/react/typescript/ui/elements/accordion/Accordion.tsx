@@ -35,7 +35,6 @@ const AccordionContext = createContext<AccordionContextType>({
 });
 
 /**
- * @name Accordion
  * @description A vertically stacked list of items where each item can be expanded or collapsed to reveal or hide content.
  * @returns {JSX.Element} The Accordion component.
  */
@@ -142,7 +141,6 @@ export const useAccordionItem = (): AccordionItemContextType => {
 };
 
 /**
- * @name Accordion Item
  * @description Wrapper for a single accordion section that registers itself with the root context and exposes open/closed state through data attributes.
  * @returns {JSX.Element} The AccordionItem component.
  */
@@ -175,7 +173,6 @@ export function AccordionItem({ value, className, ...props }: AccordionItemProps
 }
 
 /**
- * @name Accordion Trigger
  * @description Button trigger that toggles its associated section, rotates the chevron icon, and links header and panel with synchronized ARIA attributes.
  * @returns {JSX.Element} The AccordionTrigger component.
  */
@@ -232,7 +229,6 @@ export function AccordionTrigger({
 }
 
 /**
- * @name Accordion Content
  * @description Collapsible panel region that animates its height and opacity.
  * @returns {JSX.Element} The AccordionContent component.
  */

@@ -1,7 +1,7 @@
+import path from 'path';
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import ora from 'ora';
-import path from 'path';
 
 import { createConfig, getConfig } from './utils/config.util';
 import { getProjectInfo } from './utils/package.util';
@@ -19,7 +19,7 @@ export async function manageConfig(): Promise<void> {
 		const config = await getConfig(cwd);
 		if (!config) {
 			configSpinner.fail();
-			console.log('❌ No configuration found. Please run "pnpm dlx @sgx4u/ui@latest init" first!');
+			console.log('❌ No configuration found. Please run "pnpm dlx @sgx4u/ui@latest init" first');
 			process.exit(1);
 		}
 
@@ -57,7 +57,7 @@ export async function manageConfig(): Promise<void> {
 				process.exit(1);
 				break;
 			case 'exit':
-				console.log('👋 Goodbye!');
+				console.log('👋 Goodbye');
 				process.exit(1);
 				break;
 		}
@@ -96,13 +96,13 @@ async function resetConfig(cwd: string): Promise<void> {
 		/** Get project information. */
 		const projectInfo = await getProjectInfo(cwd);
 		if (projectInfo.project === 'none') {
-			console.log('❌ No supported project detected!');
+			console.log('❌ No supported project detected');
 			process.exit(1);
 		}
 
 		const config = await createConfig({ cwd, projectInfo });
 		if (!config) {
-			console.log('❌ Failed to reset configuration file!');
+			console.log('❌ Failed to reset configuration file');
 			process.exit(1);
 		} else console.log('✔  Configuration reset to default values');
 

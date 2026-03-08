@@ -21,7 +21,6 @@ export const { variants: buttonGroupVariants, types: ButtonGroupVariantTypes } =
 });
 
 /**
- * @name Button Group
  * @description Layout helper that visually groups adjacent `Button` instances, merging borders and radii for horizontal or vertical toolbars while keeping each button focusable.
  * @returns {JSX.Element} The ButtonGroup component.
  */

@@ -37,11 +37,11 @@ export function useSheetRecord(sheetId: string): OverlayRecordType {
 
 /**
  * @description Syncs a controlled open value into the store to preserve animations.
- * @param {object} params - The params object.
- * @param {string} params.sheetId - The id of the sheet.
- * @param {boolean | undefined} params.isOpen - The controlled open state.
- * @param {(id: string) => void} params.open - Store open function.
- * @param {(id: string) => void} params.close - Store close function.
+ * @param {object} props - The params object.
+ * @param {string} props.sheetId - The id of the sheet.
+ * @param {boolean | undefined} props.isOpen - The controlled open state.
+ * @param {(id: string) => void} props.open - Store open function.
+ * @param {(id: string) => void} props.close - Store close function.
  * @returns {void}
  */
 export function useControlledSync({

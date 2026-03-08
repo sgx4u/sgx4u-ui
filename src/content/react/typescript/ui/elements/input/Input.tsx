@@ -34,7 +34,6 @@ export const { variants: inputVariants, types: InputVariantTypes } = makeVariant
 });
 
 /**
- * @name Input
  * @description Single-line text field for capturing short pieces of information such as names, emails, or search queries.
  * @returns {JSX.Element} The Input component.
  */

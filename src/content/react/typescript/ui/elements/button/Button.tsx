@@ -12,7 +12,7 @@ import { Slot } from '../slot';
 
 /** Variants for the Button component. */
 export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVariants({
-	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 text-sm font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-75 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4`,
+	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 text-sm font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4`,
 	variants: {
 		variant: {
 			primary: `bg-primary text-primary-foreground hover:bg-primary-dark data-[state=on]:bg-primary-dark`,
@@ -71,7 +71,7 @@ export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVaria
 			'icon-sm': 'size-7',
 			'icon-lg': 'size-9',
 			link: 'h-max w-max',
-			wrapper: '',
+			wrapper: 'h-max w-max',
 		},
 		radius: {
 			none: 'rounded-none',
@@ -90,7 +90,6 @@ export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVaria
 });
 
 /**
- * @name Button
  * @description Pressable control used to trigger actions or events, with support for visual variants, sizes, and loading states.
  * @returns {JSX.Element} The Button component.
  */

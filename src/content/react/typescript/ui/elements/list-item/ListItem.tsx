@@ -5,7 +5,6 @@ import { ListItemPropsType } from './list-item.type';
 import { Slot } from '../slot';
 
 /**
- * @name List Item
  * @description A single item inside a list, typically representing one entry in a collection of related content.
  * @returns {JSX.Element} The ListItem component.
  */

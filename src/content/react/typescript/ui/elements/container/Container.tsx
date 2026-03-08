@@ -24,7 +24,6 @@ export const { variants: containerVariants, types: ContainerVariantTypes } = mak
 });
 
 /**
- * @name Container
  * @description Layout wrapper used to arrange and align content using consistent flex or grid primitives.
  * @returns {JSX.Element} The Container component.
  */

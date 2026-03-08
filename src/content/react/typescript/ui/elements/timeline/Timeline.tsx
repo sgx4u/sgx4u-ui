@@ -41,7 +41,6 @@ const TimelineContext = createContext<TimelineContextPropsType>({
 });
 
 /**
- * @name Timeline
  * @description Visual representation of a sequence of events or steps in a process.
  * @param {TimelinePropsType} props - The props for the Timeline component.
  * @returns {JSX.Element} The Timeline component.
@@ -162,7 +161,6 @@ const { variants: timelineItemVariants } = makeVariants({
 });
 
 /**
- * @name TimelineItem
  * @description Single timeline item with step indicator and content.
  * @param {TimelineItemPropsType} props - The props for the TimelineItem component.
  * @returns {JSX.Element} The TimelineItem component.
@@ -276,7 +274,6 @@ export const { variants: timelineStepVariants } = makeVariants({
 });
 
 /**
- * @name TimelineStep
  * @description Timeline step with step indicator and content.
  * @param {TimelineStepPropsType} props - The props for the TimelineStep component.
  * @returns {JSX.Element} The TimelineStep component.
@@ -328,7 +325,6 @@ export function TimelineStep({
 }
 
 /**
- * @name TimelineContent
  * @description Timeline content container.
  * @param {TimelineContentPropsType} props - The props for the TimelineContent component.
  * @returns {JSX.Element} The TimelineContent component.
@@ -352,7 +348,6 @@ export function TimelineContent({ className, ...props }: TimelineContentPropsTyp
 }
 
 /**
- * @name TimelineConnector
  * @description Connector line that connects two timeline items.
  * @param {TimelineConnectorPropsType} props - The props for the TimelineConnector component.
  * @returns {JSX.Element} The TimelineConnector component.

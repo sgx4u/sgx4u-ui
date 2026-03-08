@@ -38,7 +38,6 @@ export type AnimatedOverlayStoreType = {
 };
 
 /**
- * @name createAnimatedOverlayStore
  * @description Generic factory that creates an external store for managing multiple animated overlays (dialogs, sheets, popovers, etc.) by id.
  * Uses a two-frame open sequence to ensure the browser paints the initial state before the open class is applied.
  * Schedules unmount after the exit animation duration to allow CSS transitions to complete.
@@ -81,9 +80,9 @@ export function createAnimatedOverlayStore(
 
 	/**
 	 * @description Replaces the record for an id and notifies subscribers.
-	 * @param {object} params - The parameters.
-	 * @param {string} params.overlayId - The overlay id.
-	 * @param {OverlayRecordType} params.next - The replacement record.
+	 * @param {object} props - The parameters.
+	 * @param {string} props.overlayId - The overlay id.
+	 * @param {OverlayRecordType} props.next - The replacement record.
 	 * @returns {void}
 	 */
 	function setRecord({ overlayId, next }: { overlayId: string; next: OverlayRecordType }): void {

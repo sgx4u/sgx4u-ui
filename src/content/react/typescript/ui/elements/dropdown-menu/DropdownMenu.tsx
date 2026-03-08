@@ -45,7 +45,6 @@ const DropdownMenuContext = createContext<DropdownMenuContextType>({
 });
 
 /**
- * @name DropdownMenu
  * @description A menu that appears when a user interacts with a trigger, typically used for contextual actions and navigation.
  * @returns {JSX.Element} The DropdownMenu component.
  */
@@ -81,7 +80,6 @@ export function DropdownMenu({ open, onOpenChange, children, ...props }: Dropdow
 }
 
 /**
- * @name DropdownMenuTrigger
  * @description Button trigger that toggles the dropdown menu open state and exposes ARIA menu semantics for assistive technologies.
  * @returns {JSX.Element} The DropdownMenuTrigger component.
  */
@@ -99,7 +97,6 @@ export function DropdownMenuTrigger({ onKeyDown, ...props }: DropdownMenuTrigger
 }
 
 /**
- * @name DropdownMenuContent
  * @description Positioned dropdown menu content that displays menu items and supports keyboard navigation.
  * @returns {JSX.Element} The DropdownMenuContent component.
  */
@@ -138,7 +135,6 @@ export function DropdownMenuContent({ className, ...props }: DropdownMenuContent
 }
 
 /**
- * @name DropdownMenuItem
  * @description An individual menu item that can be selected or triggered.
  * @returns {JSX.Element} The DropdownMenuItem component.
  */
@@ -190,7 +186,6 @@ export function DropdownMenuItem({
 }
 
 /**
- * @name DropdownMenuLabel
  * @description A label or heading for a group of menu items.
  * @returns {JSX.Element} The DropdownMenuLabel component.
  */
@@ -205,7 +200,6 @@ export function DropdownMenuLabel({ className, ...props }: DropdownMenuLabelProp
 }
 
 /**
- * @name DropdownMenuSeparator
  * @description A visual separator between groups of menu items.
  * @returns {JSX.Element} The DropdownMenuSeparator component.
  */
@@ -227,7 +221,6 @@ const DropdownMenuSubContext = createContext<DropdownMenuSubContextType>({
 });
 
 /**
- * @name DropdownMenuSub
  * @description A container for nested sub-menu items.
  * @returns {JSX.Element} The DropdownMenuSub component.
  */
@@ -277,7 +270,6 @@ export function DropdownMenuSub({
 }
 
 /**
- * @name DropdownMenuSubTrigger
  * @description A trigger item that opens a nested sub-menu.
  * @returns {JSX.Element} The DropdownMenuSubTrigger component.
  */
@@ -329,7 +321,6 @@ export function DropdownMenuSubTrigger({
 }
 
 /**
- * @name DropdownMenuSubContent
  * @description Positioned sub-menu content that displays nested menu items.
  * @returns {JSX.Element} The DropdownMenuSubContent component.
  */

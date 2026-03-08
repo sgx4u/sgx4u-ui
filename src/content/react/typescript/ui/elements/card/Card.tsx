@@ -31,7 +31,6 @@ export const { variants: cardVariants, types: CardVariantTypes } = makeVariants(
 });
 
 /**
- * @name Card
  * @description Layout wrapper used to display content in a card format.
  * @returns {JSX.Element} The Card component.
  */
@@ -57,7 +56,6 @@ export function Card({
 }
 
 /**
- * @name CardTitle
  * @description Title wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardTitle component.
  */
@@ -66,7 +64,6 @@ export function CardTitle({ as = 'title', ...props }: CardTitlePropsType): JSX.E
 }
 
 /**
- * @name CardDescription
  * @description Description wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardDescription component.
  */
@@ -82,7 +79,6 @@ export function CardDescription({ as = 'subtitle', className, ...props }: CardDe
 }
 
 /**
- * @name CardContent
  * @description Content wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardContent component.
  */
@@ -98,7 +94,6 @@ export function CardContent({ className, ...props }: CardContentPropsType): JSX.
 }
 
 /**
- * @name CardFooter
  * @description Footer wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardFooter component.
  */

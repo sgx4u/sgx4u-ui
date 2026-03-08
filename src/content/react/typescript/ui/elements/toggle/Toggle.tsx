@@ -7,7 +7,6 @@ import { TogglePropsType } from './toggle.type';
 import { Button } from '../button';
 
 /**
- * @name Toggle
  * @description A pressable control that switches between on and off states, similar to a button with persistent pressed state.
  * @returns {JSX.Element} The Toggle component.
  */

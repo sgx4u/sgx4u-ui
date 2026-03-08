@@ -43,7 +43,6 @@ import { Portal } from '../portal';
 import { Text } from '../text';
 
 /**
- * @name Popover
  * @description Root element for the Popover component.
  * @param {PopoverPropsType} props - The props for the Popover component.
  * @returns {JSX.Element} The Popover component.
@@ -140,7 +139,6 @@ export function Popover({
 }
 
 /**
- * @name PopoverTrigger
  * @description A trigger button that opens/toggles a popover by id.
  * @param {PopoverTriggerPropsType} props - The props for the PopoverTrigger component.
  * @returns {JSX.Element} The PopoverTrigger component.
@@ -205,7 +203,6 @@ export function PopoverTrigger({
 }
 
 /**
- * @name PopoverContent
  * @description Popover panel that renders in a portal, anchors to its trigger, and animates in/out.
  * @param {PopoverContentPropsType} props - The props for the PopoverContent component.
  * @returns {JSX.Element} The PopoverContent component.
@@ -398,7 +395,7 @@ export function PopoverContent({
 						transitionDuration: `${transitionDuration}ms`,
 					}}
 					className={cn(
-						'z-1001 transition-transform will-change-transform',
+						'z-1001 overflow-auto transition-transform will-change-transform',
 						isVisible ? 'translate-x-0 translate-y-0' : getClosedTranslateClass(activeSide),
 					)}
 					data-slot="PopoverMotion"
@@ -413,7 +410,7 @@ export function PopoverContent({
 							...style,
 						}}
 						className={cn(
-							'overflow-auto rounded-xl bg-light p-4 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
+							'overflow-auto rounded-xl bg-background p-4 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
 							isVisible ? 'opacity-100' : 'opacity-0',
 							className,
 						)}
@@ -431,7 +428,6 @@ export function PopoverContent({
 }
 
 /**
- * @name PopoverClose
  * @description A button that closes a specific popover by id.
  * @param {PopoverClosePropsType} props - The props for the PopoverClose component.
  * @returns {JSX.Element} The PopoverClose component.
@@ -472,7 +468,6 @@ export function PopoverClose({
 }
 
 /**
- * @name PopoverTitle
  * @description Title wrapper used to display content in a popover format.
  * @returns {JSX.Element} The PopoverTitle component.
  */
@@ -481,7 +476,6 @@ export function PopoverTitle({ as = 'title', ...props }: PopoverTitlePropsType):
 }
 
 /**
- * @name PopoverDescription
  * @description Description wrapper used to display content in a popover format.
  * @returns {JSX.Element} The PopoverDescription component.
  */

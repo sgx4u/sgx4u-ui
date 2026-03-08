@@ -5,7 +5,6 @@ import { ImagePropsType } from './image.type';
 import { ProgressiveImage } from './ProgressiveImage';
 
 /**
- * @name Image
  * @description Enhanced image primitives for displaying pictures with optional progressive loading and performance-friendly defaults.
  * @returns {JSX.Element} The Image component.
  */

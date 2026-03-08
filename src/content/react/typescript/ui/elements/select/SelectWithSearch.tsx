@@ -36,7 +36,6 @@ const SelectContext = createContext<SelectWithSearchContextType>({
 });
 
 /**
- * @name Select With Search
  * @description Searchable select control that supports single or multi-value selection, controlled/uncontrolled state, and dynamic item creation via an optional "add item" action.
  * @returns {JSX.Element} The SelectWithSearch component.
  */
@@ -100,7 +99,6 @@ export function SelectWithSearch({
 }
 
 /**
- * @name Select With Search Trigger
  * @description Button-like trigger that displays the current selection as labeled chips with separators and exposes a combobox pattern with ARIA wiring.
  * @returns {JSX.Element} The SelectWithSearchTrigger component.
  */
@@ -119,7 +117,8 @@ export function SelectWithSearchTrigger({ className, children, ...props }: Selec
 		>
 			{selectedChildren.length > 0 ? (
 				<Container className="flex items-center gap-2 overflow-hidden">
-					{selectedChildren.map((child, index) => (
+					{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+					{selectedChildren.map((child: any, index: number) => (
 						<Fragment key={index}>
 							{child.element}
 							<Separator
@@ -139,7 +138,6 @@ export function SelectWithSearchTrigger({ className, children, ...props }: Selec
 }
 
 /**
- * @name Select With Search Content
  * @description Popover content that filters `SelectWithSearchItem` children by the shared search term while preserving non-item elements such as headers or the search field.
  * @returns {JSX.Element} The SelectWithSearchContent component.
  */
@@ -237,7 +235,6 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 }
 
 /**
- * @name Select With Search Item
  * @description Selectable list option that toggles inclusion in the current value array and keeps the trigger's rendered labels in sync for single and multi-select modes.
  * @returns {JSX.Element} The SelectWithSearchItem component.
  */
@@ -260,9 +257,11 @@ export function SelectWithSearchItem({ value, className, children, ...props }: S
 		onOpenChange(false);
 
 		if (selectedValue.includes(value)) {
-			setSelectedChildren((prev) => prev.filter((child) => child.id !== value));
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			setSelectedChildren((prev: any) => prev.filter((child: any) => child.id !== value));
 		} else {
-			setSelectedChildren((prev) => [...prev, { id: value, element: children }]);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			setSelectedChildren((prev: any) => [...prev, { id: value, element: children }]);
 		}
 	};
 
@@ -291,7 +290,6 @@ export function SelectWithSearchItem({ value, className, children, ...props }: S
 }
 
 /**
- * @name Select With Search Search
  * @description Text input bound to the select context that drives client-side filtering and can optionally surface an "add new" affordance when no items match.
  * @returns {JSX.Element} The SelectSearch component.
  */

@@ -21,7 +21,6 @@ export const { variants: listVariants, types: ListVariantTypes } = makeVariants(
 });
 
 /**
- * @name List
  * @description A semantic container for ordered or unordered groups of related list items.
  * @returns {JSX.Element} The List component.
  */

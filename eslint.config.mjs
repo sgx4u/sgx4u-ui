@@ -24,7 +24,7 @@ export default defineConfig([
 			'no-secrets': noSecrets,
 		},
 		extends: ['js/recommended'],
-		languageOptions: { globals: globals.browser },
+		languageOptions: { globals: { ...globals.browser, ...globals.jest } },
 		rules: {
 			'@next/next/no-img-element': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'warn',

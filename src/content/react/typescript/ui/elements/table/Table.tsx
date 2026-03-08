@@ -26,7 +26,6 @@ export const { variants: tableVariants, types: TableVariantTypes } = makeVariant
 });
 
 /**
- * @name Table
  * @description A tabular data structure that organizes information into rows and columns.
  * @returns {JSX.Element} The Table component.
  */
@@ -42,7 +41,6 @@ export function Table({
 }
 
 /**
- * @name Table Header
  * @description Semantic table header wrapper that keeps sticky state support.
  * @returns {JSX.Element} The TableHeader component.
  */
@@ -51,7 +49,6 @@ export function TableHeader({ className, ...props }: TableSectionPropsType): JSX
 }
 
 /**
- * @name Table Body
  * @description Semantic table body wrapper.
  * @returns {JSX.Element} The TableBody component.
  */
@@ -60,7 +57,6 @@ export function TableBody({ ...props }: TableSectionPropsType): JSX.Element {
 }
 
 /**
- * @name Table Footer
  * @description Semantic table footer wrapper.
  * @returns {JSX.Element} The TableFooter component.
  */
@@ -69,7 +65,6 @@ export function TableFooter({ className, ...props }: TableSectionPropsType): JSX
 }
 
 /**
- * @name Table Row
  * @description Table row that supports hover, selection, and pinned styling.
  * @returns {JSX.Element} The TableRow component.
  */
@@ -105,7 +100,6 @@ export const { variants: tableCellVariants, types: TableCellVariantTypes } = mak
 });
 
 /**
- * @name Table Head
  * @description Table header cell that wires alignment, sort affordances, and column-resize anchors.
  * @returns {JSX.Element} The TableHead component.
  */
@@ -121,7 +115,6 @@ export function TableHead({ className, ...props }: TableHeadCellPropsType): JSX.
 }
 
 /**
- * @name Table Cell
  * @description Table cell capable of hosting arbitrary components, including form controls.
  * @returns {JSX.Element} The TableCell component.
  */

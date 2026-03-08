@@ -7,7 +7,6 @@ import { FocusTrapPropsType } from './focus-trap.type';
 import { Container } from '../container';
 
 /**
- * @name FocusTrap
  * @description Focus management utility that traps keyboard focus within its children, restores the previously focused element on cleanup, and guards against focus escaping via mouse or script.
  * @returns {JSX.Element} The FocusTrap component.
  */

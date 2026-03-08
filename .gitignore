@@ -31,3 +31,7 @@ temp
 # Typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Amit PC
+.sgx4u-ui-mcp-local
+.vscode

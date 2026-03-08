@@ -42,7 +42,6 @@ const TabsContext = createContext<TabsContextType>({
 });
 
 /**
- * @name Tabs
  * @description A set of stacked triggers that switch between different views or panels in the same space.
  * @returns {JSX.Element} The Tabs component.
  */
@@ -153,7 +152,6 @@ export const { variants: tabTriggerVariants, types: TabTriggerVariantTypes } = m
 });
 
 /**
- * @name Tab List
  * @description Container for tab triggers that renders a sliding indicator bar sized and positioned via layout measurements of the active tab.
  * @returns {JSX.Element} The TabList component.
  */
@@ -223,7 +221,6 @@ export function TabList({
 }
 
 /**
- * @name Tab Trigger
  * @description Button-like tab trigger that updates the active tab value on click and wires ARIA attributes to its associated content panel.
  * @returns {JSX.Element} The TabTrigger component.
  */
@@ -264,7 +261,6 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
 }
 
 /**
- * @name Tab Content
  * @description Tab panel that renders only when its value matches the active tab and links back to its trigger through coordinated ARIA attributes.
  * @returns {JSX.Element} The TabContent component.
  */

@@ -28,7 +28,6 @@ export const { variants: skeletonVariants, types: SkeletonVariantTypes } = makeV
 });
 
 /**
- * @name Skeleton
  * @description Placeholder UI used to represent content that is still loading.
  * @returns {JSX.Element} The Skeleton component.
  */

@@ -26,7 +26,7 @@ export async function listComponents(): Promise<void> {
 		const registry = await fetchRegistry(config.environment);
 		if (!registry) {
 			fetchSpinner.fail();
-			console.log('⚠️ Failed to fetch registry from GitHub!');
+			console.log('⚠️ Failed to fetch registry from GitHub');
 			process.exit(1);
 		}
 

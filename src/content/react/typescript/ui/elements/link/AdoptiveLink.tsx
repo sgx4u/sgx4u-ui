@@ -11,7 +11,6 @@ try {
 }
 
 /**
- * @name AdoptiveLink
  * @description Dynamically detects if running in a Next.js environment and returns the appropriate link component.
  * @returns {JSX.Element} The AdoptiveLink component.
  */
