@@ -44,7 +44,7 @@ export function SquareImagePickup({
 			as="div"
 			data-slot="square-image-pickup"
 			className={cn(
-				'flex h-64 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed',
+				'flex h-64 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all hover:border-primary',
 				status === 'error' ? 'border-danger' : 'border-muted',
 				containerClassName,
 			)}
@@ -65,7 +65,7 @@ export function SquareImagePickup({
 				{...textContainerProps}
 			>
 				<Text className={textClassName} {...textProps}>
-					<Text as="span" className="font-medium text-secondary transition-all hover:text-primary/75">
+					<Text as="span" className="font-medium text-secondary transition-all hover:text-primary">
 						Upload a file
 					</Text>{' '}
 					or drag and drop

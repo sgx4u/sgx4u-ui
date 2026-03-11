@@ -35,7 +35,7 @@ export function CircleImagePickup({
 			as="div"
 			data-slot="circle-image-pickup"
 			className={cn(
-				'flex size-20 cursor-pointer items-center justify-center rounded-full border-2 border-dotted border-muted',
+				'flex size-20 cursor-pointer items-center justify-center rounded-full border-2 border-dotted border-muted transition-all hover:border-primary',
 				status === 'error' ? 'border-danger' : 'border-muted',
 				containerClassName,
 			)}

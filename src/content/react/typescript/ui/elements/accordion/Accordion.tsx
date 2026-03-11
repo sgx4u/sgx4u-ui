@@ -220,7 +220,10 @@ export function AccordionTrigger({
 			{/* Icon to indicate the open state. */}
 			{!hideArrow && (
 				<ChevronDownIcon
-					className={cn('size-4 shrink-0 transition-all', isOpen && 'rotate-180')}
+					className={cn(
+						'size-4 shrink-0 text-muted-dark transition-all dark:text-muted-light',
+						isOpen && 'rotate-180',
+					)}
 					aria-hidden="true"
 				/>
 			)}
