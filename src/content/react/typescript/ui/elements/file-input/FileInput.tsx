@@ -214,6 +214,7 @@ export function FileInput({
 			data-slot="file-input"
 			data-drag-over={isDragOver}
 			role="button"
+			aria-label="File input"
 			aria-disabled={disabled}
 			tabIndex={disabled ? undefined : 0}
 			{...props}

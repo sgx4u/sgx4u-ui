@@ -253,7 +253,6 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
 			data-value={value}
 			role="tab"
 			aria-selected={isActive}
-			aria-controls={`panel-${value}`}
 			{...tabTriggerRestProps}
 			{...props}
 		/>

@@ -4,7 +4,7 @@ import { TextPropsType } from '../text';
 /** Props type for the Card component. */
 export type CardPropsType = ContainerPropsType & {
 	/** Variant of the card. Default - default. */
-	variant?: 'default' | 'glass' | 'liquid';
+	variant?: 'default' | 'outline' | 'glass' | 'liquid';
 };
 
 /** Props type for the CardHeader component. */

@@ -15,10 +15,12 @@ import { Text } from '../text';
 
 /** Card variants. */
 export const { variants: cardVariants, types: CardVariantTypes } = makeVariants({
-	base: 'flex flex-col p-3 mobile:p-5',
+	base: 'flex flex-col p-3 mobile:p-5 laptop:p-6',
 	variants: {
 		variant: {
 			default: 'shadow-md',
+
+			outline: 'border shadow-none',
 
 			glass: 'bg-background/30 shadow-lg ring-1 ring-border/40 backdrop-blur-xl supports-backdrop-filter:bg-background/20',
 
