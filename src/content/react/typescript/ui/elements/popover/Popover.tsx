@@ -52,6 +52,7 @@ export function Popover({
 	onOpenChange,
 	closeOnEscape = true,
 	closeOnClickOutside = true,
+	ignoreOutsideClick,
 	trapFocus = true,
 
 	align = 'center',
@@ -123,6 +124,7 @@ export function Popover({
 				onOpenChange,
 				closeOnEscape,
 				closeOnClickOutside,
+				ignoreOutsideClick,
 				trapFocus,
 
 				align,
@@ -230,6 +232,7 @@ export function PopoverContent({
 		onOpenChange,
 		closeOnEscape,
 		closeOnClickOutside,
+		ignoreOutsideClick,
 		trapFocus,
 
 		align,
@@ -338,6 +341,7 @@ export function PopoverContent({
 
 			if (contentElement?.contains(event.target as Node)) return;
 			if (triggerElement?.contains(event.target as Node)) return;
+			if (ignoreOutsideClick) return;
 
 			handleClose();
 		};
@@ -346,7 +350,7 @@ export function PopoverContent({
 		return (): void => {
 			document.removeEventListener('mousedown', handleOutsideMouseDown);
 		};
-	}, [isOpenLike, closeOnClickOutside, effectivePopoverId, getTriggerElement, handleClose]);
+	}, [isOpenLike, closeOnClickOutside, ignoreOutsideClick, effectivePopoverId, getTriggerElement, handleClose]);
 
 	/* Listen for Escape at document level so the popover closes regardless of where focus is (e.g. when trapFocus is false). */
 	useEffect(() => {
@@ -395,7 +399,7 @@ export function PopoverContent({
 						transitionDuration: `${transitionDuration}ms`,
 					}}
 					className={cn(
-						'z-1001 overflow-auto transition-transform will-change-transform',
+						'z-1001 overflow-visible transition-transform will-change-transform',
 						isVisible ? 'translate-x-0 translate-y-0' : getClosedTranslateClass(activeSide),
 					)}
 					data-slot="PopoverMotion"

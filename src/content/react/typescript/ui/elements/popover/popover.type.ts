@@ -45,6 +45,9 @@ export type PopoverPropsType = {
 	/** Whether clicking outside the popover should close it. Default - true. */
 	closeOnClickOutside?: boolean;
 
+	/** When true, outside clicks do not close the popover. */
+	ignoreOutsideClick?: boolean;
+
 	/** Animation duration in milliseconds. Default - 150. */
 	duration?: number;
 
@@ -103,6 +106,9 @@ export type PopoverContextValueType = {
 
 	/** Whether clicking outside the popover should close it. */
 	closeOnClickOutside?: boolean;
+
+	/** When true, outside clicks do not close the popover. */
+	ignoreOutsideClick?: boolean;
 
 	/** Whether to trap focus within the popover content. Default - true. */
 	trapFocus?: boolean;

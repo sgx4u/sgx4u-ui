@@ -15,7 +15,7 @@ import { Text } from '../text';
 
 /** Card variants. */
 export const { variants: cardVariants, types: CardVariantTypes } = makeVariants({
-	base: 'flex flex-col p-5',
+	base: 'flex flex-col p-3 mobile:p-5',
 	variants: {
 		variant: {
 			default: 'shadow-md',

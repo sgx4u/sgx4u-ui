@@ -291,7 +291,7 @@ export function DialogContent({
 					<Container
 						style={{ transitionDuration: `${transitionDuration}ms` }}
 						className={cn(
-							'origin-center transform-gpu transition-transform will-change-transform',
+							'origin-center transform-gpu overflow-visible transition-transform will-change-transform',
 							prefersReducedMotion ? 'scale-100' : isVisible ? 'scale-100' : 'scale-95',
 						)}
 						data-slot="DialogMotion"
