@@ -261,7 +261,7 @@ export function ColorPicker({
 
 		/** Create a new eyedropper instance. */
 		const eyeDropper = new (
-			window as Window & { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }
+			window as unknown as { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }
 		).EyeDropper();
 
 		/** Open the eyedropper and get the color. */
