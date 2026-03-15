@@ -13,7 +13,7 @@ export const { variants: highlightMarkVariants, types: HighlightMarkVariantTypes
 	base: 'rounded bg-transparent font-medium',
 	variants: {
 		variant: {
-			default: 'bg-primary-light text-primary',
+			default: 'bg-primary-light/50 text-primary',
 			outlined: 'border-2 border-primary text-primary',
 			underline: 'rounded-none border-b-2 border-primary text-primary',
 			marker: 'rounded-none bg-linear-to-b from-transparent from-50% via-primary-light via-50% to-primary-light',
