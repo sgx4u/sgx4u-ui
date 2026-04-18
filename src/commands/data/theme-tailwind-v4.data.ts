@@ -122,6 +122,21 @@ export const themeVariablesV4 = `@import 'tailwindcss';
 			box-shadow: 0 0 0 10px hsl(239, 83%, 68%, 0);
 		}
 	}
+
+	@keyframes copy-button-check-reveal {
+		0% {
+			opacity: 0;
+			transform: scale(0.5);
+		}
+		55% {
+			opacity: 1;
+			transform: scale(1.12);
+		}
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
 }
 
 @theme inline {
@@ -239,6 +254,11 @@ export const themeVariablesV4 = `@import 'tailwindcss';
 
 	.animate-changelog-timeline {
 		animation: animate-heart-beat 1.5s ease infinite;
+	}
+
+	/* Copy-to-clipboard success checkmark entrance. */
+	.animate-copy-button-check {
+		animation: copy-button-check-reveal 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 	}
 }
 `;

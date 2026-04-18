@@ -1,6 +1,5 @@
 import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-// eslint-disable-next-line no-secrets/no-secrets
 /**
  * @description Handles keyboard navigation and interaction. ArrowLeft/ArrowRight navigates between tabs items.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.

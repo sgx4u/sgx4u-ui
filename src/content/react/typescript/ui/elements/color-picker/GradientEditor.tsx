@@ -3,7 +3,7 @@
 import { JSX, useMemo } from 'react';
 import { PercentIcon, Scale3DIcon, Trash2Icon } from 'lucide-react';
 
-import type { ColorStopType, GradientType } from './color-picker.type';
+import { ColorStopType, GradientType } from './color-picker.type';
 import { cn } from '../../utils/styles.util';
 
 import { Button } from '../button';
@@ -96,7 +96,7 @@ export function GradientEditor({
 					onClick={handleRemoveSelectedStop}
 					disabled={!selectedStop || stops.length <= 2}
 				>
-					<Trash2Icon className="size-4" />
+					<Trash2Icon />
 				</Button>
 
 				<Container as="div" className="relative">

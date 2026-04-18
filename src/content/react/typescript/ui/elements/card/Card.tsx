@@ -15,7 +15,7 @@ import { Text } from '../text';
 
 /** Card variants. */
 export const { variants: cardVariants, types: CardVariantTypes } = makeVariants({
-	base: 'flex flex-col p-3 mobile:p-5 laptop:p-6',
+	base: 'flex flex-col text-wrap',
 	variants: {
 		variant: {
 			default: 'shadow-md',
@@ -26,9 +26,17 @@ export const { variants: cardVariants, types: CardVariantTypes } = makeVariants(
 
 			liquid: 'bg-background/50 shadow-xl ring-1 ring-border/30 backdrop-blur-md before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(120%_120%_at_10%_0%,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.08)_45%,rgba(255,255,255,0)_70%)] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-[radial-gradient(120%_120%_at_90%_100%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.06)_40%,rgba(255,255,255,0)_70%)]',
 		},
+		size: {
+			xs: 'p-1 mobile:p-3 laptop:p-4',
+			sm: 'p-2 mobile:p-4 laptop:p-5',
+			default: 'p-3 mobile:p-5 laptop:p-6',
+			lg: 'p-4 mobile:p-6 laptop:p-8',
+			xl: 'p-5 mobile:p-7 laptop:p-9',
+		},
 	},
 	default: {
 		variant: 'default',
+		size: 'default',
 	},
 });
 
@@ -38,6 +46,7 @@ export const { variants: cardVariants, types: CardVariantTypes } = makeVariants(
  */
 export function Card({
 	variant = 'default',
+	size = 'default',
 	radius = 'lg',
 	className,
 	children,
@@ -48,7 +57,7 @@ export function Card({
 		<Container
 			as="div"
 			radius={radius}
-			className={cn(cardVariants({ variant }), className)}
+			className={cn(cardVariants({ variant, size }), className)}
 			data-slot="card"
 			{...props}
 		>

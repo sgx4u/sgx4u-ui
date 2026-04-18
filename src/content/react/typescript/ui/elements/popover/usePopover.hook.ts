@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 
 import { PopoverContextValueType } from './popover.type';

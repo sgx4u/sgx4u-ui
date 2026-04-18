@@ -399,7 +399,7 @@ export function PopoverContent({
 						transitionDuration: `${transitionDuration}ms`,
 					}}
 					className={cn(
-						'z-1001 overflow-visible transition-transform will-change-transform',
+						'z-top overflow-visible transition-transform will-change-transform',
 						isVisible ? 'translate-x-0 translate-y-0' : getClosedTranslateClass(activeSide),
 					)}
 					data-slot="PopoverMotion"
@@ -414,7 +414,7 @@ export function PopoverContent({
 							...style,
 						}}
 						className={cn(
-							'overflow-auto rounded-xl bg-background p-4 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
+							'max-w-[95dvw] overflow-auto rounded-xl bg-background p-4 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
 							isVisible ? 'opacity-100' : 'opacity-0',
 							className,
 						)}
@@ -466,7 +466,7 @@ export function PopoverClose({
 			aria-controls={`popover-${effectivePopoverId}`}
 			{...props}
 		>
-			{children ?? <XIcon className="size-4" />}
+			{children ?? <XIcon />}
 		</Button>
 	);
 }

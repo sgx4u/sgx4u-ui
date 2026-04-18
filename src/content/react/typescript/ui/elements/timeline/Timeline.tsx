@@ -336,7 +336,7 @@ export function TimelineContent({ className, ...props }: TimelineContentPropsTyp
 	return (
 		<Container
 			as="div"
-			className={cn('flex flex-col', orientation === 'horizontal' ? 'text-center' : 'text-left', className)}
+			className={cn('flex flex-col', orientation === 'horizontal' ? 'text-center' : 'text-start', className)}
 			data-slot="timeline-content"
 			data-uid={timelineUid}
 			data-id={`timeline-content-${index}`}

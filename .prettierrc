@@ -41,14 +41,15 @@
 		"^@sgx4u/hooks(/.*)?$",
 		"^[@].*\\.store(\\.[tj]sx?)?$",
 		"^[./].*\\.store(\\.[tj]sx?)?$",
-
+		"",
 		"^[@].*\\.provider(\\.[tj]sx?)?$",
 		"^[./].*\\.provider(\\.[tj]sx?)?$",
 		"",
-		"^@sgx4u/backgrounds",
-		"^@sgx4u/icons",
+		"^@sgx4u/config(/.*)?$",
+		"^@sgx4u/components",
 		"",
 		"^@sgx4u/ui",
+		"",
 		"^@/(.*)$",
 		"^[./]"
 	],

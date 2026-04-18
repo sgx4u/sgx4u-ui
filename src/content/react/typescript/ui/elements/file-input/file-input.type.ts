@@ -1,4 +1,4 @@
-import type { DragEvent as ReactDragEvent, MouseEvent as ReactMouseEvent } from 'react';
+import { DragEvent as ReactDragEvent, MouseEvent as ReactMouseEvent } from 'react';
 
 import { ContainerPropsType } from '../container';
 import { InputPropsType } from '../input';

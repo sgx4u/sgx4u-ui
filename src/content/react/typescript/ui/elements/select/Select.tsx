@@ -322,10 +322,10 @@ export function SelectItem({ value, onKeyDown, className, children, ...props }: 
 			onClick={handleSelect}
 			onKeyDown={handleKeyDown}
 			variant="ghost"
-			size="xs"
+			size="sm"
 			className={cn(
 				'relative justify-start pr-12 pl-2 font-normal',
-				selectedValue.includes(value) && 'font-medium',
+				selectedValue.includes(value) && 'font-semibold',
 				className,
 			)}
 			data-slot="select-item"
@@ -336,7 +336,7 @@ export function SelectItem({ value, onKeyDown, className, children, ...props }: 
 		>
 			{children}
 
-			{selectedValue.includes(value) && <CheckIcon className="absolute inset-[0_5px_0_auto] my-auto size-4" />}
+			{selectedValue.includes(value) && <CheckIcon className="absolute inset-[0_5px_0_auto] my-auto stroke-3" />}
 		</Button>
 	);
 }

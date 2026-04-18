@@ -12,7 +12,7 @@ import { Slot } from '../slot';
 
 /** Variants for the Button component. */
 export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVariants({
-	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 text-sm font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4`,
+	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
 	variants: {
 		variant: {
 			primary: `bg-primary text-primary-foreground hover:bg-primary-dark data-[state=on]:bg-primary-dark`,
@@ -62,16 +62,17 @@ export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVaria
 			wrapper: `cursor-pointer outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
 		},
 		size: {
-			xs: 'h-7 px-2.5',
-			sm: 'h-8 px-3',
-			default: 'h-9 px-3',
-			lg: 'h-10 px-4',
-			xl: 'h-11 px-8',
-			icon: 'size-8',
-			'icon-sm': 'size-7',
-			'icon-lg': 'size-9',
-			link: 'h-max w-max',
-			wrapper: 'h-max w-max',
+			xs: `h-7 px-2.5 text-xs [&_[data-slot=spin-loader]:not([class*='size-'])]:size-3 [&_svg:not([class*='size-'])]:size-3`,
+			sm: `h-8 px-3 text-sm [&_[data-slot=spin-loader]:not([class*='size-'])]:size-3.5 [&_svg:not([class*='size-'])]:size-3.5`,
+			default: `h-9 px-3 text-sm [&_[data-slot=spin-loader]:not([class*='size-'])]:size-4 [&_svg:not([class*='size-'])]:size-4`,
+			lg: `h-10 px-4 text-sm [&_[data-slot=spin-loader]:not([class*='size-'])]:size-4.5 [&_svg:not([class*='size-'])]:size-4.5`,
+			xl: `h-11 px-8 text-base [&_[data-slot=spin-loader]:not([class*='size-'])]:size-5 [&_svg:not([class*='size-'])]:size-5`,
+			icon: `size-9 [&_[data-slot=spin-loader]:not([class*='size-'])]:size-5 [&_svg:not([class*='size-'])]:size-5`,
+			'icon-sm': `size-8 [&_[data-slot=spin-loader]:not([class*='size-'])]:size-4 [&_svg:not([class*='size-'])]:size-4`,
+			'icon-xs': `size-6 [&_[data-slot=spin-loader]:not([class*='size-'])]:size-3.5 [&_svg:not([class*='size-'])]:size-3.5`,
+			'icon-lg': `size-10 [&_[data-slot=spin-loader]:not([class*='size-'])]:size-6 [&_svg:not([class*='size-'])]:size-6`,
+			link: `h-max w-max text-sm`,
+			wrapper: `h-max w-max text-sm`,
 		},
 		radius: {
 			none: 'rounded-none',

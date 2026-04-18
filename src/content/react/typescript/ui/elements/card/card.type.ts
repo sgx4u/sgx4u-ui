@@ -5,6 +5,9 @@ import { TextPropsType } from '../text';
 export type CardPropsType = ContainerPropsType & {
 	/** Variant of the card. Default - default. */
 	variant?: 'default' | 'outline' | 'glass' | 'liquid';
+
+	/** Size of the card. Default - default. */
+	size?: 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 };
 
 /** Props type for the CardHeader component. */

@@ -9,7 +9,7 @@ import { makeVariants } from '../../utils/variant.util';
 import { Container } from '../container';
 
 export const { variants: backdropVariants, types: BackdropVariantTypes } = makeVariants({
-	base: `fixed inset-0 z-1000 flex items-center justify-center transition-all`,
+	base: `fixed inset-0 z-overlay flex items-center justify-center transition-all`,
 	variants: {
 		variant: {
 			dark: 'bg-dark/60 backdrop-blur-sm',

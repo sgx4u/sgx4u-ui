@@ -127,7 +127,6 @@ export const slideAccordion = ({
 	animatedElement.__accordionRafId = requestAnimationFrame(step);
 };
 
-// eslint-disable-next-line no-secrets/no-secrets
 /**
  * @description Handles keyboard navigation and interaction. ArrowUp/ArrowDown navigates between accordion items.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.

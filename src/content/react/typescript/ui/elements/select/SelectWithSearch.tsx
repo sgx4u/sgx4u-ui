@@ -211,7 +211,7 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 
 				{onAddSelectItem && (
 					<Button variant="muted-light" size="sm" className="w-full" onClick={() => onAddSelectItem(term)}>
-						<PlusIcon className="size-4" />
+						<PlusIcon />
 						Add &quot;{term}&quot;
 					</Button>
 				)}
@@ -220,7 +220,7 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 
 	return (
 		<PopoverContent
-			className={cn('overflow-hidden p-0', className)}
+			className={cn('hide-scrollbar overflow-hidden p-0', className)}
 			data-slot="select-content"
 			role="listbox"
 			{...props}

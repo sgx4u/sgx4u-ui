@@ -3,13 +3,7 @@
 import { JSX, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { CircleCheckIcon, InfoIcon, OctagonXIcon, TriangleAlertIcon, XIcon } from 'lucide-react';
 
-import type {
-	ToastDefaultOptionsType,
-	ToastItemType,
-	ToastPosition,
-	ToastPromiseStatus,
-	ToastVariant,
-} from './toast.type';
+import { ToastDefaultOptionsType, ToastItemType, ToastPosition, ToastPromiseStatus, ToastVariant } from './toast.type';
 import { cn } from '../../utils/styles.util';
 import { makeVariants } from '../../utils/variant.util';
 
@@ -118,7 +112,7 @@ export function Toaster({ defaultOptions }: ToasterPropsType = {}): JSX.Element 
 
 	return (
 		<Portal>
-			<Container as="div" className="pointer-events-none fixed inset-0 z-50">
+			<Container as="div" className="pointer-events-none fixed inset-0 z-top">
 				{Object.entries(byPosition).map(([position, positionToasts]) => (
 					<ToastStack
 						key={position}

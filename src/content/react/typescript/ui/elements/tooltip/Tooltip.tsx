@@ -13,7 +13,7 @@ import { Text } from '../text';
 
 /** Tooltip variants. */
 export const { variants: tooltipVariants } = makeVariants({
-	base: `pointer-events-none fixed z-50 rounded-md border shadow-md transition-opacity before:absolute before:inset-0 before:-z-30 before:rounded-md after:absolute after:-z-40 after:size-5 after:rotate-45 after:rounded-sm after:border data-[state=closed]:opacity-0 data-[state=open]:opacity-100`,
+	base: `after:z-tooltip-after pointer-events-none fixed z-tooltip rounded-md border shadow-md transition-opacity before:absolute before:inset-0 before:z-tooltip-before before:rounded-md after:absolute after:size-5 after:rotate-45 after:rounded-sm after:border data-[state=closed]:opacity-0 data-[state=open]:opacity-100`,
 	variants: {
 		variant: {
 			default: `text-foreground before:bg-background after:border-muted after:bg-background`,

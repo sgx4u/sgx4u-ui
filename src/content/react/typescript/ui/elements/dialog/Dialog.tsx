@@ -303,7 +303,7 @@ export function DialogContent({
 							onKeyDown={handleKeyDown}
 							style={{ transitionDuration: `${transitionDuration}ms`, ...style }}
 							className={cn(
-								'relative z-1001 max-h-[85vh] w-[min(92vw,520px)] origin-center transform-gpu overflow-auto rounded-2xl bg-background p-6 shadow-xl transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
+								'relative z-top max-h-[85vh] w-[min(92vw,520px)] origin-center transform-gpu overflow-auto rounded-2xl bg-background p-6 shadow-xl transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
 								isVisible ? 'opacity-100' : 'opacity-0',
 								className,
 							)}
@@ -359,7 +359,7 @@ export function DialogClose({
 			aria-controls={`dialog-${effectiveDialogId}`}
 			{...props}
 		>
-			{children ?? <XIcon className="size-4" />}
+			{children ?? <XIcon />}
 		</Button>
 	);
 }

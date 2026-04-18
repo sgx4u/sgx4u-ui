@@ -26,7 +26,7 @@ export function SpinLoader({ className, containerProps, ...props }: LoaderPropsT
 			{/* Spinner Icon. */}
 			<Loader2Icon
 				focusable="false"
-				className={cn('size-6 animate-spin text-current', className)}
+				className={cn('size-full animate-spin text-current', className)}
 				aria-hidden="true"
 				{...props}
 			/>

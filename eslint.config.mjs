@@ -39,11 +39,10 @@ export default defineConfig([
 					],
 				},
 			],
-			'no-secrets/no-secrets': 'warn',
 			'no-unused-vars': 'off',
 			'react/react-in-jsx-scope': 'off',
 		},
 	},
 
-	globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+	globalIgnores(['**/.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
 ]);

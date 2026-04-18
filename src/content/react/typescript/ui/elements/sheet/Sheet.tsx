@@ -233,13 +233,13 @@ export function SheetContent({
 	return (
 		<Portal>
 			<FocusTrap active={isOpenLike}>
-				<Container as="div" className="fixed inset-0 z-50 flex" data-slot="SheetContent">
+				<Container as="div" className="fixed inset-0 z-overlay flex" data-slot="SheetContent">
 					<Container
 						as="div"
 						id={`sheet-${effectiveSheetId}`}
 						style={{ transitionDuration: `${effectiveAnimationSpeed}ms` }}
 						className={cn(
-							'z-1001 transition-[opacity,transform]',
+							'z-top transition-[opacity,transform]',
 							sheetContentVariants({ side }),
 							isVisible
 								? 'translate-x-0 translate-y-0 opacity-100'
@@ -325,7 +325,7 @@ export function SheetClose({
 			aria-controls={`sheet-${effectiveSheetId}`}
 			{...props}
 		>
-			{children || <XIcon className="size-4" />}
+			{children || <XIcon />}
 			<Container as="span" className="sr-only">
 				Close
 			</Container>

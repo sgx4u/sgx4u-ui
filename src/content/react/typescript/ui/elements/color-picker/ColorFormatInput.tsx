@@ -111,7 +111,7 @@ export function ColorFormatInput({
 			<Container as="div" className="flex gap-1" data-slot="color-format-input">
 				{eyedropperSupported && (
 					<Button onClick={onEyedropperClick} variant="outline" size="icon" aria-label="Pick color">
-						<PipetteIcon className="size-4" />
+						<PipetteIcon />
 					</Button>
 				)}
 

@@ -1,6 +1,5 @@
 import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-// eslint-disable-next-line no-secrets/no-secrets
 /**
  * @description Handles keyboard events for Enter and Spacebar keys to trigger toggle action.
  * @param {object} props - The props for the helper.

@@ -1,4 +1,4 @@
-import type { ToastDefaultOptionsType, ToastItemType, ToastOptionsType, ToastVariant } from './toast.type';
+import { ToastDefaultOptionsType, ToastItemType, ToastOptionsType, ToastVariant } from './toast.type';
 
 /** Listener function type. */
 type Listener = () => void;

@@ -3,7 +3,7 @@
 import { CSSProperties, JSX, useEffect, useLayoutEffect, useState } from 'react';
 import { SwatchBookIcon } from 'lucide-react';
 
-import type {
+import {
 	ColorFormatType,
 	ColorPickerPropsType,
 	ColorStopType,

@@ -1,4 +1,4 @@
-import type { ToastOptionsType, ToastPromiseOptionsType } from './toast.type';
+import { ToastOptionsType, ToastPromiseOptionsType } from './toast.type';
 
 import { addToast, updateToast } from './toast.store';
 

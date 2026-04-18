@@ -34,9 +34,9 @@ export const { variants: textVariants, types: TextVariantTypes } = makeVariants(
 			tag: `text-xs font-semibold tracking-wider uppercase`,
 		},
 		align: {
-			left: `text-left`,
+			left: `text-start`,
 			center: `text-center`,
-			right: `text-right`,
+			right: `text-end`,
 			justify: `text-justify`,
 		},
 		/** Weight is applied via conditionals; no base classes here. */

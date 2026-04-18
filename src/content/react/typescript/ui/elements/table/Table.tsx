@@ -87,9 +87,9 @@ export const { variants: tableCellVariants, types: TableCellVariantTypes } = mak
 	base: 'border-b border-background-light text-start first:ps-4 last:pe-4',
 	variants: {
 		align: {
-			left: 'text-left',
+			left: 'text-start',
 			center: 'text-center',
-			right: 'text-right',
+			right: 'text-end',
 			justify: 'text-justify',
 			char: 'text-char',
 		},
