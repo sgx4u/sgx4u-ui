@@ -1,10 +1,6 @@
 import { ReactNode } from 'react';
 
-import {
-	AnimatedOverlayStoreType,
-	OverlayRecordType,
-	OverlayStateType,
-} from '../../helpers/animated-overlay-store.helper';
+import { AnimatedOverlayStoreType } from '../../helpers/animated-overlay-store.helper';
 
 import { ButtonPropsType } from '../button';
 import { ContainerPropsType } from '../container';
@@ -57,12 +53,6 @@ export type PopoverPropsType = {
 	/** Children to render. */
 	children?: ReactNode;
 };
-
-/** Internal state for a single popover id. */
-export type PopoverRecordType = OverlayRecordType;
-
-/** Store state keyed by popover id. */
-export type PopoverStateType = OverlayStateType;
 
 /** External store for per-id popover subscriptions. */
 export type PopoverStoreType = AnimatedOverlayStoreType;

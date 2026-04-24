@@ -55,7 +55,6 @@
     "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.9",
     "depcheck": "^1.4.7",
-    "esbuild": "latest",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.2.1",
     "eslint-plugin-jsdoc": "^62.5.4",

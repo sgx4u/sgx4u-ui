@@ -1,10 +1,6 @@
 import { ReactNode } from 'react';
 
-import {
-	AnimatedOverlayStoreType,
-	OverlayRecordType,
-	OverlayStateType,
-} from '../../helpers/animated-overlay-store.helper';
+import { AnimatedOverlayStoreType } from '../../helpers/animated-overlay-store.helper';
 
 import { BackdropPropsType } from '../backdrop';
 import { ButtonPropsType } from '../button';
@@ -40,12 +36,6 @@ export type DialogPropsType = {
 	/** Children to render. */
 	children?: ReactNode;
 };
-
-/** Internal state for a single dialog id. */
-export type DialogRecordType = OverlayRecordType;
-
-/** Store state keyed by dialog id. */
-export type DialogStateType = OverlayStateType;
 
 /** External store for per-id dialog subscriptions. */
 export type DialogStoreType = AnimatedOverlayStoreType;

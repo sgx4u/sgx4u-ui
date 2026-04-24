@@ -1,21 +1,11 @@
 import { ReactNode } from 'react';
 
-import {
-	AnimatedOverlayStoreType,
-	OverlayRecordType,
-	OverlayStateType,
-} from '../../helpers/animated-overlay-store.helper';
+import { AnimatedOverlayStoreType } from '../../helpers/animated-overlay-store.helper';
 
 import { BackdropPropsType } from '../backdrop';
 import { ButtonPropsType } from '../button';
 import { ContainerPropsType } from '../container';
 import { TextPropsType } from '../text';
-
-/** Internal state for a single sheet id. */
-export type SheetRecordType = OverlayRecordType;
-
-/** Store state keyed by sheet id. */
-export type SheetStateType = OverlayStateType;
 
 /** External store for per-id sheet subscriptions. */
 export type SheetStoreType = AnimatedOverlayStoreType;

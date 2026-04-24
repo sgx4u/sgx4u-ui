@@ -9,7 +9,7 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"jsxImportSource": "react",
-		"lib": ["es2020", "DOM", "DOM.Iterable"],
+		"lib": ["es2022", "DOM", "DOM.Iterable"],
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"noEmit": true,
@@ -23,7 +23,7 @@
 		"sourceMap": true,
 		"strict": true,
 		"strictNullChecks": true,
-		"target": "es2020"
+		"target": "es2022"
 	},
 	"include": ["src"],
 	"exclude": ["dist", "node_modules"]

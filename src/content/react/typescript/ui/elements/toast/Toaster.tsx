@@ -84,7 +84,7 @@ const slideEnterClasses: Record<string, { from: string; to: string }> = {
 };
 
 /** Props for the Toaster component. */
-export type ToasterPropsType = {
+type ToasterPropsType = {
 	/** Default options applied to all toasts (position, duration, dismissible). */
 	defaultOptions?: ToastDefaultOptionsType;
 };
