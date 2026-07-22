@@ -1,13 +1,10 @@
-/** Lifecycle phase for an animated overlay (dialog, sheet, popover, etc.). */
-export type OverlayPhaseType = 'closed' | 'opening' | 'open' | 'closing';
-
 /** Internal state record for a single overlay instance. */
 export type OverlayRecordType = {
 	/** Whether the overlay DOM node is currently mounted. */
 	isMounted: boolean;
 
 	/** Current lifecycle phase used to drive enter/exit animations. */
-	phase: OverlayPhaseType;
+	phase: 'closed' | 'opening' | 'open' | 'closing';
 };
 
 /** Store state keyed by overlay id. */

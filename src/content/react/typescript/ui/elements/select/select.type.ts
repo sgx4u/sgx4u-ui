@@ -1,4 +1,4 @@
-import { Dispatch, ReactElement, RefObject, SetStateAction } from 'react';
+import { Dispatch, ReactElement, ReactNode, RefObject, SetStateAction } from 'react';
 import { LucideProps } from 'lucide-react';
 
 import { ButtonPropsType } from '../button';
@@ -50,6 +50,15 @@ export type SelectPropsType = Omit<PopoverPropsType, 'open' | 'onOpenChange'> & 
 	type?: 'single' | 'multiple';
 };
 
+/** A selected child entry tracked for the searchable select trigger display. */
+export type SelectWithSearchSelectedChildType = {
+	/** Unique id of the selected item, matching its value. */
+	id: string;
+
+	/** Rendered label element shown in the trigger. */
+	element: ReactNode;
+};
+
 /** Select with search context type. */
 export type SelectWithSearchContextType = {
 	/** Select value. */
@@ -65,12 +74,10 @@ export type SelectWithSearchContextType = {
 	onOpenChange: (open: boolean) => void;
 
 	/** Selected children. */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	selectedChildren: any;
+	selectedChildren: Array<SelectWithSearchSelectedChildType>;
 
 	/** Set selected children. */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	setSelectedChildren: any;
+	setSelectedChildren: Dispatch<SetStateAction<Array<SelectWithSearchSelectedChildType>>>;
 
 	/** Select type. Default - single. */
 	type: SelectPropsType['type'];

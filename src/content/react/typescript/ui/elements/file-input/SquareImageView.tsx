@@ -26,7 +26,6 @@ export type SquareImageViewPropsType = {
 
 /**
  * @description Square image view component.
- * @param {SquareImageViewPropsType} props - The properties object.
  * @returns {JSX.Element} The SquareImageView component.
  */
 export function SquareImageView({
@@ -46,7 +45,6 @@ export function SquareImageView({
 }: SquareImageViewPropsType): JSX.Element {
 	return (
 		<Container
-			as="div"
 			data-slot="square-image-view"
 			className={cn(
 				'relative h-52 w-full overflow-hidden rounded-xl',

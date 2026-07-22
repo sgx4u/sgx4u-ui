@@ -22,7 +22,6 @@ type GradientPreviewBarPropsType = {
 /**
  * @description Gradient preview bar with white circle indicators for each stop, matching saturation/alpha picker style.
  * Click empty space to add a stop; drag stops to change position; click a stop to select it.
- * @param {GradientPreviewBarPropsType} props - The props object.
  * @returns {JSX.Element} The GradientPreviewBar component.
  */
 export function GradientPreviewBar({
@@ -91,7 +90,6 @@ export function GradientPreviewBar({
 	return (
 		<Container
 			ref={containerReference}
-			as="div"
 			onClick={handleBarClick}
 			style={{ background: gradientToCss(gradientValue) }}
 			className={cn('relative h-4 w-full cursor-crosshair overflow-hidden rounded-full', className)}
@@ -105,7 +103,6 @@ export function GradientPreviewBar({
 				return (
 					<Container
 						key={stop.id}
-						as="div"
 						onPointerDown={(event): void => handleStopPointerDown(event, stop.id)}
 						onPointerMove={(event): void => handleStopPointerMove(event, stop.id)}
 						onPointerUp={handleStopPointerUp}

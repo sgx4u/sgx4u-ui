@@ -18,7 +18,6 @@ export type CircleImagePickupPropsType = {
 
 /**
  * @description Circle image pickup component.
- * @param {CircleImagePickupPropsType} props - The properties object.
  * @returns {JSX.Element} The CircleImagePickup component.
  */
 export function CircleImagePickup({
@@ -32,7 +31,6 @@ export function CircleImagePickup({
 }: CircleImagePickupPropsType): JSX.Element {
 	return (
 		<Container
-			as="div"
 			data-slot="circle-image-pickup"
 			className={cn(
 				'flex size-20 cursor-pointer items-center justify-center rounded-full border-2 border-dotted border-muted transition-all hover:border-primary',

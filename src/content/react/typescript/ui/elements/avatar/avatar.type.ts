@@ -1,32 +1,27 @@
 import { ContainerPropsType } from '../container';
 import { ImagePropsType } from '../image';
 import { TextPropsType } from '../text';
+import { AvatarVariantTypes } from './Avatar';
+
+/** Loading status of the avatar image, shared between the image and fallback. */
+export type AvatarImageStatusType = 'idle' | 'loaded' | 'error';
 
 /** Context type for the Avatar component. */
 export type AvatarContextType = {
-	/** Whether an image component exists. Default - false. */
-	hasImage: boolean;
+	/** Current loading status of the avatar image. Default - idle. */
+	status: AvatarImageStatusType;
 
-	/** Callback when the image component mounts. */
-	setHasImage: (has: boolean) => void;
-
-	/** Whether the image has failed to load. Default - false. */
-	imageError: boolean;
-
-	/** Callback when the image fails to load. */
-	setImageError: (error: boolean) => void;
+	/** Updates the loading status of the avatar image. */
+	setStatus: (status: AvatarImageStatusType) => void;
 };
 
 /** Props type for the Avatar component. */
-export type AvatarPropsType = Omit<ContainerPropsType, 'radius' | 'as'> & {
+export type AvatarPropsType = ContainerPropsType & {
 	/** Size of the avatar. Default - default. */
-	size?: 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+	size?: typeof AvatarVariantTypes.size;
 
 	/** Radius of the avatar. Default - full. */
-	radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
+	radius?: typeof AvatarVariantTypes.radius;
 };
 
 /** Props type for the AvatarImage component. */

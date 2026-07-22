@@ -6,7 +6,7 @@ import { makeVariants } from '../../utils/variant.util';
 
 /** Variants for the Textarea component. */
 export const { variants: textareaVariants, types: TextareaVariantTypes } = makeVariants({
-	base: 'w-full min-w-20 resize-none rounded-md border-2 outline-2 outline-offset-2 outline-transparent transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-input-placeholder focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50',
+	base: 'w-full min-w-20 resize-none rounded-md border-2 outline-2 outline-offset-2 outline-transparent transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-input-placeholder focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50',
 	variants: {
 		variant: {
 			default: 'border-muted-light bg-background',
@@ -56,8 +56,6 @@ export function Textarea({
 			)}
 			data-slot="textarea"
 			aria-invalid={state === 'error' ? true : undefined}
-			aria-disabled={props.disabled ? true : undefined}
-			aria-readonly={props.readOnly ? true : undefined}
 			{...props}
 		/>
 	);

@@ -1,6 +1,17 @@
 'use client';
 
-import { createContext, JSX, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import {
+	createContext,
+	JSX,
+	KeyboardEvent as ReactKeyboardEvent,
+	useContext,
+	useEffect,
+	useId,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
+import { MoreHorizontalIcon } from 'lucide-react';
 
 import {
 	BreadcrumbContextType,
@@ -10,6 +21,7 @@ import {
 	BreadcrumbSeparatorPropsType,
 	RegisterItemPropsType,
 } from './breadcrumb.type';
+import { KeyboardNavigationDirectionType, moveFocusByDirection } from '../../utils/keyboard.util';
 import { cn } from '../../utils/styles.util';
 
 import { useWindowResize } from '../../hooks/useWindowResize.hook';
@@ -34,7 +46,6 @@ const BreadcrumbContext = createContext<BreadcrumbContextType>({
 
 /**
  * @description A horizontal trail of links that helps users understand and navigate the hierarchy of a site or app.
- * @param {BreadcrumbPropsType} props - The props for the Breadcrumb component.
  * @returns {JSX.Element} The Breadcrumb component.
  * @summary The idea is as following:
  * 1. Each breadcrumb item and separator is registered to identify its position and type.
@@ -293,17 +304,17 @@ export function Breadcrumb({
 		>
 			<Container
 				as="nav"
+				aria-label="Breadcrumb"
+				{...props}
 				className={cn('w-full overflow-hidden', className)}
 				data-slot="breadcrumb"
 				data-uid={breadcrumbUid}
-				role="navigation"
-				{...props}
 			>
 				<List
 					as="ol"
-					className={cn('flex w-full items-center text-sm')}
-					data-uid={breadcrumbUid}
 					{...listProps}
+					className={cn('flex w-full items-center text-sm', listProps?.className)}
+					data-uid={breadcrumbUid}
 				>
 					{children}
 				</List>
@@ -314,7 +325,6 @@ export function Breadcrumb({
 
 /**
  * @description Single breadcrumb entry that can render as a navigable link or current-page label and participates in the responsive collapsing logic.
- * @param {BreadcrumbItemPropsType} props - The props for the BreadcrumbItem component.
  * @returns {JSX.Element} The BreadcrumbItem component.
  */
 export function BreadcrumbItem({
@@ -364,23 +374,20 @@ export function BreadcrumbItem({
 	useEffect(() => {
 		if (!itemDataIdRef.current) return;
 		const isVisible = childElements[itemDataIdRef.current]?.isVisible ?? false;
-		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setIsHidden(!isVisible);
 	}, [childElements]);
 
 	/** Component to use for the item. */
 	const Component = current ? Container : Link;
 
-	// outline-2 outline-offset-2 outline-transparent focus-visible:outline-primary
-
 	return (
 		<>
 			<ListItem
+				{...props}
 				className={cn('inline-flex items-center', isHidden && 'hidden', className)}
 				data-slot="breadcrumb-item"
 				data-uid={breadcrumbUid}
 				data-item-uid={breadcrumbItemUid}
-				{...props}
 			>
 				<Component
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -414,7 +421,6 @@ export function BreadcrumbItem({
 
 /**
  * @description Visual separator between breadcrumb items that automatically hides when its associated items are collapsed.
- * @param {BreadcrumbSeparatorPropsType} props - The props for the BreadcrumbSeparator component.
  * @returns {JSX.Element} The BreadcrumbSeparator component.
  */
 export function BreadcrumbSeparator({
@@ -450,23 +456,22 @@ export function BreadcrumbSeparator({
 	useEffect(() => {
 		if (!separatorDataIdRef.current) return;
 		const isVisible = childElements[separatorDataIdRef.current]?.isVisible ?? false;
-		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setIsHidden(!isVisible);
 	}, [childElements]);
 
 	return (
 		<ListItem
-			data-slot="breadcrumb-separator"
-			data-uid={breadcrumbUid}
-			data-item-uid={separatorUid}
-			role="presentation"
-			aria-hidden="true"
+			{...props}
 			className={cn(
 				'inline-flex items-center text-muted-foreground select-none',
 				className,
 				isHidden && 'hidden',
 			)}
-			{...props}
+			data-slot="breadcrumb-separator"
+			data-uid={breadcrumbUid}
+			data-item-uid={separatorUid}
+			role="presentation"
+			aria-hidden="true"
 		>
 			{children}
 		</ListItem>
@@ -475,7 +480,6 @@ export function BreadcrumbSeparator({
 
 /**
  * @description Ellipsis control that measures its own width and opens a popover listing all breadcrumb items that were hidden during responsive collapsing.
- * @param {BreadcrumbEllipsisPropsType} props - The props for the BreadcrumbEllipsis component.
  * @returns {JSX.Element} The BreadcrumbEllipsis component.
  */
 function BreadcrumbEllipsis({
@@ -507,34 +511,60 @@ function BreadcrumbEllipsis({
 		[childElements],
 	);
 
+	/**
+	 * Move focus between the hidden item links using the arrow, Home, and End keys.
+	 * @param {ReactKeyboardEvent<HTMLDivElement>} event - The keyboard event from the popover content.
+	 */
+	const handleListKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>): void => {
+		/** Map navigation keys to a direction for the shared focus helper. */
+		const directionByKey: Record<string, KeyboardNavigationDirectionType> = {
+			ArrowDown: 'next',
+			ArrowUp: 'previous',
+			Home: 'first',
+			End: 'last',
+		};
+		const direction = directionByKey[event.key];
+		if (!direction) return;
+
+		const links = Array.from(event.currentTarget.querySelectorAll<HTMLAnchorElement>('a'));
+		if (links.length === 0) return;
+
+		event.preventDefault();
+		moveFocusByDirection({ elements: links, currentElement: document.activeElement, direction });
+	};
+
 	return (
 		<Popover side="bottom" align="center" {...popoverProps}>
 			<PopoverTrigger
 				variant="wrapper"
 				size="icon-sm"
-				style={{ height: itemHeight }}
-				className={cn('size-auto p-1', hiddenItems.length < 1 && 'hidden')}
+				{...popoverTriggerProps}
+				style={{ height: itemHeight, ...popoverTriggerProps?.style }}
+				className={cn('size-auto p-1', hiddenItems.length < 1 && 'hidden', popoverTriggerProps?.className)}
 				data-item-uid={ellipsisUid}
 				aria-label="Show hidden breadcrumb items"
 				aria-haspopup="true"
-				{...popoverTriggerProps}
 			>
-				...
+				<MoreHorizontalIcon aria-hidden="true" />
 			</PopoverTrigger>
 
 			{/* Popover content for the ellipsis that lists all the hidden items. */}
-			<PopoverContent className="w-auto min-w-[150px] p-2.5" {...popoverContentProps}>
-				<Container as="div" className="flex flex-col gap-1.5" role="list">
-					{hiddenItems.map((item, index) => (
+			<PopoverContent
+				{...popoverContentProps}
+				className={cn('flex w-auto min-w-37.5 flex-col gap-1.5 p-2.5', popoverContentProps?.className)}
+				onKeyDown={handleListKeyDown}
+				role="list"
+			>
+				{hiddenItems.map((item, index) => (
+					<Container key={`${item.href}-${index}`} role="listitem">
 						<Link
-							key={index}
 							href={item.href || ''}
-							className="block text-sm text-muted-foreground transition-all hover:text-foreground"
+							className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
 						>
 							{item.label}
 						</Link>
-					))}
-				</Container>
+					</Container>
+				))}
 			</PopoverContent>
 		</Popover>
 	);

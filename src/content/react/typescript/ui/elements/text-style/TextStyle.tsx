@@ -1,11 +1,11 @@
 import { createElement, JSX } from 'react';
 
-import { TextStylePropsType, TextStyleVariant } from './text-style.type';
+import { TextStylePropsType, TextStyleVariantType } from './text-style.type';
 
 import { Slot } from '../slot/Slot';
 
 /** Text tags. */
-const textTags: Record<TextStyleVariant, keyof JSX.IntrinsicElements> = {
+const textTags: Record<TextStyleVariantType, keyof JSX.IntrinsicElements> = {
 	bold: 'b',
 	delete: 'del',
 	insert: 'ins',

@@ -1,6 +1,6 @@
 'use client';
 
-import { JSX, MouseEvent as ReactMouseEvent, useEffect, useId, useState } from 'react';
+import { JSX, MouseEvent as ReactMouseEvent, useContext, useEffect, useId, useState } from 'react';
 import { XIcon } from 'lucide-react';
 
 import {
@@ -19,6 +19,7 @@ import { createAnimatedOverlayStore } from '../../helpers/animated-overlay-store
 import { useLockScroll } from '../../hooks/useLockScroll.hook';
 import { useReducedMotion } from '../../hooks/useReducedMotion.hook';
 import {
+	SheetContentContext,
 	SheetContext,
 	useControlledSync,
 	useSheetContext,
@@ -35,7 +36,6 @@ import { Text } from '../text';
 
 /**
  * @description A panel that slides in from the edge of the screen to display contextual content without leaving the current page.
- * @param {SheetPropsType} props - The props for the Sheet component.
  * @returns {JSX.Element} The Sheet component.
  */
 export function Sheet({
@@ -95,7 +95,6 @@ export function Sheet({
 
 /**
  * @description Button trigger that toggles the associated sheet open state while preserving any custom click handlers and wiring ARIA dialog affordances.
- * @param {SheetTriggerPropsType} props - The props for the SheetTrigger component.
  * @returns {JSX.Element} The SheetTrigger component.
  */
 export function SheetTrigger({
@@ -133,7 +132,7 @@ export function SheetTrigger({
 	return (
 		<Button
 			onClick={handleClick}
-			data-slot="SheetTrigger"
+			data-slot="sheet-trigger"
 			aria-haspopup="dialog"
 			aria-expanded={isOpen}
 			aria-controls={`sheet-${effectiveSheetId}`}
@@ -144,8 +143,8 @@ export function SheetTrigger({
 	);
 }
 
-export const { variants: sheetContentVariants } = makeVariants({
-	base: 'relative bg-background p-6 transition-all',
+export const { variants: sheetContentVariants, types: SheetContentVariantTypes } = makeVariants({
+	base: 'relative bg-background p-6',
 	variants: {
 		side: {
 			top: 'mb-auto h-full max-h-1/3 w-full',
@@ -169,13 +168,13 @@ const closedTranslateClass: Record<NonNullable<SheetContentPropsType['side']>, s
 
 /**
  * @description Fixed viewport overlay that houses the animated sheet panel, applies side-specific entrance transitions, and mounts a synchronized backdrop.
- * @param {SheetContentPropsType} props - The props for the SheetContent component.
  * @returns {JSX.Element} The SheetContent component.
  */
 export function SheetContent({
 	sheetId: sheetIdProp,
 	className,
 	side = 'right',
+	children,
 	...props
 }: SheetContentPropsType): JSX.Element {
 	const {
@@ -189,6 +188,12 @@ export function SheetContent({
 		animationSpeed,
 	} = useSheetContext();
 	const effectiveSheetId = sheetIdProp ?? defaultSheetId;
+
+	/* Accessible name/description wiring: only reference ids that actually render. */
+	const titleId = `sheet-title-${effectiveSheetId}`;
+	const descriptionId = `sheet-description-${effectiveSheetId}`;
+	const [hasTitle, setHasTitle] = useState(false);
+	const [hasDescription, setHasDescription] = useState(false);
 
 	const record = useSheetRecord(effectiveSheetId);
 
@@ -233,9 +238,8 @@ export function SheetContent({
 	return (
 		<Portal>
 			<FocusTrap active={isOpenLike}>
-				<Container as="div" className="fixed inset-0 z-overlay flex" data-slot="SheetContent">
+				<Container className="fixed inset-0 z-overlay flex" data-slot="sheet-overlay">
 					<Container
-						as="div"
 						id={`sheet-${effectiveSheetId}`}
 						style={{ transitionDuration: `${effectiveAnimationSpeed}ms` }}
 						className={cn(
@@ -246,11 +250,24 @@ export function SheetContent({
 								: cn('pointer-events-none opacity-0', closedTranslateClass[side]),
 							className,
 						)}
-						data-slot="SheetContentInner"
+						data-slot="sheet-content"
 						role="dialog"
 						aria-modal="true"
+						aria-labelledby={hasTitle ? titleId : undefined}
+						aria-describedby={hasDescription ? descriptionId : undefined}
 						{...props}
-					/>
+					>
+						<SheetContentContext.Provider
+							value={{
+								titleId,
+								descriptionId,
+								registerTitle: setHasTitle,
+								registerDescription: setHasDescription,
+							}}
+						>
+							{children}
+						</SheetContentContext.Provider>
+					</Container>
 
 					<Backdrop
 						visible={isVisible}
@@ -269,18 +286,35 @@ export function SheetContent({
  * @description Heading element for the sheet.
  * @returns {JSX.Element} The SheetTitle component.
  */
-export function SheetTitle({ ...props }: SheetTitlePropsType): JSX.Element {
-	return <Text as="title" data-slot="sheet-title" {...props} />;
+export function SheetTitle({ as = 'title', ...props }: SheetTitlePropsType): JSX.Element {
+	const contentContext = useContext(SheetContentContext);
+	const registerTitle = contentContext?.registerTitle;
+
+	useEffect(() => {
+		registerTitle?.(true);
+		return (): void => registerTitle?.(false);
+	}, [registerTitle]);
+
+	return <Text as={as} id={contentContext?.titleId} data-slot="sheet-title" {...props} />;
 }
 
 /**
  * @description Supporting text block for the sheet.
  * @returns {JSX.Element} The SheetDescription component.
  */
-export function SheetDescription({ className, ...props }: SheetDescriptionPropsType): JSX.Element {
+export function SheetDescription({ as = 'body-small', className, ...props }: SheetDescriptionPropsType): JSX.Element {
+	const contentContext = useContext(SheetContentContext);
+	const registerDescription = contentContext?.registerDescription;
+
+	useEffect(() => {
+		registerDescription?.(true);
+		return (): void => registerDescription?.(false);
+	}, [registerDescription]);
+
 	return (
 		<Text
-			as="body-small"
+			as={as}
+			id={contentContext?.descriptionId}
 			className={cn('text-muted-foreground', className)}
 			data-slot="sheet-description"
 			{...props}
@@ -290,7 +324,6 @@ export function SheetDescription({ className, ...props }: SheetDescriptionPropsT
 
 /**
  * @description Icon button that closes the sheet, with hover affordances and a screen-reader-only label for accessible dismissal.
- * @param {SheetClosePropsType} props - The props for the SheetClose component.
  * @returns {JSX.Element} The SheetClose component.
  */
 export function SheetClose({
@@ -320,15 +353,12 @@ export function SheetClose({
 			variant="ghost"
 			size="icon"
 			className={cn('absolute top-4 right-4 size-6 hover:bg-danger-light hover:text-danger', className)}
-			data-slot="SheetClose"
+			data-slot="sheet-close"
 			aria-label="Close sheet"
 			aria-controls={`sheet-${effectiveSheetId}`}
 			{...props}
 		>
-			{children || <XIcon />}
-			<Container as="span" className="sr-only">
-				Close
-			</Container>
+			{children ?? <XIcon />}
 		</Button>
 	);
 }

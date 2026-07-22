@@ -5,8 +5,11 @@ import { JSX, useEffect, useState } from 'react';
 import { BackgroundGradientPropsType } from './background.type';
 import { cn } from '../../utils/styles.util';
 
+import { useReducedMotion } from '../../hooks/useReducedMotion.hook';
+
 import { Container } from '../container/Container';
 
+/** Default palette cycled through when no colors are provided. */
 const defaultColors = [
 	'bg-pink-500/20',
 	'bg-blue-500/20',
@@ -36,23 +39,27 @@ export function BackgroundGradient({
 	/** Get the final colors. */
 	const finalColors = colors?.length ? colors : defaultColors;
 
+	/** Respect the user's reduced-motion preference (WCAG 2.3.3). */
+	const prefersReducedMotion = useReducedMotion();
+
 	/** Keep track of the current background color. */
 	const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
 
-	/** Cycle colors every interval. */
+	/** Cycle colors every interval while motion is allowed. */
 	useEffect(() => {
+		if (prefersReducedMotion) return;
+
 		const rotation = setInterval(() => {
 			setBackgroundColorIndex((prev) => (prev + 1) % finalColors.length);
 		}, interval);
 		return (): void => clearInterval(rotation);
-	}, [finalColors.length, interval]);
+	}, [finalColors.length, interval, prefersReducedMotion]);
 
 	if (finalColors.length === 0) return <></>;
 	return (
 		<Container
-			as="div"
 			className={cn(
-				`flex size-40 items-center justify-center overflow-hidden transition-all duration-1000`,
+				`flex size-40 items-center justify-center overflow-hidden transition-colors duration-1000`,
 				finalColors[backgroundColorIndex],
 				className,
 			)}

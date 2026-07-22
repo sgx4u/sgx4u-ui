@@ -1,13 +1,11 @@
 import { ContainerPropsType } from '../container';
+import { SkeletonVariantTypes } from './Skeleton';
 
 /** Props type for the Skeleton component. */
-export type SkeletonPropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Skeleton variant. Default - square. */
-	variant?: 'circular' | 'square' | 'rectangular';
+export type SkeletonPropsType = ContainerPropsType & {
+	/** Skeleton variant. Default - circular. */
+	variant?: typeof SkeletonVariantTypes.variant;
 
 	/** Skeleton animation. Default - wave. */
-	animation?: 'pulse' | 'wave' | 'none';
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
+	animation?: typeof SkeletonVariantTypes.animation;
 };

@@ -38,17 +38,18 @@ export function Skeleton({
 
 	...props
 }: SkeletonPropsType): JSX.Element {
-	const isHidden = props['aria-hidden'] ?? true;
+	/** Skeletons are decorative by default; expose them to assistive tech only when the consumer sets aria-hidden to false. */
+	const isHidden = props['aria-hidden'] !== false && props['aria-hidden'] !== 'false';
 
 	return (
 		<Container
-			as="div"
 			className={cn(skeletonVariants({ variant, animation }), className)}
 			data-slot="skeleton"
-			role={isHidden ? undefined : 'status'}
-			aria-busy={isHidden ? undefined : 'true'}
-			aria-label={isHidden ? undefined : (props['aria-label'] ?? props.title ?? 'Loading content.')}
 			{...props}
+			aria-hidden={isHidden ? true : undefined}
+			role={isHidden ? undefined : 'status'}
+			aria-busy={isHidden ? undefined : true}
+			aria-label={isHidden ? undefined : (props['aria-label'] ?? props.title ?? 'Loading content.')}
 		/>
 	);
 }

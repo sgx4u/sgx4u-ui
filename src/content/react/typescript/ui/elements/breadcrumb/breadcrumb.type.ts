@@ -41,7 +41,7 @@ export type BreadcrumbContextType = {
 };
 
 /** Props type for the Breadcrumb component. */
-export type BreadcrumbPropsType = ContainerPropsType & {
+export type BreadcrumbPropsType = Omit<ContainerPropsType, 'as'> & {
 	/** List props (list component props). */
 	listProps?: ListPropsType;
 
@@ -53,6 +53,9 @@ export type BreadcrumbPropsType = ContainerPropsType & {
 
 	/** Popover content props (popover content component props). */
 	popoverContentProps?: PopoverContentPropsType;
+
+	/** HTML element to render as. Default - nav. */
+	as?: ContainerPropsType['as'];
 };
 
 /** Props type for the BreadcrumbItem component. */

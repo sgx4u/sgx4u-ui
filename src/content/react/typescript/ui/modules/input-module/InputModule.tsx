@@ -10,7 +10,6 @@ import { Label } from '../../elements/label';
 
 /**
  * @description Input module component.
- * @param {InputModulePropsType} props - The properties object.
  * @returns {JSX.Element} The InputModule component.
  */
 export const InputModule = ({

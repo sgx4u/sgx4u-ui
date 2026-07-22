@@ -1,10 +1,8 @@
 import { ContainerPropsType } from '../container';
+import { ButtonGroupVariantTypes } from './ButtonGroup';
 
 /** Props type for the ButtonGroup component. */
-export type ButtonGroupPropsType = Omit<ContainerPropsType, 'as'> & {
+export type ButtonGroupPropsType = ContainerPropsType & {
 	/** Button group orientation. Default - horizontal. */
-	orientation?: 'horizontal' | 'vertical';
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
+	orientation?: typeof ButtonGroupVariantTypes.orientation;
 };

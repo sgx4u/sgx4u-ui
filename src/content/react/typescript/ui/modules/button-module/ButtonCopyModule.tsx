@@ -14,7 +14,6 @@ const commonIconClassName = 'absolute inset-0 m-auto hidden size-full';
 
 /**
  * @description A button module that shows a spinner while copying, a check icon after success, then returns to the copy icon.
- * @param {ButtonCopyModulePropsType} props - The props for the ButtonCopyModule component.
  * @returns {JSX.Element} The ButtonCopyModule component.
  */
 export function ButtonCopyModule({

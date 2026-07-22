@@ -1,6 +1,7 @@
 import { ContainerPropsType } from '../container';
 import { InputPropsType } from '../input';
 import { LabelPropsType } from '../label';
+import { RadioVariantTypes } from './Radio';
 
 /** Props type for the Radio component. */
 export type RadioPropsType = Omit<LabelPropsType, 'variant'> & {
@@ -14,13 +15,13 @@ export type RadioPropsType = Omit<LabelPropsType, 'variant'> & {
 	onCheckedChange?: (checked: boolean) => void;
 
 	/** Radio variant style. Default - default. */
-	variant?: 'default' | 'card';
+	variant?: typeof RadioVariantTypes.variant;
 
 	/** Radio size variant. Default - default. */
-	size?: 'sm' | 'default' | 'lg';
+	size?: typeof RadioVariantTypes.size;
 
-	/** Radio state. */
-	state?: 'default' | 'error' | 'success' | 'warn';
+	/** Radio state. Default - default. */
+	state?: typeof RadioVariantTypes.state;
 
 	/** Radio input props. */
 	inputProps?: Partial<InputPropsType>;

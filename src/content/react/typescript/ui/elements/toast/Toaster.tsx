@@ -3,7 +3,7 @@
 import { JSX, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { CircleCheckIcon, InfoIcon, OctagonXIcon, TriangleAlertIcon, XIcon } from 'lucide-react';
 
-import { ToastDefaultOptionsType, ToastItemType, ToastPosition, ToastPromiseStatus, ToastVariant } from './toast.type';
+import { ToastDefaultOptionsType, ToastItemType, ToastPosition, ToastPromiseStatus } from './toast.type';
 import { cn } from '../../utils/styles.util';
 import { makeVariants } from '../../utils/variant.util';
 
@@ -24,16 +24,32 @@ const TOAST_HEIGHT = 65;
 /** Exit = slide towards where it came from (same as enter "from"). */
 const EXIT_DURATION_MS = 300;
 
+/** Variants for toast item styling. */
+export const { variants: toastVariants, types: ToastVariantTypes } = makeVariants({
+	base: 'flex w-80 items-start gap-2 rounded-lg border bg-background px-4 py-3 shadow-lg transition-opacity',
+	variants: {
+		variant: {
+			default: '',
+			success: '',
+			warn: '',
+			error: '',
+			info: '',
+			promise: '',
+		},
+	},
+	default: { variant: 'default' },
+});
+
 /**
  * @description Icon for variant (loading for promise pending).
  * @returns {JSX.Element} The toast icon element.
  */
 function ToastIcon({
-	variant,
+	variant = 'default',
 	promiseStatus,
 	className,
 }: {
-	variant: ToastVariant;
+	variant: typeof ToastVariantTypes.variant;
 	promiseStatus?: ToastPromiseStatus;
 	className?: string;
 }): JSX.Element {
@@ -53,13 +69,6 @@ function ToastIcon({
 			return <InfoIcon className={cn('text-foreground', className)} />;
 	}
 }
-
-/** Variants for toast item styling. */
-const { variants: toastVariants } = makeVariants({
-	base: 'flex w-80 items-start gap-2 rounded-lg border bg-background px-4 py-3 shadow-lg transition-opacity',
-	variants: {},
-	default: { variant: 'default' },
-});
 
 /** Position classes for the toast stack container. */
 const positionClasses: Record<ToastPosition, string> = {
@@ -112,7 +121,7 @@ export function Toaster({ defaultOptions }: ToasterPropsType = {}): JSX.Element 
 
 	return (
 		<Portal>
-			<Container as="div" className="pointer-events-none fixed inset-0 z-top">
+			<Container className="pointer-events-none fixed inset-0 z-top">
 				{Object.entries(byPosition).map(([position, positionToasts]) => (
 					<ToastStack
 						key={position}
@@ -145,9 +154,8 @@ function ToastStack({
 	const stackStep = isHovered ? TOAST_HEIGHT + 8 : TOAST_HEIGHT - STACK_OVERLAP;
 
 	return (
-		<Container as="div" className={cn(positionClasses[position], 'overflow-visible')} style={{ position: 'fixed' }}>
+		<Container className={cn(positionClasses[position], 'overflow-visible')} style={{ position: 'fixed' }}>
 			<Container
-				as="div"
 				className="pointer-events-auto relative w-80 overflow-visible"
 				style={{
 					minHeight: reversed.length === 0 ? 0 : (reversed.length - 1) * stackStep + TOAST_HEIGHT,
@@ -158,7 +166,6 @@ function ToastStack({
 				{reversed.map((toast, index) => (
 					<Container
 						key={toast.id}
-						as="div"
 						className="absolute right-0 left-0 overflow-visible transition-transform duration-300 ease-out"
 						style={{
 							transform: `translateY(${index * stackStep}px)`,
@@ -261,7 +268,6 @@ function ToastItem({
 
 	return (
 		<Container
-			as="div"
 			className={cn(
 				toastVariants({ variant: toast.variant }),
 				'transition-all duration-300 ease-out',
@@ -274,7 +280,7 @@ function ToastItem({
 			aria-atomic="true"
 		>
 			<ToastIcon variant={toast.variant} promiseStatus={toast.promiseStatus} className="mt-px size-5 shrink-0" />
-			<Container as="div" className="flex flex-1 flex-col">
+			<Container className="flex flex-1 flex-col">
 				<Text as="body-small" className="font-semibold">
 					{toast.title}
 				</Text>

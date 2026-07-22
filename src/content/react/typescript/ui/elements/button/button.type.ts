@@ -20,11 +20,8 @@ export type ButtonPropsType = Omit<ComponentPropsWithRef<'button'>, 'type'> & {
 	loaderPosition?: 'left' | 'right' | 'replace-children';
 
 	/** Visual style of the button. Default - primary. */
-	variant?: (typeof ButtonVariantTypes)['variant'];
+	variant?: typeof ButtonVariantTypes.variant;
 
 	/** Size of the button. Default - default. */
-	size?: (typeof ButtonVariantTypes)['size'];
-
-	/** Radius of the button. Default - lg. */
-	radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+	size?: typeof ButtonVariantTypes.size;
 };

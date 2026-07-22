@@ -9,6 +9,7 @@ import {
 	JSXElementConstructor,
 	ReactElement,
 	KeyboardEvent as ReactKeyboardEvent,
+	MouseEvent as ReactMouseEvent,
 	ReactNode,
 	useContext,
 	useEffect,
@@ -140,7 +141,7 @@ export function Select({
 				openedViaKeyboard: openedViaKeyboardRef,
 			}}
 		>
-			<Popover open={currentOpen} onOpenChange={handleOpenChange} sideOffset={4} data-slot="select" {...props}>
+			<Popover sideOffset={4} {...props} open={currentOpen} onOpenChange={handleOpenChange} data-slot="select">
 				{children}
 			</Popover>
 		</SelectContext.Provider>
@@ -170,12 +171,13 @@ export function SelectTrigger({
 
 	return (
 		<PopoverTrigger
-			onKeyDown={handleKeyDown}
 			variant="outline"
+			{...props}
+			onKeyDown={handleKeyDown}
 			className={cn('flex items-center justify-between gap-1', className)}
 			data-slot="select-trigger"
 			aria-haspopup="listbox"
-			{...props}
+			aria-expanded={open}
 		>
 			{selectedChildren.length > 0 ? (
 				<Container className="flex items-center gap-2 overflow-hidden">
@@ -194,7 +196,8 @@ export function SelectTrigger({
 			)}
 
 			<ChevronDownIcon
-				className={cn('ml-3 size-4 transition-all', open && 'rotate-180', arrowClassName)}
+				className={cn('ml-3 size-4 transition-transform', open && 'rotate-180', arrowClassName)}
+				aria-hidden="true"
 				{...arrowProps}
 			/>
 		</PopoverTrigger>
@@ -206,7 +209,7 @@ export function SelectTrigger({
  * @returns {JSX.Element} The SelectContent component.
  */
 export function SelectContent({ className, style, ...props }: SelectContentPropsType): JSX.Element {
-	const { open, value: selectedValue, openedViaKeyboard } = useContext(SelectContext);
+	const { open, value: selectedValue, type, openedViaKeyboard } = useContext(SelectContext);
 	const { defaultPopoverId, getTriggerElement } = usePopoverContext();
 
 	const [triggerWidth, setTriggerWidth] = useState<number | null>(null);
@@ -279,6 +282,7 @@ export function SelectContent({ className, style, ...props }: SelectContentProps
 
 	return (
 		<PopoverContent
+			{...props}
 			style={{
 				...(triggerWidth != null && { width: triggerWidth }),
 				...style,
@@ -286,7 +290,7 @@ export function SelectContent({ className, style, ...props }: SelectContentProps
 			className={cn('hide-scrollbar flex max-h-96 min-w-max flex-col p-1', className)}
 			data-slot="select-content"
 			role="listbox"
-			{...props}
+			aria-multiselectable={type === 'multiple'}
 		/>
 	);
 }
@@ -295,10 +299,19 @@ export function SelectContent({ className, style, ...props }: SelectContentProps
  * @description Interactive option that toggles its value within the current selection array and visually marks selected items with a check icon.
  * @returns {JSX.Element} The SelectItem component.
  */
-export function SelectItem({ value, onKeyDown, className, children, ...props }: SelectItemPropsType): JSX.Element {
+export function SelectItem({
+	value,
+	onClick,
+	onKeyDown,
+	className,
+	children,
+	...props
+}: SelectItemPropsType): JSX.Element {
 	const { onOpenChange, onValueChange, value: selectedValue, type } = useContext(SelectContext);
 
-	const handleSelect = (): void => {
+	const handleSelect = (event: ReactMouseEvent<HTMLButtonElement>): void => {
+		onClick?.(event);
+
 		if (type === 'single') {
 			onValueChange([value]);
 			onOpenChange(false);
@@ -319,10 +332,11 @@ export function SelectItem({ value, onKeyDown, className, children, ...props }: 
 
 	return (
 		<Button
-			onClick={handleSelect}
-			onKeyDown={handleKeyDown}
 			variant="ghost"
 			size="sm"
+			{...props}
+			onClick={handleSelect}
+			onKeyDown={handleKeyDown}
 			className={cn(
 				'relative justify-start pr-12 pl-2 font-normal',
 				selectedValue.includes(value) && 'font-semibold',
@@ -332,11 +346,12 @@ export function SelectItem({ value, onKeyDown, className, children, ...props }: 
 			data-value={value}
 			role="option"
 			aria-selected={selectedValue.includes(value)}
-			{...props}
 		>
 			{children}
 
-			{selectedValue.includes(value) && <CheckIcon className="absolute inset-[0_5px_0_auto] my-auto stroke-3" />}
+			{selectedValue.includes(value) && (
+				<CheckIcon className="absolute inset-[0_5px_0_auto] my-auto stroke-3" aria-hidden="true" />
+			)}
 		</Button>
 	);
 }

@@ -1,33 +1,12 @@
 import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-/**
- * @description Reads the block padding of an element so the accordion animation can animate padding alongside height without layout gaps.
- * @param {HTMLElement} element - The element to read padding from.
- * @returns {{ paddingBlockStart: number; paddingBlockEnd: number }} The computed block padding in pixels.
- */
-const getAccordionPadding = (element: HTMLElement): { paddingBlockStart: number; paddingBlockEnd: number } => {
-	if (typeof window === 'undefined') return { paddingBlockStart: 0, paddingBlockEnd: 0 };
-
-	const computedStyle = window.getComputedStyle(element);
-	const paddingBlockStart = Number.parseFloat(computedStyle.getPropertyValue('padding-block-start')) || 0;
-	const paddingBlockEnd = Number.parseFloat(computedStyle.getPropertyValue('padding-block-end')) || 0;
-
-	return { paddingBlockStart, paddingBlockEnd };
-};
+import { getElementPadding } from '../../utils/dom.util';
+import { easeInOutCubic } from '../../utils/transition.util';
 
 /** Extended HTMLElement that carries the in-flight rAF id so overlapping animations can be cancelled cleanly. */
 type AccordionAnimationElement = HTMLElement & {
 	__accordionRafId?: number;
 };
-
-/**
- * @description Ease-in-out cubic easing function. Produces a smooth, natural feel compared to linear interpolation.
- * @param {number} ratio - A value in [0, 1] representing linear animation progress.
- * @returns {number} The eased value in [0, 1].
- */
-function easeInOutCubic(ratio: number): number {
-	return ratio < 0.5 ? 4 * ratio ** 3 : 1 - (-2 * ratio + 2) ** 3 / 2;
-}
 
 /**
  * @description Animates the accordion element open (slide down) or closed (slide up) using requestAnimationFrame with an ease-in-out cubic easing curve.
@@ -62,7 +41,7 @@ export const slideAccordion = ({
 	}
 
 	let height = element.scrollHeight;
-	const padding = getAccordionPadding(element);
+	const padding = getElementPadding(element);
 
 	if (action === 'down') {
 		element.style.display = 'block';
@@ -128,63 +107,43 @@ export const slideAccordion = ({
 };
 
 /**
- * @description Handles keyboard navigation and interaction. ArrowUp/ArrowDown navigates between accordion items.
+ * @description Collects every accordion trigger that belongs to the same accordion as the given trigger.
+ * @param {HTMLButtonElement} trigger - The trigger the keyboard event originated from.
+ * @returns {Array<HTMLButtonElement>} The ordered list of triggers, or an empty array when none are found.
+ */
+function getAccordionTriggers(trigger: HTMLButtonElement): Array<HTMLButtonElement> {
+	const accordionContainer = trigger.closest<HTMLDivElement>('[data-slot="accordion"]');
+	if (!accordionContainer) return [];
+
+	return Array.from(accordionContainer.querySelectorAll<HTMLButtonElement>('[data-slot="accordion-trigger"]'));
+}
+
+/**
+ * @description Handles roving keyboard navigation between accordion triggers using ArrowUp, ArrowDown, Home, and End.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.
  * @returns {void}
  */
 export function accordionOnKeyDownHelper(event: ReactKeyboardEvent<HTMLButtonElement>): void {
-	const key = event.key;
+	const { key } = event;
 
-	/** Handle ArrowUp and ArrowDown keys for navigation. */
-	if (key === 'ArrowUp' || key === 'ArrowDown') {
-		event.preventDefault();
+	const isArrowNavigation = key === 'ArrowUp' || key === 'ArrowDown';
+	const isEdgeNavigation = key === 'Home' || key === 'End';
+	if (!isArrowNavigation && !isEdgeNavigation) return;
 
-		/** Find the accordion container by traversing up from the current trigger. */
-		const accordionContainer = event.currentTarget.closest<HTMLDivElement>('[data-slot="accordion"]');
-		if (!accordionContainer) return;
+	event.preventDefault();
 
-		/** Get all accordion triggers within the accordion container. */
-		const triggers = Array.from(
-			accordionContainer.querySelectorAll<HTMLButtonElement>('[data-slot="accordion-trigger"]'),
-		);
+	const triggers = getAccordionTriggers(event.currentTarget);
+	if (triggers.length === 0) return;
 
-		if (triggers.length === 0) return;
+	const currentIndex = triggers.indexOf(event.currentTarget);
+	const lastIndex = triggers.length - 1;
 
-		/** Find the current trigger's index. */
-		const currentIndex = triggers.findIndex((trigger) => trigger === event.currentTarget);
-		if (currentIndex === -1) return;
+	/** Resolve the trigger index to move focus to based on the pressed key. */
+	let nextIndex: number;
+	if (key === 'Home') nextIndex = 0;
+	else if (key === 'End') nextIndex = lastIndex;
+	else if (key === 'ArrowUp') nextIndex = currentIndex > 0 ? currentIndex - 1 : lastIndex;
+	else nextIndex = currentIndex < lastIndex ? currentIndex + 1 : 0;
 
-		/** Calculate the next index based on arrow direction. */
-		let nextIndex: number;
-		if (key === 'ArrowUp') {
-			nextIndex = currentIndex > 0 ? currentIndex - 1 : triggers.length - 1;
-		} else {
-			nextIndex = currentIndex < triggers.length - 1 ? currentIndex + 1 : 0;
-		}
-
-		/** Focus the next/previous trigger. */
-		const nextTrigger = triggers[nextIndex];
-		if (nextTrigger) nextTrigger.focus();
-		return;
-	}
-
-	if (key === 'Home' || key === 'End') {
-		event.preventDefault();
-
-		/** Find the accordion container by traversing up from the current trigger. */
-		const accordionContainer = event.currentTarget.closest<HTMLDivElement>('[data-slot="accordion"]');
-		if (!accordionContainer) return;
-
-		/** Get all accordion triggers within the accordion container. */
-		const triggers = Array.from(
-			accordionContainer.querySelectorAll<HTMLButtonElement>('[data-slot="accordion-trigger"]'),
-		);
-
-		if (triggers.length === 0) return;
-
-		/** Focus the first or last trigger. */
-		const targetTrigger = key === 'Home' ? triggers[0] : triggers[triggers.length - 1];
-		targetTrigger?.focus();
-		return;
-	}
+	triggers[nextIndex]?.focus();
 }

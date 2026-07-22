@@ -35,9 +35,7 @@ export function Table({
 
 	...props
 }: TablePropsType): JSX.Element {
-	return (
-		<table className={cn(tableVariants({ density }), className)} data-slot="table" aria-label="table" {...props} />
-	);
+	return <table {...props} className={cn(tableVariants({ density }), className)} data-slot="table" />;
 }
 
 /**
@@ -45,7 +43,7 @@ export function Table({
  * @returns {JSX.Element} The TableHeader component.
  */
 export function TableHeader({ className, ...props }: TableSectionPropsType): JSX.Element {
-	return <thead className={cn('bg-background', className)} data-slot="table-header" {...props} />;
+	return <thead {...props} className={cn('bg-background', className)} data-slot="table-header" />;
 }
 
 /**
@@ -53,7 +51,7 @@ export function TableHeader({ className, ...props }: TableSectionPropsType): JSX
  * @returns {JSX.Element} The TableBody component.
  */
 export function TableBody({ ...props }: TableSectionPropsType): JSX.Element {
-	return <tbody data-slot="table-body" {...props} />;
+	return <tbody {...props} data-slot="table-body" />;
 }
 
 /**
@@ -61,7 +59,7 @@ export function TableBody({ ...props }: TableSectionPropsType): JSX.Element {
  * @returns {JSX.Element} The TableFooter component.
  */
 export function TableFooter({ className, ...props }: TableSectionPropsType): JSX.Element {
-	return <tfoot className={cn('bg-background-light font-semibold', className)} data-slot="table-footer" {...props} />;
+	return <tfoot {...props} className={cn('bg-background-light font-semibold', className)} data-slot="table-footer" />;
 }
 
 /**
@@ -71,20 +69,19 @@ export function TableFooter({ className, ...props }: TableSectionPropsType): JSX
 export function TableRow({ className, ...props }: TableRowPropsType): JSX.Element {
 	return (
 		<tr
+			{...props}
 			className={cn(
-				'transition-all focus-within:bg-background-light hover:bg-background-light last:[&_td]:border-b-0',
+				'transition-colors focus-within:bg-background-light hover:bg-background-light last:[&_td]:border-b-0',
 				className,
 			)}
 			data-slot="table-row"
-			aria-selected={props['aria-selected']}
-			{...props}
 		/>
 	);
 }
 
 /** Variants for the Table cell component. */
 export const { variants: tableCellVariants, types: TableCellVariantTypes } = makeVariants({
-	base: 'border-b border-background-light text-start first:ps-4 last:pe-4',
+	base: 'h-8 border-b border-background-light text-start first:ps-4 last:pe-4',
 	variants: {
 		align: {
 			left: 'text-start',
@@ -103,13 +100,12 @@ export const { variants: tableCellVariants, types: TableCellVariantTypes } = mak
  * @description Table header cell that wires alignment, sort affordances, and column-resize anchors.
  * @returns {JSX.Element} The TableHead component.
  */
-export function TableHead({ className, ...props }: TableHeadCellPropsType): JSX.Element {
+export function TableHead({ align, className, ...props }: TableHeadCellPropsType): JSX.Element {
 	return (
 		<th
-			className={cn('font-semibold', tableCellVariants({ align: props.align }), className)}
-			data-slot="table-head"
-			aria-sort={props['aria-sort'] ?? 'none'}
 			{...props}
+			className={cn('font-semibold', tableCellVariants({ align }), className)}
+			data-slot="table-head"
 		/>
 	);
 }
@@ -118,13 +114,13 @@ export function TableHead({ className, ...props }: TableHeadCellPropsType): JSX.
  * @description Table cell capable of hosting arbitrary components, including form controls.
  * @returns {JSX.Element} The TableCell component.
  */
-export function TableCell({ className, ...props }: TableCellPropsType): JSX.Element {
+export function TableCell({ align, className, ...props }: TableCellPropsType): JSX.Element {
 	return (
 		<td
-			className={cn(tableCellVariants({ align: props.align }), className)}
-			data-slot="table-cell"
-			data-align={props.align}
 			{...props}
+			className={cn(tableCellVariants({ align }), className)}
+			data-slot="table-cell"
+			data-align={align}
 		/>
 	);
 }

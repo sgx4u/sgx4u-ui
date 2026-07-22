@@ -2,35 +2,18 @@ import { JSX } from 'react';
 
 import { ImagePropsType } from './image.type';
 
-import { ProgressiveImage } from './ProgressiveImage';
-
 /**
- * @description Enhanced image primitives for displaying pictures with optional progressive loading and performance-friendly defaults.
+ * @description Image primitive for displaying pictures with performance-friendly lazy-loading and decoding defaults.
  * @returns {JSX.Element} The Image component.
  */
-export function Image({ placeholderSrc, noLazyLoad, startLoading, className, ...props }: ImagePropsType): JSX.Element {
+export function Image({ loading = 'lazy', className, ...props }: ImagePropsType): JSX.Element {
 	const ariaTitle = props.title ?? props.alt;
-	const loadingAttr = noLazyLoad ? undefined : 'lazy';
-	const decodingAttr = noLazyLoad ? undefined : 'async';
+	const decodingAttr = loading === 'lazy' ? 'async' : 'sync';
 
-	/** If placeholder source is provided, use the ProgressiveImage component. */
-	if (placeholderSrc) {
-		return (
-			<ProgressiveImage
-				startLoading={startLoading}
-				placeholderSrc={placeholderSrc}
-				noLazyLoad={noLazyLoad}
-				className={className}
-				{...props}
-			/>
-		);
-	}
-
-	/** If placeholder source is not provided, use the native img tag. */
 	return (
 		<img
 			title={ariaTitle}
-			loading={loadingAttr}
+			loading={loading}
 			decoding={decodingAttr}
 			className={className}
 			data-slot="image"

@@ -2,65 +2,24 @@ import path from 'path';
 import fs from 'fs-extra';
 
 /**
- * Script to build component registries for each environment (React, Svelte).
- * Automatically scans the "src/content" folder and generates structured registry JSON files.
+ * @description Capitalize a string
+ * @param {string} str - The string to capitalize.
+ * @returns {string} The capitalized string.
  */
-
-const ROOT_DIR = process.cwd();
-const CONTENT_DIR = path.join(ROOT_DIR, 'src', 'content');
+function capitalize(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 /**
- * @description Build the SGX4U component registries.
- * @returns {Promise<void>} A promise that resolves when the registries are built.
+ * @description Converts any string to kebab-case
+ * @param {string} str - The string to convert.
+ * @returns {string} The kebab-case string.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-async function buildRegistry() {
-	console.log('🔨 Building SGX4U component registries...');
-
-	try {
-		/** Get all entries in the content directory. */
-		const entries = await fs.readdir(CONTENT_DIR, { withFileTypes: true });
-
-		for (const entry of entries) {
-			/** Only process environment folders (react, svelte). Skip temp directory. */
-			if (!entry.isDirectory() || entry.name === 'temp') continue;
-
-			/** Get the environment name and path. */
-			const envName = entry.name;
-			const envPath = path.join(CONTENT_DIR, envName);
-
-			console.log(`📦 Scanning environment: ${envName}`);
-
-			/** Check for optional javascript/typescript folders. */
-			const hasJavaScript = await fs.pathExists(path.join(envPath, 'javascript'));
-			const hasTypeScript = await fs.pathExists(path.join(envPath, 'typescript'));
-
-			/** Create registry object. */
-			const registry = {
-				name: `SGX4U UI - ${capitalize(envName)}`,
-				components: {},
-			};
-
-			/** Process javascript/typescript folders. */
-			await processLanguageFolder(
-				envPath,
-				hasJavaScript ? 'javascript' : hasTypeScript ? 'typescript' : '',
-				registry,
-				envName,
-			);
-
-			/** Write registry file. */
-			const registryPath = path.join(CONTENT_DIR, `registry.${envName.toLowerCase()}.json`);
-			await fs.writeJson(registryPath, registry, { spaces: 4 });
-
-			console.log(`✅ Registry created: ${registryPath}`);
-		}
-
-		console.log('🎉 All registries built successfully');
-	} catch (err) {
-		console.error('❌ Failed to build registry:', err);
-		process.exit(1);
-	}
+function kebabCase(str) {
+	return str
+		.replace(/([a-z])([A-Z])/g, '$1-$2')
+		.replace(/[\s_]+/g, '-')
+		.toLowerCase();
 }
 
 /**
@@ -71,7 +30,6 @@ async function buildRegistry() {
  * @param {string} envName - The name of the environment.
  * @returns {Promise<void>} A promise that resolves when the language folder is processed.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function processLanguageFolder(envPath, language, registry, envName) {
 	/** Get the language path. */
 	const langPath = language !== '' ? path.join(envPath, language) : envPath;
@@ -187,7 +145,6 @@ async function processLanguageFolder(envPath, language, registry, envName) {
  * @param {string} basePath - The path to the base directory.
  * @returns {Promise<Array<string>>} A promise that resolves to the directories.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function getDirectoriesRecursively(basePath) {
 	const result = [];
 	const entries = await fs.readdir(basePath, { withFileTypes: true });
@@ -209,11 +166,31 @@ async function getDirectoriesRecursively(basePath) {
 }
 
 /**
+ * @description Extracts name or description from index file (JSDoc)
+ * @param {string} indexFilePath - The path to the index file.
+ * @param {string} data - The data to extract.
+ * @returns {Promise<string>} A promise that resolves to the data.
+ */
+async function extractDataFromIndexFile(indexFilePath, data) {
+	/** Check if the index file path exists. */
+	if (!(await fs.pathExists(indexFilePath))) return '';
+	/** Get the content of the index file. */
+	const content = await fs.readFile(indexFilePath, 'utf8');
+
+	let match = '';
+
+	/** Get the match. */
+	if (data === 'name') match = content.match(/\*\s*@name\s+(.+?)(?:\r?\n|\*\/)/);
+	else if (data === 'description') match = content.match(/\*\s*@description\s+(.+?)(?:\r?\n|\*\/)/);
+
+	return match ? match[1].trim() : '';
+}
+
+/**
  * @description Get all the files recursively in the folder.
  * @param {string} folder - The path to the folder.
  * @returns {Promise<Array<string>>} A promise that resolves to the files.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function getAllFilesRecursively(folder) {
 	const files = [];
 	/** Get the items in the folder. */
@@ -235,33 +212,10 @@ async function getAllFilesRecursively(folder) {
 }
 
 /**
- * @description Extracts name or description from index file (JSDoc)
- * @param {string} indexFilePath - The path to the index file.
- * @param {string} data - The data to extract.
- * @returns {Promise<string>} A promise that resolves to the data.
- */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-async function extractDataFromIndexFile(indexFilePath, data) {
-	/** Check if the index file path exists. */
-	if (!(await fs.pathExists(indexFilePath))) return '';
-	/** Get the content of the index file. */
-	const content = await fs.readFile(indexFilePath, 'utf8');
-
-	let match = '';
-
-	/** Get the match. */
-	if (data === 'name') match = content.match(/\*\s*@name\s+(.+?)(?:\r?\n|\*\/)/);
-	else if (data === 'description') match = content.match(/\*\s*@description\s+(.+?)(?:\r?\n|\*\/)/);
-
-	return match ? match[1].trim() : '';
-}
-
-/**
  * @description Extract imports that are not relative (i.e., package imports)
  * @param {string} content - The content of the file.
  * @returns {Array<string>} The packages.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function extractPackageImports(content) {
 	/** Get the regex. */
 	const regex = /import\s+.*?\s+from\s+['"]([^.'"][^"']*)['"]/g;
@@ -281,7 +235,6 @@ function extractPackageImports(content) {
  * @param {string} content - The content of the file.
  * @returns {Array<string>} The relative imports.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function extractRelativeImports(content) {
 	/**
 	 * Match both import and export forms, for example:
@@ -307,7 +260,6 @@ function extractRelativeImports(content) {
  * @param {string} fromFile - The path to the file.
  * @returns {Promise<string | null>} A promise that resolves to the path to the import or null if it fails.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function resolveRelativeImport(importPath, fromFile) {
 	/** Get the directory of the from file. */
 	const dir = path.dirname(fromFile);
@@ -336,26 +288,64 @@ async function resolveRelativeImport(importPath, fromFile) {
 }
 
 /**
- * @description Converts any string to kebab-case
- * @param {string} str - The string to convert.
- * @returns {string} The kebab-case string.
+ * Script to build component registries for each environment (React, Svelte).
+ * Automatically scans the "src/content" folder and generates structured registry JSON files.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function kebabCase(str) {
-	return str
-		.replace(/([a-z])([A-Z])/g, '$1-$2')
-		.replace(/[\s_]+/g, '-')
-		.toLowerCase();
-}
+
+const ROOT_DIR = process.cwd();
+const CONTENT_DIR = path.join(ROOT_DIR, 'src', 'content');
 
 /**
- * @description Capitalize a string
- * @param {string} str - The string to capitalize.
- * @returns {string} The capitalized string.
+ * @description Build the SGX4U component registries.
+ * @returns {Promise<void>} A promise that resolves when the registries are built.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function capitalize(str) {
-	return str.charAt(0).toUpperCase() + str.slice(1);
+async function buildRegistry() {
+	console.log('🔨 Building SGX4U component registries...');
+
+	try {
+		/** Get all entries in the content directory. */
+		const entries = await fs.readdir(CONTENT_DIR, { withFileTypes: true });
+
+		for (const entry of entries) {
+			/** Only process environment folders (react, svelte). Skip temp directory. */
+			if (!entry.isDirectory() || entry.name === 'temp') continue;
+
+			/** Get the environment name and path. */
+			const envName = entry.name;
+			const envPath = path.join(CONTENT_DIR, envName);
+
+			console.log(`📦 Scanning environment: ${envName}`);
+
+			/** Check for optional javascript/typescript folders. */
+			const hasJavaScript = await fs.pathExists(path.join(envPath, 'javascript'));
+			const hasTypeScript = await fs.pathExists(path.join(envPath, 'typescript'));
+
+			/** Create registry object. */
+			const registry = {
+				name: `SGX4U UI - ${capitalize(envName)}`,
+				components: {},
+			};
+
+			/** Process javascript/typescript folders. */
+			await processLanguageFolder(
+				envPath,
+				hasJavaScript ? 'javascript' : hasTypeScript ? 'typescript' : '',
+				registry,
+				envName,
+			);
+
+			/** Write registry file. */
+			const registryPath = path.join(CONTENT_DIR, `registry.${envName.toLowerCase()}.json`);
+			await fs.writeJson(registryPath, registry, { spaces: 4 });
+
+			console.log(`✅ Registry created: ${registryPath}`);
+		}
+
+		console.log('🎉 All registries built successfully');
+	} catch (err) {
+		console.error('❌ Failed to build registry:', err);
+		process.exit(1);
+	}
 }
 
 /**

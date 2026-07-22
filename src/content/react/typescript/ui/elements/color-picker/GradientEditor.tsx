@@ -35,7 +35,6 @@ type GradientEditorPropsType = {
 
 /**
  * @description Editor for gradient type, angle, and color stops.
- * @param {GradientEditorPropsType} props - The props object.
  * @returns {JSX.Element} The GradientEditor component.
  */
 export function GradientEditor({
@@ -87,8 +86,8 @@ export function GradientEditor({
 	};
 
 	return (
-		<Container as="div" className="flex flex-col gap-3" data-slot="gradient-editor">
-			<Container as="div" className="flex flex-wrap items-center gap-1">
+		<Container className="flex flex-col gap-3" data-slot="gradient-editor">
+			<Container className="flex flex-wrap items-center gap-1">
 				<Button
 					variant="outline"
 					size="icon"
@@ -99,7 +98,7 @@ export function GradientEditor({
 					<Trash2Icon />
 				</Button>
 
-				<Container as="div" className="relative">
+				<Container className="relative">
 					<Input
 						type="number"
 						value={selectedStop ? Math.round(selectedStop.position) : ''}
@@ -114,7 +113,7 @@ export function GradientEditor({
 					<PercentIcon className="absolute top-1/2 right-1.5 size-4 -translate-y-1/2" />
 				</Container>
 
-				<Container as="div" className="relative">
+				<Container className="relative">
 					<Input
 						id="gradient-angle"
 						type="number"

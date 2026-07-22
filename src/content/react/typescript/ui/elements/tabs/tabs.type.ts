@@ -1,10 +1,14 @@
 import { ButtonPropsType } from '../button';
 import { ContainerPropsType } from '../container';
+import { TabListVariantTypes } from './Tabs';
 
 /** Context type for the Tabs component. */
 export type TabsContextType = {
 	/** Active tab value. */
 	value: string | number;
+
+	/** Base id used to pair each tab trigger with its panel. */
+	baseId: string;
 
 	/** Callback when the active tab changes. */
 	onValueChange: (value: string | number) => void;
@@ -19,7 +23,7 @@ export type TabsContextType = {
 	getFirstTriggerValue: () => string | number | null;
 
 	/** Tab list variant. Default - default. */
-	variant?: 'default' | 'outline' | 'underline';
+	variant?: typeof TabListVariantTypes.variant;
 
 	/** Common props for tab triggers. */
 	tabTriggerCommonProps?: ButtonPropsType;
@@ -46,7 +50,7 @@ export type TabsPropsType = ContainerPropsType & {
 	disableDefaultSelection?: boolean;
 
 	/** Tab list variant. Default - default. */
-	variant?: 'default' | 'outline' | 'underline';
+	variant?: typeof TabListVariantTypes.variant;
 
 	/** Common props for tab triggers. */
 	tabTriggerCommonProps?: ButtonPropsType;

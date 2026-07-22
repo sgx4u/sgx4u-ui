@@ -17,9 +17,9 @@ export function ListItem({
 	...props
 }: ListItemPropsType): JSX.Element {
 	const componentProps = {
-		className: className,
 		'data-slot': 'list-item',
 		...props,
+		className,
 	} as const;
 
 	/** If asChild is true, merge props with the child element (no new DOM node). */

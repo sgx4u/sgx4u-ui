@@ -21,27 +21,31 @@ export function Toggle({
 	/** Internal pressed state when pressed is not provided. */
 	const [internalPressed, setInternalPressed] = useState(defaultPressed ?? false);
 
-	/** Controlled + Uncontrolled sync. */
+	/** Resolve controlled or uncontrolled pressed state. */
 	const isPressed = pressed ?? internalPressed;
 
-	const onToggleChecked = (event: ReactMouseEvent<HTMLButtonElement>): void => {
+	/**
+	 * @description Toggles the pressed state, notifies listeners, and forwards the original click event.
+	 * @param {ReactMouseEvent<HTMLButtonElement>} event - The click event on the toggle button.
+	 * @returns {void}
+	 */
+	const handleToggle = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		if (props.disabled) return;
 
 		onPressedChange?.(!isPressed);
 		onClick?.(event);
-		if (pressed === undefined) setInternalPressed((prev) => !prev);
+		if (pressed === undefined) setInternalPressed((previousPressed) => !previousPressed);
 	};
 
 	return (
 		<Button
-			onClick={onToggleChecked}
 			variant="ghost"
 			size="icon"
+			{...props}
+			onClick={handleToggle}
 			data-slot="toggle"
 			data-state={isPressed ? 'on' : 'off'}
 			aria-pressed={isPressed}
-			aria-label={isPressed ? 'Deactivate toggle' : 'Activate toggle'}
-			{...props}
 		/>
 	);
 }

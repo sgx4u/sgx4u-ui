@@ -34,9 +34,9 @@ export function List({
 	...props
 }: ListPropsType): JSX.Element {
 	const componentProps = {
-		className: cn(listVariants({ variant: as }), className),
 		'data-slot': 'list',
 		...props,
+		className: cn(listVariants({ variant: as }), className),
 	} as const;
 
 	/** If asChild is true, merge props with the child element (no new DOM node). */

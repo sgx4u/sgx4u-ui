@@ -108,7 +108,7 @@ export async function initConfig(): Promise<void> {
 
 		console.log('🎉 Project initialization completed successfully');
 		console.log('💡 Feel free to update the values in the configuration file to your needs');
-		process.exit(1);
+		return;
 	} catch (error) {
 		console.error(`❌ Error: ${error}`);
 		process.exit(1);

@@ -12,9 +12,6 @@ export type DropdownMenuContextType = {
 
 	/** Callback when the open state changes. */
 	onOpenChange: (open: boolean) => void;
-
-	/** Track if dropdown menu was opened via keyboard. */
-	openedViaKeyboard: RefObject<boolean>;
 };
 
 /** DropdownMenuSub context type. */
@@ -48,9 +45,6 @@ export type DropdownMenuItemPropsType = Omit<ButtonPropsType, 'variant' | 'size'
 
 	/** Size of the dropdown menu item. Default - xs. */
 	size?: ButtonPropsType['size'];
-
-	/** Radius of the dropdown menu item. Default - sm. */
-	radius?: ButtonPropsType['radius'];
 };
 
 /** DropdownMenuLabel props type. */
@@ -60,7 +54,16 @@ export type DropdownMenuLabelPropsType = LabelPropsType;
 export type DropdownMenuSeparatorPropsType = SeparatorPropsType;
 
 /** DropdownMenuSub props type. */
-export type DropdownMenuSubPropsType = DropdownMenuPropsType;
+export type DropdownMenuSubPropsType = DropdownMenuPropsType & {
+	/** Side the sub-menu opens on. Default - right. */
+	side?: PopoverPropsType['side'];
+
+	/** Alignment of the sub-menu relative to the trigger. Default - start. */
+	align?: PopoverPropsType['align'];
+
+	/** Offset in pixels from the trigger. Default - 8. */
+	sideOffset?: PopoverPropsType['sideOffset'];
+};
 
 /** DropdownMenuSubTrigger props type. */
 export type DropdownMenuSubTriggerPropsType = DropdownMenuTriggerPropsType;

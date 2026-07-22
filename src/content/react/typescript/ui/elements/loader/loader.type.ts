@@ -6,7 +6,7 @@ import { ContainerPropsType } from '../container';
 export type LoaderPropsType = ComponentPropsWithRef<'svg'> & {
 	/** Props to be passed to the container. */
 	containerProps?: Omit<ContainerPropsType, 'as'> & {
-		/** Container variant. Default - span. */
+		/** HTML element to render as. Default - span. */
 		as?: ContainerPropsType['as'];
 	};
 };

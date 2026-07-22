@@ -1,6 +1,6 @@
+import path from 'path';
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
-import path from 'path';
 
 import { ProjectInfoType, UIConfigType } from '../types/config.type';
 import { detectAlias } from './alias.util';
@@ -116,7 +116,7 @@ export async function createConfig({
  * @param {string} cwd - The current working directory.
  * @returns {Promise<string>} A promise that resolves to the UI directory.
  */
-export async function detectUIDirectory(cwd: string): Promise<string> {
+async function detectUIDirectory(cwd: string): Promise<string> {
 	/** Check if src/ui or src exists. */
 	const srcUiPath = path.join(cwd, 'src');
 	if (await fs.pathExists(srcUiPath)) return 'src/ui';

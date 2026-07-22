@@ -1,6 +1,6 @@
 /**
  * @name Container
- * @description Layout wrapper used to arrange and align content using consistent flex or grid primitives.
+ * @description Layout wrapper used to arrange and align content.
  */
 /** Container props type. */
 export * from './container.type';

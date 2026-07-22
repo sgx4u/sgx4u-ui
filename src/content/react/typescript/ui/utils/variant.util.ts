@@ -1,4 +1,5 @@
-import { ClassValueType, cn } from './styles.util';
+import { ClassValueType } from '../types/styles.type';
+import { cn } from './styles.util';
 
 /** Helper type to extract default values type from variants. */
 type DefaultFromVariants<TVariants extends Record<string, Record<string, string>>> = {

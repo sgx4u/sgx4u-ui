@@ -21,7 +21,6 @@ import { VisuallyHidden } from '../visually-hidden';
 
 /**
  * @description File input that supports click-to-select and drag-and-drop, with validation and callbacks.
- * @param {FileInputPropsType} props - The properties object.
  * @returns {JSX.Element} The FileInput component.
  */
 export function FileInput({
@@ -203,7 +202,6 @@ export function FileInput({
 
 	return (
 		<Container
-			as="div"
 			className={cn('relative', isDragOver && 'animate-pulse rounded-xl bg-muted-light', className)}
 			onClick={handleWrapperClick}
 			onKeyDown={handleKeyDown}

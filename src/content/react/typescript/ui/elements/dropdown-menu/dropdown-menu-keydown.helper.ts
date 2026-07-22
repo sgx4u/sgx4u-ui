@@ -1,5 +1,7 @@
 import { KeyboardEvent as ReactKeyboardEvent, RefObject } from 'react';
 
+import { moveFocusByDirection } from '../../utils/keyboard.util';
+
 /**
  * @description Handles arrow key navigation between dropdown menu items. ArrowUp/ArrowDown navigates between menu items, skipping separators, labels, and disabled items.
  * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.
@@ -7,52 +9,28 @@ import { KeyboardEvent as ReactKeyboardEvent, RefObject } from 'react';
  */
 export function dropdownMenuItemOnKeyDownHelper(event: ReactKeyboardEvent<HTMLButtonElement>): void {
 	const key = event.key;
+	if (key !== 'ArrowUp' && key !== 'ArrowDown') return;
 
-	/** Handle ArrowUp and ArrowDown keys for navigation. */
-	if (key === 'ArrowUp' || key === 'ArrowDown') {
-		event.preventDefault();
+	event.preventDefault();
 
-		/** Find the menu container by traversing up from the current item. */
-		const menuContainer = event.currentTarget.closest<HTMLDivElement>(
-			'[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"]',
-		);
-		if (!menuContainer) return;
+	/** Find the menu container by traversing up from the current item. */
+	const menuContainer = event.currentTarget.closest<HTMLDivElement>(
+		'[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"]',
+	);
+	if (!menuContainer) return;
 
-		/** Get all menu items (items and sub-triggers) within the menu container. */
-		const menuItems = Array.from(
-			menuContainer.querySelectorAll<HTMLButtonElement>(
-				'[data-slot="dropdown-menu-item"], [data-slot="dropdown-menu-sub-trigger"]',
-			),
-		);
+	/** Get all menu items (items and sub-triggers) within the menu container. */
+	const menuItems = Array.from(
+		menuContainer.querySelectorAll<HTMLButtonElement>(
+			'[data-slot="dropdown-menu-item"], [data-slot="dropdown-menu-sub-trigger"]',
+		),
+	);
 
-		if (menuItems.length === 0) return;
-
-		/** Find the current item's index. */
-		const currentIndex = menuItems.findIndex((item) => item === event.currentTarget);
-		if (currentIndex === -1) return;
-
-		/** Find the next enabled item in the direction of navigation. */
-		let nextIndex = currentIndex;
-		const direction = key === 'ArrowUp' ? -1 : 1;
-		let attempts = 0;
-
-		/** Loop through items to find the next enabled one, wrapping around if needed. */
-		while (attempts < menuItems.length) {
-			nextIndex += direction;
-
-			/** Wrap around. */
-			if (nextIndex < 0) nextIndex = menuItems.length - 1;
-			if (nextIndex >= menuItems.length) nextIndex = 0;
-
-			/** Check if this item is enabled. */
-			if (!menuItems[nextIndex].disabled) {
-				menuItems[nextIndex].focus();
-				return;
-			}
-
-			attempts++;
-		}
-	}
+	moveFocusByDirection({
+		elements: menuItems,
+		currentElement: event.currentTarget,
+		direction: key === 'ArrowUp' ? 'previous' : 'next',
+	});
 }
 
 /**

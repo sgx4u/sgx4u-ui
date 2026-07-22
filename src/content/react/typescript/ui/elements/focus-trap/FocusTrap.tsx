@@ -21,6 +21,13 @@ export function FocusTrap({
 	/** Previously focused element, stored so it can be restored on deactivation. */
 	const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
+	/** Latest returnFocusOnDeactivate value, read in cleanup without re-initializing the trap. */
+	const returnFocusOnDeactivateRef = useRef(returnFocusOnDeactivate);
+
+	useEffect(() => {
+		returnFocusOnDeactivateRef.current = returnFocusOnDeactivate;
+	}, [returnFocusOnDeactivate]);
+
 	useEffect(() => {
 		if (!active) return;
 
@@ -32,10 +39,12 @@ export function FocusTrap({
 			previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
 		}
 
-		/** Move initial focus to the first focusable element or the container itself. */
-		const focusableElements = getFocusableElements(container);
-		if (focusableElements.length > 0) focusableElements[0].focus();
-		else container.focus();
+		/** Move initial focus in only when it is not already inside, preserving any auto-focused child. */
+		if (!container.contains(document.activeElement)) {
+			const focusableElements = getFocusableElements(container);
+			if (focusableElements.length > 0) focusableElements[0].focus();
+			else container.focus();
+		}
 
 		const handleKeyDown = (event: KeyboardEvent): void => {
 			if (event.key !== 'Tab') return;
@@ -81,15 +90,15 @@ export function FocusTrap({
 			document.removeEventListener('keydown', handleKeyDown);
 			document.removeEventListener('focusin', handleFocusIn);
 
-			if (returnFocusOnDeactivate && previouslyFocusedRef.current) {
+			if (returnFocusOnDeactivateRef.current && previouslyFocusedRef.current) {
 				previouslyFocusedRef.current.focus();
 				previouslyFocusedRef.current = null;
 			}
 		};
-	}, [active, returnFocusOnDeactivate]);
+	}, [active]);
 
 	return (
-		<Container as="div" ref={containerRef} data-slot="focus-trap" tabIndex={-1}>
+		<Container ref={containerRef} data-slot="focus-trap" tabIndex={-1}>
 			{children}
 		</Container>
 	);
@@ -117,7 +126,11 @@ function getFocusableElements(container: HTMLElement): Array<HTMLElement> {
 
 	const nodes = Array.from(container.querySelectorAll<HTMLElement>(selectors.join(',')));
 	return nodes.filter(
-		(element) => !element.hasAttribute('disabled') && !element.getAttribute('aria-hidden') && isVisible(element),
+		(element) =>
+			!element.hasAttribute('disabled') &&
+			element.getAttribute('aria-hidden') !== 'true' &&
+			!element.closest('[inert]') &&
+			isVisible(element),
 	);
 }
 

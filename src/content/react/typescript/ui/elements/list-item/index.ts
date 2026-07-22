@@ -2,8 +2,8 @@
  * @name List Item
  * @description A single item inside a list, typically representing one entry in a collection of related content.
  */
-/** List props type. */
+/** List item props type. */
 export * from './list-item.type';
 
-/** List component. */
+/** List item component. */
 export * from './ListItem';

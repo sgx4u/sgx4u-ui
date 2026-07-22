@@ -23,7 +23,6 @@ export type SquareImagePickupPropsType = {
 
 /**
  * @description Square image pickup component.
- * @param {SquareImagePickupPropsType} props - The properties object.
  * @returns {JSX.Element} The SquareImagePickup component.
  */
 export function SquareImagePickup({
@@ -41,7 +40,6 @@ export function SquareImagePickup({
 }: SquareImagePickupPropsType): JSX.Element {
 	return (
 		<Container
-			as="div"
 			data-slot="square-image-pickup"
 			className={cn(
 				'flex h-64 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all hover:border-primary',
@@ -57,7 +55,6 @@ export function SquareImagePickup({
 			/>
 
 			<Container
-				as="div"
 				className={cn(
 					'text-muted-light-foreground mt-4 flex flex-col items-center text-sm',
 					textContainerClassName,

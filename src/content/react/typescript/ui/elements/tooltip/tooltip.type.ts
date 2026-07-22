@@ -2,14 +2,15 @@ import { ReactNode } from 'react';
 
 import { ContainerPropsType } from '../container';
 import { TextPropsType } from '../text';
+import { TooltipVariantTypes } from './Tooltip';
 
 /** Tooltip props type. */
-export type TooltipPropsType = TextPropsType & {
+export type TooltipPropsType = Omit<TextPropsType, 'content' | 'variant'> & {
 	/** Tooltip content. */
 	content?: ReactNode;
 
 	/** Tooltip side. Default - top. */
-	side?: 'top' | 'bottom' | 'left' | 'right';
+	side?: typeof TooltipVariantTypes.side;
 
 	/** Tooltip trigger. Default - hover. */
 	trigger?: 'hover' | 'click' | 'focus';
@@ -27,10 +28,10 @@ export type TooltipPropsType = TextPropsType & {
 	onOpenChange?: (open: boolean) => void;
 
 	/** Tooltip variant. Default - default. */
-	variant?: 'default' | 'dark' | 'light' | 'success' | 'warn' | 'error';
+	variant?: typeof TooltipVariantTypes.variant;
 
 	/** Tooltip size. Default - default. */
-	size?: 'sm' | 'default' | 'lg';
+	size?: typeof TooltipVariantTypes.size;
 
 	/** Tooltip container props. */
 	containerProps?: ContainerPropsType;

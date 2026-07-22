@@ -8,7 +8,7 @@ import { Container } from '../container';
 
 /** Variants for the Badge component. */
 export const { variants: badgeVariants, types: BadgeVariantTypes } = makeVariants({
-	base: `inline-flex shrink-0 items-center justify-center gap-1 text-xs font-semibold whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary aria-invalid:outline-danger/25 [&_svg:not([class*='size-'])]:size-3`,
+	base: `inline-flex shrink-0 items-center justify-center gap-1 text-xs font-semibold whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-colors focus-visible:outline-primary aria-invalid:outline-danger/25 [&_svg:not([class*='size-'])]:size-3`,
 	variants: {
 		variant: {
 			primary: `bg-primary text-primary-foreground`,
@@ -50,13 +50,17 @@ export const { variants: badgeVariants, types: BadgeVariantTypes } = makeVariant
 			sm: 'rounded-sm',
 			md: 'rounded-md',
 			lg: 'rounded-lg',
+			xl: 'rounded-xl',
+			'2xl': 'rounded-2xl',
+			'3xl': 'rounded-3xl',
+			'4xl': 'rounded-4xl',
 			full: 'rounded-full',
 		},
 	},
 	default: {
 		variant: 'primary',
 		size: 'default',
-		radius: 'lg',
+		radius: 'full',
 	},
 });
 
@@ -75,7 +79,7 @@ export function Badge({
 	role,
 	...props
 }: BadgePropsType): JSX.Element {
-	/** Default: role="status" for dynamic updates or indicators. If it's static (no status prop), fallback to undefined. */
+	/** Infer role="status" for status badges (implies aria-live="polite"); respect an explicit role otherwise. */
 	const inferredRole = role ?? (status ? 'status' : undefined);
 
 	return (
@@ -84,8 +88,7 @@ export function Badge({
 			className={cn(badgeVariants({ variant, size, radius }), className)}
 			data-slot="badge"
 			role={inferredRole}
-			aria-live={status ? 'polite' : undefined}
-			data-status={status === undefined ? undefined : String(status)}
+			data-status={status ? 'true' : undefined}
 			{...props}
 		/>
 	);

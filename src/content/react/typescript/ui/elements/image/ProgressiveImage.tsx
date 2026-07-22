@@ -2,7 +2,7 @@
 
 import { JSX, SyntheticEvent, useEffect, useRef, useState } from 'react';
 
-import { ImagePropsType } from './image.type';
+import { ProgressiveImagePropsType } from './image.type';
 import { cn } from '../../utils/styles.util';
 
 import { Container } from '../container/Container';
@@ -14,11 +14,11 @@ import { Container } from '../container/Container';
 export function ProgressiveImage({
 	startLoading = true,
 	placeholderSrc,
-	noLazyLoad,
+	loading = 'lazy',
 	className,
 
 	...props
-}: ImagePropsType): JSX.Element {
+}: ProgressiveImagePropsType): JSX.Element {
 	/** State for the loading of the image. */
 	const [isLoaded, setIsLoaded] = useState(false);
 
@@ -26,42 +26,33 @@ export function ProgressiveImage({
 	const fullImageRef = useRef<HTMLImageElement | null>(null);
 
 	const ariaTitle = props.title ?? props.alt;
-	const loadingAttr = noLazyLoad ? undefined : 'lazy';
-	const decodingAttr = noLazyLoad ? undefined : 'async';
+	const decodingAttr = loading === 'lazy' ? 'async' : 'sync';
 
 	useEffect(() => {
 		if (!startLoading) return;
 
-		/** Get the image element. */
 		const imageElement = fullImageRef.current;
 		if (!imageElement) return;
 
-		/** If already complete, we’re done (covers cache). */
+		/** Reveal immediately when the image is already cached. */
 		if (imageElement.complete && imageElement.naturalWidth > 0) {
-			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setIsLoaded(true);
 			return;
 		}
 
-		/** Try decode() for a smoother ready signal. */
+		/** Without decode support the onLoad handler drives the reveal. */
+		if (typeof imageElement.decode !== 'function') return;
+
+		/** Prefer decode() for a smoother reveal; onLoad covers the case where it rejects. */
 		let cancelled = false;
-		if ('decode' in imageElement && typeof imageElement.decode === 'function') {
-			imageElement
-				.decode()
-				.catch(() => {}) /** Decode can reject for cross-origin/etc—fallback to load. */
-				.finally(() => {
-					if (!cancelled) setIsLoaded(true);
-				});
-		} else {
-			/** Fallback: rely on onLoad (attached below) and a periodic check. */
-			const tick = setInterval(() => {
-				if (imageElement.complete && imageElement.naturalWidth > 0) {
-					clearInterval(tick);
-					if (!cancelled) setIsLoaded(true);
-				}
-			}, 50);
-			return (): void => clearInterval(tick);
-		}
+		imageElement
+			.decode()
+			.then(() => {
+				if (!cancelled) setIsLoaded(true);
+			})
+			.catch(() => {
+				/** Decode can reject for cross-origin images; the onLoad handler covers this. */
+			});
 
 		return (): void => {
 			cancelled = true;
@@ -80,8 +71,6 @@ export function ProgressiveImage({
 			className={cn('relative inline-block overflow-hidden', className)}
 			data-slot="progressive-image"
 			data-state={isLoaded ? 'loaded' : 'loading'}
-			role="img"
-			aria-label={ariaTitle}
 		>
 			{/* Placeholder image. */}
 			<img
@@ -100,7 +89,7 @@ export function ProgressiveImage({
 			<img
 				ref={fullImageRef}
 				title={ariaTitle}
-				loading={loadingAttr}
+				loading={loading}
 				decoding={decodingAttr}
 				onLoad={handleLoad}
 				className={cn(

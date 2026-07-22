@@ -4,6 +4,7 @@ import {
 	JSX,
 	KeyboardEvent as ReactKeyboardEvent,
 	MouseEvent as ReactMouseEvent,
+	useContext,
 	useEffect,
 	useId,
 	useRef,
@@ -25,6 +26,7 @@ import { createAnimatedOverlayStore } from '../../helpers/animated-overlay-store
 
 import { useReducedMotion } from '../../hooks/useReducedMotion.hook';
 import {
+	DialogContentContext,
 	DialogContext,
 	useControlledSync,
 	useDialogContext,
@@ -41,7 +43,6 @@ import { Text } from '../text';
 
 /**
  * @description Root element for the Dialog element.
- * @param {DialogPropsType} props - The props for the Dialog component.
  * @returns {JSX.Element} The Dialog component.
  */
 export function Dialog({
@@ -109,7 +110,6 @@ export function Dialog({
 
 /**
  * @description A trigger button that opens/toggles a dialog by id.
- * @param {DialogTriggerPropsType} props - The props for the DialogTrigger component.
  * @returns {JSX.Element} The DialogTrigger component.
  */
 export function DialogTrigger({
@@ -148,7 +148,7 @@ export function DialogTrigger({
 	return (
 		<Button
 			onClick={handleClick}
-			data-slot="DialogTrigger"
+			data-slot="dialog-trigger"
 			aria-haspopup="dialog"
 			aria-expanded={dialogIsOpen}
 			aria-controls={`dialog-${effectiveDialogId}`}
@@ -159,7 +159,6 @@ export function DialogTrigger({
 
 /**
  * @description Dialog UI that renders in a portal and animates in/out.
- * @param {DialogContentPropsType} props - The props for the DialogContent component.
  * @returns {JSX.Element} The DialogContent component.
  */
 export function DialogContent({
@@ -214,6 +213,12 @@ export function DialogContent({
 	const dialogContentRef = useRef<HTMLDivElement | null>(null);
 	/* Ref for the last focused element. */
 	const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
+	/* Accessible name/description wiring: only reference ids that actually render. */
+	const titleId = `dialog-title-${effectiveDialogId}`;
+	const descriptionId = `dialog-description-${effectiveDialogId}`;
+	const [hasTitle, setHasTitle] = useState(false);
+	const [hasDescription, setHasDescription] = useState(false);
 
 	/* Check if the dialog is open like. */
 	const isOpenLike = record.isMounted && (record.phase === 'open' || record.phase === 'opening');
@@ -283,8 +288,9 @@ export function DialogContent({
 				onClick={handleBackdropClick}
 				onVisibilityChange={onVisibilityChange}
 				closeOnClick={closeOnBackdropClick}
+				closeOnEscape={false}
 				duration={transitionDuration}
-				data-slot="DialogBackdrop"
+				data-slot="dialog-backdrop"
 				{...backdropProps}
 			>
 				<FocusTrap active={isVisible}>
@@ -294,12 +300,13 @@ export function DialogContent({
 							'origin-center transform-gpu overflow-visible transition-transform will-change-transform',
 							prefersReducedMotion ? 'scale-100' : isVisible ? 'scale-100' : 'scale-95',
 						)}
-						data-slot="DialogMotion"
+						data-slot="dialog-motion"
 					>
 						<Container
 							ref={(node) => {
 								dialogContentRef.current = node;
 							}}
+							id={`dialog-${effectiveDialogId}`}
 							onKeyDown={handleKeyDown}
 							style={{ transitionDuration: `${transitionDuration}ms`, ...style }}
 							className={cn(
@@ -307,14 +314,25 @@ export function DialogContent({
 								isVisible ? 'opacity-100' : 'opacity-0',
 								className,
 							)}
-							data-slot={'DialogContent'}
+							data-slot="dialog-content"
 							role="dialog"
 							aria-modal="true"
+							aria-labelledby={hasTitle ? titleId : undefined}
+							aria-describedby={hasDescription ? descriptionId : undefined}
 							tabIndex={-1}
 							{...props}
 						>
-							{!hideCloseButton && <DialogClose dialogId={effectiveDialogId} />}
-							{children}
+							<DialogContentContext.Provider
+								value={{
+									titleId,
+									descriptionId,
+									registerTitle: setHasTitle,
+									registerDescription: setHasDescription,
+								}}
+							>
+								{!hideCloseButton && <DialogClose dialogId={effectiveDialogId} />}
+								{children}
+							</DialogContentContext.Provider>
 						</Container>
 					</Container>
 				</FocusTrap>
@@ -325,7 +343,6 @@ export function DialogContent({
 
 /**
  * @description A button that closes a specific dialog by id.
- * @param {DialogClosePropsType} props - The props for the DialogClose component.
  * @returns {JSX.Element} The DialogClose component.
  */
 export function DialogClose({
@@ -354,7 +371,7 @@ export function DialogClose({
 			variant="ghost"
 			size="icon-sm"
 			className="absolute top-1.5 right-1.5 hover:bg-danger-light hover:text-danger"
-			data-slot="DialogClose"
+			data-slot="dialog-close"
 			aria-label="Close dialog"
 			aria-controls={`dialog-${effectiveDialogId}`}
 			{...props}
@@ -365,21 +382,38 @@ export function DialogClose({
 }
 
 /**
- * @description Title wrapper used to display content in a dialog format.
+ * @description Title wrapper that labels the dialog for assistive technology.
  * @returns {JSX.Element} The DialogTitle component.
  */
 export function DialogTitle({ as = 'title', ...props }: DialogTitlePropsType): JSX.Element {
-	return <Text as={as} data-slot="dialog-title" {...props} />;
+	const contentContext = useContext(DialogContentContext);
+	const registerTitle = contentContext?.registerTitle;
+
+	useEffect(() => {
+		registerTitle?.(true);
+		return (): void => registerTitle?.(false);
+	}, [registerTitle]);
+
+	return <Text as={as} id={contentContext?.titleId} data-slot="dialog-title" {...props} />;
 }
 
 /**
- * @description Description wrapper used to display content in a dialog format.
+ * @description Description wrapper that describes the dialog for assistive technology.
  * @returns {JSX.Element} The DialogDescription component.
  */
 export function DialogDescription({ as = 'subtitle', className, ...props }: DialogDescriptionPropsType): JSX.Element {
+	const contentContext = useContext(DialogContentContext);
+	const registerDescription = contentContext?.registerDescription;
+
+	useEffect(() => {
+		registerDescription?.(true);
+		return (): void => registerDescription?.(false);
+	}, [registerDescription]);
+
 	return (
 		<Text
 			as={as}
+			id={contentContext?.descriptionId}
 			data-slot="dialog-description"
 			className={cn('scroll-mt-0.5 font-medium text-muted-foreground', className)}
 			{...props}

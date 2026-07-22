@@ -1,5 +1,6 @@
 import { ContainerPropsType } from '../container';
 import { InputPropsType } from '../input';
+import { SwitchVariantTypes } from './Switch';
 
 /** Props type for the Switch component. */
 export type SwitchPropsType = Omit<InputPropsType, 'inputSize'> & {
@@ -7,10 +8,10 @@ export type SwitchPropsType = Omit<InputPropsType, 'inputSize'> & {
 	onCheckedChange?: (checked: boolean) => void;
 
 	/** Switch size variant. Default - default. */
-	inputSize?: 'xs' | 'sm' | 'default' | 'lg';
+	inputSize?: typeof SwitchVariantTypes.size;
 
 	/** Switch state. Default - default. */
-	state?: 'default' | 'error' | 'success' | 'warn';
+	state?: typeof SwitchVariantTypes.state;
 
 	/** Switch thumb props. */
 	thumbProps?: ContainerPropsType;

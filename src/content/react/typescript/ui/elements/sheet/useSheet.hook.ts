@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 
-import { SheetContextValueType } from './sheet.type';
+import { SheetContentContextValueType, SheetContextValueType } from './sheet.type';
 import { OverlayRecordType } from '../../helpers/animated-overlay-store.helper';
 
 const DEFAULT_SHEET_RECORD: OverlayRecordType = { isMounted: false, phase: 'closed' };
 
 /** Context for the Sheet component. */
 export const SheetContext = createContext<SheetContextValueType | null>(null);
+
+/** Context shared from SheetContent to its Title and Description for accessible name wiring. */
+export const SheetContentContext = createContext<SheetContentContextValueType | null>(null);
 
 /**
  * @description Accessor for sheet context. Throws if used outside a <Sheet> tree.

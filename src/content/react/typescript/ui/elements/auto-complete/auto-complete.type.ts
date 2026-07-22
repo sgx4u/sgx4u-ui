@@ -28,6 +28,12 @@ export type AutoCompleteContentPropsType = PopoverContentPropsType & {
 	/** Callback invoked when an option is selected. */
 	onOptionSelect: (option: string) => void;
 
+	/** Index of the currently highlighted option (-1 means none). */
+	activeIndex: number;
+
+	/** Stable id base used to build option ids for aria-activedescendant. */
+	baseId: string;
+
 	/** Props forwarded to each dropdown item button. */
 	dropdownItemProps?: ButtonPropsType;
 };

@@ -42,7 +42,6 @@ const TimelineContext = createContext<TimelineContextPropsType>({
 
 /**
  * @description Visual representation of a sequence of events or steps in a process.
- * @param {TimelinePropsType} props - The props for the Timeline component.
  * @returns {JSX.Element} The Timeline component.
  */
 export function Timeline({
@@ -66,35 +65,28 @@ export function Timeline({
 	const timelineUid = useId();
 
 	const handleTimelineStateChange = (newTimelineState: TimelineStateType): void => {
-		const existingIndex = currentTimelineState.findIndex((state) => state.id === newTimelineState.id);
+		onTimelineStateChange?.(newTimelineState);
 
-		/** If the timeline state already exists, update it. */
-		if (existingIndex !== -1) {
-			onTimelineStateChange?.(newTimelineState);
-			if (timelineState === undefined) {
-				setInternalTimelineState((prev) => {
-					const updatedState = [...prev];
-					updatedState[existingIndex] = newTimelineState;
-					return updatedState;
-				});
-			}
-		} else {
-			/** If the timeline state does not exist, add it. */
-			onTimelineStateChange?.(newTimelineState);
-			if (timelineState === undefined) {
-				setInternalTimelineState((prev) => {
-					const updatedState = [...prev, newTimelineState];
-					return updatedState;
-				});
-			}
-		}
+		/** Only manage internal state when uncontrolled. */
+		if (timelineState !== undefined) return;
+
+		setInternalTimelineState((previousState) => {
+			const existingIndex = previousState.findIndex((state) => state.id === newTimelineState.id);
+
+			/** Append when new, otherwise replace the existing entry. */
+			if (existingIndex === -1) return [...previousState, newTimelineState];
+
+			const updatedState = [...previousState];
+			updatedState[existingIndex] = newTimelineState;
+			return updatedState;
+		});
 	};
 
 	const registerItem = (element: HTMLElement): TimelineStateType | null => {
 		/** If the element is already registered, return. */
 		if (element.getAttribute('data-id')) return null;
 
-		/** Get the breadcrumb container. */
+		/** Get the timeline container. */
 		const timeline = document.querySelector(`[data-uid="${timelineUid}"][data-slot="timeline"]`);
 		if (!timeline) return null;
 
@@ -127,12 +119,11 @@ export function Timeline({
 			}}
 		>
 			<Container
-				as="div"
+				{...props}
 				className={cn('flex', ['vertical', 'vertical-reverse'].includes(orientation) && 'flex-col', className)}
 				data-slot="timeline"
 				data-uid={timelineUid}
 				role="list"
-				{...props}
 			/>
 		</TimelineContext.Provider>
 	);
@@ -162,7 +153,6 @@ const { variants: timelineItemVariants } = makeVariants({
 
 /**
  * @description Single timeline item with step indicator and content.
- * @param {TimelineItemPropsType} props - The props for the TimelineItem component.
  * @returns {JSX.Element} The TimelineItem component.
  */
 export function TimelineItem({ className, ...props }: TimelineItemPropsType): JSX.Element {
@@ -199,14 +189,13 @@ export function TimelineItem({ className, ...props }: TimelineItemPropsType): JS
 	useEffect(() => {
 		if (!itemDataIdRef.current) return;
 		const itemStatus = timelineState.find((state) => state.id === itemDataIdRef.current)?.status ?? 'pending';
-		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setItemStatus(itemStatus);
 	}, [timelineState]);
 
 	return (
 		<TimelineItemContext.Provider value={{ index: itemIndex, status: itemStatus }}>
 			<Container
-				as="div"
+				{...props}
 				className={cn(timelineItemVariants({ orientation }), className)}
 				data-slot="timeline-item"
 				data-uid={timelineUid}
@@ -215,14 +204,13 @@ export function TimelineItem({ className, ...props }: TimelineItemPropsType): JS
 				aria-posinset={itemIndex + 1}
 				aria-setsize={timelineState.length}
 				aria-current={itemStatus === 'active' ? 'step' : undefined}
-				{...props}
 			/>
 		</TimelineItemContext.Provider>
 	);
 }
 
 /** Variants for the TimelineStep component. */
-export const { variants: timelineStepVariants } = makeVariants({
+export const { variants: timelineStepVariants, types: TimelineStepVariantTypes } = makeVariants({
 	base: 'flex items-center justify-center rounded-full transition-all',
 	variants: {
 		variant: {
@@ -275,7 +263,6 @@ export const { variants: timelineStepVariants } = makeVariants({
 
 /**
  * @description Timeline step with step indicator and content.
- * @param {TimelineStepPropsType} props - The props for the TimelineStep component.
  * @returns {JSX.Element} The TimelineStep component.
  */
 export function TimelineStep({
@@ -290,7 +277,7 @@ export function TimelineStep({
 	const getIcon = (): ReactNode => {
 		switch (status) {
 			case 'active':
-				return <LoaderIcon className="size-4" />;
+				return <LoaderIcon className="size-4 animate-spin motion-reduce:animate-none" />;
 			case 'completed':
 				return <CheckIcon className="size-4" />;
 			case 'error':
@@ -306,6 +293,9 @@ export function TimelineStep({
 
 	return (
 		<Container
+			role="img"
+			aria-label={`Timeline step ${index + 1} is ${status}`}
+			{...props}
 			className={cn(
 				'shrink-0',
 				typeof children === 'undefined' && timelineStepVariants({ size, variant, status }),
@@ -314,10 +304,6 @@ export function TimelineStep({
 			data-slot="timeline-step"
 			data-uid={timelineUid}
 			data-id={`timeline-step-${index}`}
-			role="button"
-			aria-label={`Timeline step ${index + 1} is ${status}`}
-			aria-disabled={status === 'completed' || status === 'error'}
-			{...props}
 		>
 			{children ?? (variant === 'content' ? getIcon() : null)}
 		</Container>
@@ -326,7 +312,6 @@ export function TimelineStep({
 
 /**
  * @description Timeline content container.
- * @param {TimelineContentPropsType} props - The props for the TimelineContent component.
  * @returns {JSX.Element} The TimelineContent component.
  */
 export function TimelineContent({ className, ...props }: TimelineContentPropsType): JSX.Element {
@@ -335,21 +320,17 @@ export function TimelineContent({ className, ...props }: TimelineContentPropsTyp
 
 	return (
 		<Container
-			as="div"
+			{...props}
 			className={cn('flex flex-col', orientation === 'horizontal' ? 'text-center' : 'text-start', className)}
 			data-slot="timeline-content"
 			data-uid={timelineUid}
 			data-id={`timeline-content-${index}`}
-			role="group"
-			aria-labelledby={`timeline-step-${index}`}
-			{...props}
 		/>
 	);
 }
 
 /**
  * @description Connector line that connects two timeline items.
- * @param {TimelineConnectorPropsType} props - The props for the TimelineConnector component.
  * @returns {JSX.Element} The TimelineConnector component.
  */
 export function TimelineConnector({ className, ...props }: TimelineConnectorPropsType): JSX.Element {
@@ -363,14 +344,14 @@ export function TimelineConnector({ className, ...props }: TimelineConnectorProp
 
 	/** Check if the step is completed. */
 	const isStepCompleted = useMemo(() => {
-		/** Sort the timeline state by index in descending order. */
-		const timelineIndexOrdered = timelineState.sort((a, b) => b.index - a.index);
-		/** Find the last index which is completed. */
+		/** Copy before sorting to avoid mutating the shared timeline state. */
+		const timelineIndexOrdered = [...timelineState].sort((a, b) => b.index - a.index);
+		/** Find the highest index which is completed. */
 		const lastIndexWhichIsCompleted = timelineIndexOrdered.find((state) => state.status === 'completed')?.index;
 
-		/** If no index is found, return false. */
-		if (!lastIndexWhichIsCompleted) return false;
-		/** If the current index is less than or equal to the last index which is completed, return true. */
+		/** If no completed step is found, return false. */
+		if (lastIndexWhichIsCompleted === undefined) return false;
+		/** If the current index is at or before the last completed step, mark the connector completed. */
 		return itemIndex <= lastIndexWhichIsCompleted;
 	}, [timelineState, itemIndex]);
 
@@ -458,15 +439,14 @@ export function TimelineConnector({ className, ...props }: TimelineConnectorProp
 
 	return (
 		<Container
-			as="div"
-			style={connectorStyles}
+			{...props}
+			style={{ ...props.style, ...connectorStyles }}
 			className={cn('absolute shrink-0', isStepCompleted ? 'bg-success' : 'bg-muted', className)}
 			data-slot="timeline-connector"
 			data-uid={timelineUid}
 			data-item-uid={connectorUid}
 			role="presentation"
 			aria-hidden="true"
-			{...props}
 		/>
 	);
 }

@@ -26,7 +26,6 @@ export type CircleImageViewPropsType = {
 
 /**
  * @description Circle image view component.
- * @param {CircleImageViewPropsType} props - The properties object.
  * @returns {JSX.Element} The CircleImageView component.
  */
 export function CircleImageView({
@@ -46,7 +45,6 @@ export function CircleImageView({
 	if (!src) return <></>;
 	return (
 		<Container
-			as="div"
 			data-slot="circle-image-view"
 			className={cn('absolute inset-0 size-20', status === 'error' && 'border border-danger', containerClassName)}
 			{...containerProps}

@@ -1,6 +1,8 @@
 import { ContainerPropsType } from '../container';
+import { BackdropVariantTypes } from './Backdrop';
 
-export type BackdropPropsType = Omit<ContainerPropsType, 'as'> & {
+/** Props type for the Backdrop component. */
+export type BackdropPropsType = ContainerPropsType & {
 	/** Backdrop visibility state. */
 	visible: boolean;
 
@@ -10,12 +12,12 @@ export type BackdropPropsType = Omit<ContainerPropsType, 'as'> & {
 	/** Whether the backdrop is dismissible. Default - true. */
 	closeOnClick?: boolean;
 
+	/** Whether pressing Escape dismisses the backdrop. Default - true. */
+	closeOnEscape?: boolean;
+
 	/** Visual style of the backdrop. Default - dark. */
-	variant?: 'dark' | 'light' | 'transparent';
+	variant?: typeof BackdropVariantTypes.variant;
 
-	/** Transition duration in milliseconds. */
+	/** Transition duration in milliseconds. Default - 150. */
 	duration?: number;
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
 };

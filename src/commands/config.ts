@@ -50,16 +50,13 @@ export async function manageConfig(): Promise<void> {
 		switch (action) {
 			case 'view':
 				await viewFullConfig(config);
-				process.exit(1);
-				break;
+				return;
 			case 'reset':
 				await resetConfig(cwd);
-				process.exit(1);
-				break;
+				return;
 			case 'exit':
 				console.log('👋 Goodbye');
-				process.exit(1);
-				break;
+				return;
 		}
 	} catch (error) {
 		console.error(`❌ Error: ${error}`);
@@ -104,7 +101,7 @@ async function resetConfig(cwd: string): Promise<void> {
 		if (!config) {
 			console.log('❌ Failed to reset configuration file');
 			process.exit(1);
-		} else console.log('✔  Configuration reset to default values');
+		}
 
 		const configPath = path.join(cwd, 'ui.config.json');
 		await fs.writeJson(configPath, config, { spaces: 4 });

@@ -2,6 +2,7 @@ import { KeyboardEvent as ReactKeyboardEvent, SVGProps } from 'react';
 
 import { ContainerPropsType } from '../container';
 import { InputPropsType } from '../input';
+import { CheckboxVariantTypes } from './Checkbox';
 
 /** Props type for the Checkbox component. */
 export type CheckboxPropsType = Omit<InputPropsType, 'size' | 'variant' | 'state' | 'onKeyDown'> & {
@@ -18,13 +19,13 @@ export type CheckboxPropsType = Omit<InputPropsType, 'size' | 'variant' | 'state
 	onKeyDown?: (event: ReactKeyboardEvent<HTMLDivElement>) => void;
 
 	/** Checkbox variant. Default - default. */
-	variant?: 'default' | 'success' | 'warn' | 'danger';
+	variant?: typeof CheckboxVariantTypes.variant;
 
 	/** Checkbox state. Default - default. */
-	state?: 'default' | 'success' | 'warn' | 'error';
+	state?: typeof CheckboxVariantTypes.state;
 
 	/** Checkbox size variant. Default - default. */
-	size?: 'sm' | 'default' | 'lg';
+	size?: typeof CheckboxVariantTypes.size;
 
 	/** Props to be passed to the container. */
 	containerProps?: ContainerPropsType;

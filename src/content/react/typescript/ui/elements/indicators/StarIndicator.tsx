@@ -10,6 +10,7 @@ import { Container } from '../container/Container';
  * @returns {JSX.Element} The StarIndicator component.
  */
 export function StarIndicator({
+	as = 'span',
 	className,
 
 	...props
@@ -18,17 +19,15 @@ export function StarIndicator({
 
 	return (
 		<Container
-			as="span"
+			{...props}
+			as={as}
 			className={cn('text-danger', className)}
 			data-slot="star-indicator"
 			aria-hidden={isHidden}
-			{...props}
 		>
-			<>*</>
-
-			{/* Hidden text for screen readers if not aria-hidden. */}
+			*{/* Hidden text for screen readers when the indicator is exposed. */}
 			{!isHidden && (
-				<Container as="span" className="sr-only" aria-label="required">
+				<Container as="span" className="sr-only">
 					Required.
 				</Container>
 			)}

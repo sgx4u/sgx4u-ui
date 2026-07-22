@@ -4,6 +4,7 @@ import {
 	createContext,
 	JSX,
 	KeyboardEvent as ReactKeyboardEvent,
+	useCallback,
 	useContext,
 	useEffect,
 	useRef,
@@ -60,19 +61,22 @@ export function Accordion({
 	/** Items map (stores both item & body). */
 	const itemsMap = useRef<Map<string, { item: HTMLElement | null; body: HTMLElement | null }>>(new Map());
 
-	const registerItem = ({
-		value,
-		element,
-		type,
-	}: {
-		value: string;
-		element?: HTMLElement;
-		type?: 'item' | 'body';
-	}): void => {
-		if (!element || !type) return;
-		const current = itemsMap.current.get(value) || { item: null, body: null };
-		itemsMap.current.set(value, { ...current, [type]: element });
-	};
+	/**
+	 * @description Registers an item or body element in the items map, keyed by the item value.
+	 * @param {object} props - The registration props.
+	 * @param {string} props.value - The unique value of the accordion item.
+	 * @param {HTMLElement} [props.element] - The element to register.
+	 * @param {'item' | 'body'} [props.type] - Which part of the item the element represents.
+	 * @returns {void}
+	 */
+	const registerItem = useCallback(
+		({ value, element, type }: { value: string; element?: HTMLElement; type?: 'item' | 'body' }): void => {
+			if (!element || !type) return;
+			const current = itemsMap.current.get(value) || { item: null, body: null };
+			itemsMap.current.set(value, { ...current, [type]: element });
+		},
+		[],
+	);
 
 	const handleToggle = (itemValue: string): void => {
 		let nextValue = [...currentOpenItems];
@@ -118,14 +122,7 @@ export function Accordion({
 				type,
 			}}
 		>
-			<Container
-				as="div"
-				className={cn('h-full w-full divide-y px-4 py-4', className)}
-				data-slot="accordion"
-				role="presentation"
-				aria-label="Accordion section"
-				{...props}
-			/>
+			<Container className={cn('h-full w-full divide-y px-4 py-4', className)} data-slot="accordion" {...props} />
 		</AccordionContext.Provider>
 	);
 }
@@ -134,11 +131,15 @@ const AccordionItemContext = createContext<AccordionItemContextType>({
 	value: '',
 });
 
-export const useAccordionItem = (): AccordionItemContextType => {
+/**
+ * @description Accesses the current accordion item context, guarding against usage outside an AccordionItem.
+ * @returns {AccordionItemContextType} The current accordion item context.
+ */
+export function useAccordionItem(): AccordionItemContextType {
 	const context = useContext(AccordionItemContext);
-	if (!context) throw new Error('AccordionItem components must be used inside <AccordionItem>');
+	if (!context.value) throw new Error('AccordionItem components must be used inside <AccordionItem>.');
 	return context;
-};
+}
 
 /**
  * @description Wrapper for a single accordion section that registers itself with the root context and exposes open/closed state through data attributes.
@@ -161,7 +162,6 @@ export function AccordionItem({ value, className, ...props }: AccordionItemProps
 		<AccordionItemContext.Provider value={{ value }}>
 			<Container
 				ref={itemElementRef}
-				as="div"
 				className={cn('group/accordion-item', className)}
 				data-slot="accordion-item"
 				data-state={isOpen ? 'open' : 'closed'}
@@ -180,6 +180,7 @@ export function AccordionTrigger({
 	onKeyDown,
 
 	hideArrow,
+	headingLevel = 3,
 	variant = 'ghost',
 	className,
 
@@ -198,36 +199,37 @@ export function AccordionTrigger({
 	};
 
 	return (
-		<Button
-			id={`accordion-trigger-${value}`}
-			onClick={() => value && onToggle(value)}
-			onKeyDown={handleKeyDown}
-			variant={variant}
-			className={cn(
-				'w-full justify-between group-first/accordion-item:rounded-b-none group-last/accordion-item:rounded-t-none group-[&:not(:first-child):not(:last-child)]/accordion-item:rounded-none',
-				isOpen && 'group-last/accordion-item:rounded-b-none',
-				className,
-			)}
-			data-slot="accordion-trigger"
-			data-value={value}
-			aria-controls={value ? `accordion-content-${value}` : undefined}
-			aria-expanded={Boolean(isOpen)}
-			aria-disabled={false}
-			{...props}
-		>
-			{children}
+		<div role="heading" aria-level={headingLevel} data-slot="accordion-header">
+			<Button
+				id={`accordion-trigger-${value}`}
+				onClick={() => value && onToggle(value)}
+				onKeyDown={handleKeyDown}
+				variant={variant}
+				className={cn(
+					'w-full justify-between group-first/accordion-item:rounded-b-none group-last/accordion-item:rounded-t-none group-[&:not(:first-child):not(:last-child)]/accordion-item:rounded-none',
+					isOpen && 'group-last/accordion-item:rounded-b-none',
+					className,
+				)}
+				data-slot="accordion-trigger"
+				data-value={value}
+				aria-controls={value ? `accordion-content-${value}` : undefined}
+				aria-expanded={Boolean(isOpen)}
+				{...props}
+			>
+				{children}
 
-			{/* Icon to indicate the open state. */}
-			{!hideArrow && (
-				<ChevronDownIcon
-					className={cn(
-						'size-4 shrink-0 text-muted-dark transition-all dark:text-muted-light',
-						isOpen && 'rotate-180',
-					)}
-					aria-hidden="true"
-				/>
-			)}
-		</Button>
+				{/* Icon to indicate the open state. */}
+				{!hideArrow && (
+					<ChevronDownIcon
+						className={cn(
+							'size-4 shrink-0 text-muted-dark transition-all dark:text-muted-light',
+							isOpen && 'rotate-180',
+						)}
+						aria-hidden="true"
+					/>
+				)}
+			</Button>
+		</div>
 	);
 }
 
@@ -253,7 +255,6 @@ export function AccordionContent({ className, ...props }: AccordionContentPropsT
 		<Container
 			ref={contentElementRef}
 			id={value ? `accordion-content-${value}` : undefined}
-			as="div"
 			className={cn(
 				'p-4 transition-opacity duration-75',
 				isOpen ? 'h-auto overflow-hidden' : 'hidden opacity-0',

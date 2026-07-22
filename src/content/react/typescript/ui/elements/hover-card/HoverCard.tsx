@@ -3,6 +3,7 @@
 import {
 	createContext,
 	JSX,
+	FocusEvent as ReactFocusEvent,
 	MouseEvent as ReactMouseEvent,
 	useCallback,
 	useContext,
@@ -104,13 +105,15 @@ export function HoverCard({
 	return (
 		<HoverCardContext.Provider value={{ startOpenTimer, startCloseTimer, clearOpenTimer, clearCloseTimer }}>
 			<Popover
+				sideOffset={4}
+				trapFocus={false}
+				lockScroll={false}
+				{...props}
 				open={currentOpen}
 				onOpenChange={handleOpenChange}
 				closeOnClickOutside={false}
 				closeOnEscape={closeOnEscape}
-				sideOffset={4}
 				duration={duration}
-				{...props}
 			>
 				{children}
 			</Popover>
@@ -125,6 +128,8 @@ export function HoverCard({
 export function HoverCardTrigger({
 	onMouseEnter,
 	onMouseLeave,
+	onFocus,
+	onBlur,
 
 	className,
 
@@ -132,28 +137,58 @@ export function HoverCardTrigger({
 }: HoverCardTriggerPropsType): JSX.Element {
 	const { startOpenTimer, startCloseTimer, clearOpenTimer, clearCloseTimer } = useContext(HoverCardContext);
 
+	/**
+	 * Open on pointer enter, cancelling any pending close.
+	 * @param {ReactMouseEvent<HTMLButtonElement>} event - The mouse enter event.
+	 */
 	const handleMouseEnter = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		onMouseEnter?.(event);
 		clearCloseTimer();
 		startOpenTimer();
 	};
 
+	/**
+	 * Close on pointer leave, cancelling any pending open.
+	 * @param {ReactMouseEvent<HTMLButtonElement>} event - The mouse leave event.
+	 */
 	const handleMouseLeave = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		onMouseLeave?.(event);
 		clearOpenTimer();
 		startCloseTimer();
 	};
 
+	/**
+	 * Open on keyboard focus so the card is reachable without a pointer.
+	 * @param {ReactFocusEvent<HTMLButtonElement>} event - The focus event.
+	 */
+	const handleFocus = (event: ReactFocusEvent<HTMLButtonElement>): void => {
+		onFocus?.(event);
+		clearCloseTimer();
+		startOpenTimer();
+	};
+
+	/**
+	 * Close when focus leaves the trigger.
+	 * @param {ReactFocusEvent<HTMLButtonElement>} event - The blur event.
+	 */
+	const handleBlur = (event: ReactFocusEvent<HTMLButtonElement>): void => {
+		onBlur?.(event);
+		clearOpenTimer();
+		startCloseTimer();
+	};
+
 	return (
 		<PopoverTrigger
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
 			variant="wrapper"
 			size="wrapper"
+			{...props}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			onFocus={handleFocus}
+			onBlur={handleBlur}
 			className={cn('rounded-md', className)}
 			data-slot="hover-card-trigger"
 			aria-haspopup="dialog"
-			{...props}
 		/>
 	);
 }
@@ -174,6 +209,7 @@ export function HoverCardContent({
 
 	return (
 		<PopoverContent
+			{...props}
 			onMouseEnter={(event): void => {
 				onMouseEnter?.(event);
 				clearCloseTimer();
@@ -185,7 +221,6 @@ export function HoverCardContent({
 			className={cn('w-64', className)}
 			data-slot="hover-card-content"
 			aria-live="polite"
-			{...props}
 		/>
 	);
 }

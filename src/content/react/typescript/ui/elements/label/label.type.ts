@@ -4,7 +4,7 @@ import { LabelVariantTypes } from './Label';
 
 /** Props type for the Label component. */
 export type LabelPropsType = ComponentPropsWithRef<'label'> & {
-	/** Whether the tooltip is as child. */
+	/** Whether the label renders its child as the label element. */
 	asChild?: boolean;
 
 	/** Whether the label is required. */
@@ -14,10 +14,10 @@ export type LabelPropsType = ComponentPropsWithRef<'label'> & {
 	requiredIndicator?: ReactNode;
 
 	/** Label variant style. Default - default. */
-	variant?: (typeof LabelVariantTypes)['variant'];
+	variant?: typeof LabelVariantTypes.variant;
 
 	/** Label size variant. Default - default. */
-	size?: (typeof LabelVariantTypes)['size'];
+	size?: typeof LabelVariantTypes.size;
 
 	/** Whether label is disabled. Default - false. */
 	disabled?: boolean;
@@ -26,5 +26,5 @@ export type LabelPropsType = ComponentPropsWithRef<'label'> & {
 	message?: string;
 
 	/** Label state. Default - default. */
-	state?: 'default' | 'error' | 'success' | 'warn';
+	state?: typeof LabelVariantTypes.state;
 };

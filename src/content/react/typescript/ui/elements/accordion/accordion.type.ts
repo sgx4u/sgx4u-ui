@@ -1,6 +1,9 @@
 import { ButtonPropsType, ButtonVariantTypes } from '../button';
 import { ContainerPropsType } from '../container';
 
+/** Accordion type types. */
+export type AccordionTypeType = 'single' | 'multiple';
+
 /** Accordion context type. */
 export type AccordionContextType = {
 	/** Values of the open items for controlled usage. */
@@ -13,7 +16,7 @@ export type AccordionContextType = {
 	registerItem: (data: { value: string; element?: HTMLElement; type?: 'item' | 'body' }) => void;
 
 	/** Whether only one or multiple items can be open at a time. */
-	type: 'single' | 'multiple';
+	type: AccordionTypeType;
 };
 
 /** Accordion props type. */
@@ -28,7 +31,7 @@ export type AccordionPropsType = ContainerPropsType & {
 	onOpenItemsChange?: (value: Array<string>) => void;
 
 	/** Whether only one or multiple items can be open at a time. Default - multiple. */
-	type?: 'single' | 'multiple';
+	type?: AccordionTypeType;
 
 	/** Animation speed in milliseconds. Default - 150. */
 	speed?: number;
@@ -49,10 +52,13 @@ export type AccordionItemPropsType = ContainerPropsType & {
 /** Accordion trigger props type. */
 export type AccordionTriggerPropsType = Omit<ButtonPropsType, 'variant'> & {
 	/** Visual style of the trigger button. Default - ghost. */
-	variant?: (typeof ButtonVariantTypes)['variant'];
+	variant?: typeof ButtonVariantTypes.variant;
 
 	/** Hide the chevron icon. */
 	hideArrow?: boolean;
+
+	/** Heading level applied to the wrapping heading element for assistive technology. Default - 3. */
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
 /** Accordion content props type. */

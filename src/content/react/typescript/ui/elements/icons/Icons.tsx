@@ -5,7 +5,7 @@ import { IconsPropsType } from './icons.type';
 import { PasswordShowHideIcon } from './PasswordShowHideIcon';
 
 /**
- * @description  Small reusable icon components, including controls like the password show/hide toggle.
+ * @description Small reusable icon components, including controls like the password show/hide toggle.
  * @returns {JSX.Element} The Icons component.
  */
 export function Icons({ variant, ...props }: IconsPropsType): JSX.Element {

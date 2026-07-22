@@ -1,13 +1,15 @@
 import { ComponentPropsWithRef } from 'react';
 
+import { InputVariantTypes } from './Input';
+
 /** Props type for the Input component. */
 export type InputPropsType = ComponentPropsWithRef<'input'> & {
 	/** Input variant style. Default - default. */
-	variant?: 'default' | 'filled' | 'ghost';
+	variant?: typeof InputVariantTypes.variant;
 
 	/** Input size variant. Default - default. */
-	inputSize?: 'sm' | 'default' | 'lg' | 'full';
+	inputSize?: typeof InputVariantTypes.inputSize;
 
 	/** Input state. Default - default. */
-	state?: 'default' | 'error' | 'success' | 'warn';
+	state?: typeof InputVariantTypes.state;
 };

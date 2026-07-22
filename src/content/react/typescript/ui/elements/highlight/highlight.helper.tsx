@@ -3,7 +3,6 @@ import { cloneElement, isValidElement, ReactElement, ReactNode } from 'react';
 import { CreateHighlightedTextPropsType, ProcessNodePropsType } from './highlight.type';
 import { cn } from '../../utils/styles.util';
 
-import { Text } from '../text';
 import { highlightMarkVariants } from './Highlight';
 
 /**
@@ -36,7 +35,6 @@ export function extractTextFromNode(node: ReactNode): string {
 
 /**
  * @description Helper function to recursively process React nodes and apply highlighting.
- * @param {ProcessNodePropsType} props - The props for the processNode function.
  * @returns {ReactNode} The processed node.
  */
 export function processNode({ node, regex, ...props }: ProcessNodePropsType): ReactNode {
@@ -77,7 +75,6 @@ export function processNode({ node, regex, ...props }: ProcessNodePropsType): Re
 
 /**
  * @description Helper function to create highlighted text nodes.
- * @param {CreateHighlightedTextPropsType} props - The props for the createHighlightedText function.
  * @returns {Array<ReactNode>} The highlighted text nodes.
  */
 export function createHighlightedText({
@@ -85,7 +82,6 @@ export function createHighlightedText({
 	regex,
 	variant,
 	className,
-	...props
 }: CreateHighlightedTextPropsType): Array<ReactNode> {
 	/** If text is not present or does not match the regex, return the text. */
 	if (!text || !regex.test(text)) return [text];
@@ -108,16 +104,13 @@ export function createHighlightedText({
 		/** If the index is less than the matches length, add the match to the result array. */
 		if (index < matches.length) {
 			result.push(
-				<Text
+				<mark
 					key={`highlight-${index}`}
-					as="span"
 					className={cn(highlightMarkVariants({ variant }), className)}
 					data-slot="highlight"
-					aria-label={`Highlighted text: ${matches[index]}`}
-					{...props}
 				>
 					{matches[index]}
-				</Text>,
+				</mark>,
 			);
 		}
 	}

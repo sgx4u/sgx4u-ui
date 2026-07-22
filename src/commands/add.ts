@@ -126,7 +126,7 @@ export async function addComponent(componentName: string): Promise<void> {
 		if (installedFiles.length === 0) {
 			installingSpinner.succeed();
 			console.log(`✔  ${componentName} is already up to date!`);
-			process.exit(1);
+			return;
 		}
 
 		installingSpinner.succeed();
@@ -180,8 +180,12 @@ export async function addComponent(componentName: string): Promise<void> {
 						dependencies: missingDependencies,
 					});
 
-					if (dependencyInstalled) console.log('✔  Missing dependencies installed successfully');
-					else console.log('❌ Failed to install missing dependencies');
+					if (dependencyInstalled) {
+						console.log('✔  Missing dependencies installed successfully');
+					} else {
+						console.log('❌ Failed to install missing dependencies');
+						process.exit(1);
+					}
 				} else {
 					console.log('⚠️ Please install missing dependencies manually:');
 					missingDependencies.forEach((dep) => console.log(`  • ${dep}`));
@@ -191,7 +195,7 @@ export async function addComponent(componentName: string): Promise<void> {
 			}
 		}
 
-		process.exit(1);
+		return;
 	} catch (error) {
 		console.error(`❌ Error: ${error}`);
 		process.exit(1);

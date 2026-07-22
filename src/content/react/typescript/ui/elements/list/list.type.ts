@@ -1,7 +1,9 @@
 import { ComponentPropsWithRef } from 'react';
 
+import { ListVariantTypes } from './List';
+
 /** Variants for the List component. */
-export type ListVariant = 'ul' | 'ol';
+export type ListVariantType = typeof ListVariantTypes.variant;
 
 /** Props type for the List component. */
 export type ListPropsType = {
@@ -9,8 +11,8 @@ export type ListPropsType = {
 	asChild?: boolean;
 
 	/** List variant. Default - ul. */
-	as?: ListVariant;
-} & Omit<ComponentPropsWithRef<ListVariant>, 'children'> & {
+	as?: ListVariantType;
+} & Omit<ComponentPropsWithRef<ListVariantType>, 'children'> & {
 		/** List children. */
-		children?: ComponentPropsWithRef<ListVariant>['children'];
+		children?: ComponentPropsWithRef<ListVariantType>['children'];
 	};

@@ -10,7 +10,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '../../elements/avatar';
 
 /**
  * @description An image element with a fallback for representing the user.
- * @param {AvatarModulePropsType} props - The properties object.
  * @returns {JSX.Element} The AvatarModule component.
  */
 export const AvatarModule = ({

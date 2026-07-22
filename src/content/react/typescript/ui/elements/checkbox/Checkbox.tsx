@@ -48,6 +48,7 @@ export function Checkbox({
 	onCheckedChange,
 	onKeyDown,
 
+	id,
 	variant = 'default',
 	state = 'default',
 	size = 'default',
@@ -89,8 +90,7 @@ export function Checkbox({
 
 	return (
 		<Container
-			id={props.id}
-			as="div"
+			id={id}
 			onClick={onToggleChecked}
 			onKeyDown={handleKeyDown}
 			className={cn(checkboxVariants({ variant, state, size }), containerClassName, className)}
@@ -106,13 +106,14 @@ export function Checkbox({
 			{...containerRestProps}
 		>
 			<Input
-				id={props.id ? `${props.id}-input` : undefined}
 				type="checkbox"
 				checked={currentChecked}
 				readOnly={true}
 				className="absolute opacity-0"
-				tabIndex={-1}
 				{...props}
+				id={id ? `${id}-input` : undefined}
+				tabIndex={-1}
+				aria-hidden={true}
 			/>
 
 			{/* Checkbox icon. */}

@@ -15,16 +15,16 @@ export type LinkPropsType = Omit<ComponentPropsWithRef<'a'>, 'href'> & {
 	active?: boolean;
 
 	/** Link variant. Default - link. */
-	variant?: (typeof ButtonVariantTypes)['variant'];
+	variant?: typeof ButtonVariantTypes.variant;
 
 	/** Link size. Default - link. */
-	size?: (typeof ButtonVariantTypes)['size'];
+	size?: typeof ButtonVariantTypes.size;
 
 	/** Active link variant. Default - default. */
-	activeVariant?: (typeof ActiveLinkVariantTypes)['activeVariant'];
+	activeVariant?: typeof ActiveLinkVariantTypes.activeVariant;
 
 	/** Active indicator position. Default - bottom. */
-	activeIndicatorPosition?: 'bottom' | 'top' | 'left' | 'right';
+	activeIndicatorPosition?: typeof ActiveLinkVariantTypes.activeIndicatorPosition;
 
 	/** Whether the link is disabled. */
 	disabled?: boolean;

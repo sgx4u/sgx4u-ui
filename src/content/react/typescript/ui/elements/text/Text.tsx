@@ -33,35 +33,17 @@ export const { variants: textVariants, types: TextVariantTypes } = makeVariants(
 			'body-small': `text-sm`,
 			tag: `text-xs font-semibold tracking-wider uppercase`,
 		},
-		align: {
-			left: `text-start`,
-			center: `text-center`,
-			right: `text-end`,
-			justify: `text-justify`,
-		},
-		/** Weight is applied via conditionals; no base classes here. */
-		weight: {
-			light: '',
-			normal: '',
-			medium: '',
-			semibold: '',
-			bold: '',
-			extrabold: '',
+		variant: {
+			default: 'text-foreground',
+			secondary: 'text-secondary',
+			success: 'text-success',
+			warn: 'text-warn',
+			danger: 'text-danger',
+			muted: 'text-muted-foreground',
 		},
 	},
-	/** If custom font-weight is passed then we need to overwrite the font weight that is already set in the "as" section. */
-	conditionals: [
-		{ when: { weight: 'light' }, apply: 'font-light!' },
-		{ when: { weight: 'normal' }, apply: 'font-normal!' },
-		{ when: { weight: 'medium' }, apply: 'font-medium!' },
-		{ when: { weight: 'semibold' }, apply: 'font-semibold!' },
-		{ when: { weight: 'bold' }, apply: 'font-bold!' },
-		{ when: { weight: 'extrabold' }, apply: 'font-extrabold!' },
-	],
 	default: {
 		as: 'body',
-		weight: undefined,
-		align: undefined,
 	},
 });
 
@@ -96,10 +78,7 @@ const textTags: Record<typeof TextVariantTypes.as, keyof JSX.IntrinsicElements> 
 export function Text({
 	asChild,
 	as = 'body',
-	weight = undefined,
-	align = undefined,
-	truncate,
-	wrap = true,
+	variant = undefined,
 
 	className,
 
@@ -107,33 +86,11 @@ export function Text({
 	...props
 }: TextPropsType): JSX.Element {
 	/** The final tag name. */
-	const tagName = textTags[as as keyof typeof textTags] ?? 'p';
-
-	/** Map aria-level dynamically for screen readers. */
-	const ariaLevelMap = {
-		h1: 1,
-		h2: 2,
-		h3: 3,
-		h4: 4,
-		h5: 5,
-		h6: 6,
-		display: 1,
-		heading: 2,
-		subheading: 3,
-		title: 4,
-		subtitle: 5,
-	};
-	const ariaLevel = ariaLevelMap[as as keyof typeof ariaLevelMap] ?? undefined;
+	const tagName = textTags[as] ?? 'p';
 
 	const componentProps = {
-		className: cn(
-			textVariants({ as, weight, align }),
-			truncate && 'truncate',
-			!wrap && 'whitespace-nowrap',
-			className,
-		),
+		className: cn(textVariants({ as, variant }), className),
 		'data-slot': 'text',
-		'aria-level': ariaLevel,
 		...props,
 	} as const;
 

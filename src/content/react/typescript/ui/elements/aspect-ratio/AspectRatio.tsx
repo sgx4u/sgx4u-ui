@@ -17,20 +17,14 @@ export function AspectRatio({
 
 	...props
 }: AspectRatioPropsType): JSX.Element {
-	/** Aspect-ratio containers are layout-only; they should not be focusable or announced by screen readers. */
-	const isPurelyDecorative = props['aria-hidden'] !== false;
-
-	/** Keep the ratio stable even when invalid values are passed. */
-	const normalizedRatio = absoluteNumber(ratio);
+	/** Keep the ratio stable even when invalid values are passed, and skip the style entirely when it is not positive. */
+	const normalizedRatio = absoluteNumber(ratio) || undefined;
 
 	return (
 		<Container
-			as="div"
 			style={{ aspectRatio: normalizedRatio, ...style }}
 			className={cn('overflow-hidden', className)}
 			data-slot="aspect-ratio"
-			role="presentation"
-			aria-hidden={isPurelyDecorative}
 			{...props}
 		/>
 	);

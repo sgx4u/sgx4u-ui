@@ -67,7 +67,7 @@ export async function showComponentInfo(componentName: string): Promise<void> {
 			console.log('   No external dependencies required.');
 		}
 
-		process.exit(1);
+		return;
 	} catch (error) {
 		console.error(`❌ Error: ${error}`);
 		process.exit(1);

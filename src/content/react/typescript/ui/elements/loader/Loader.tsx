@@ -18,7 +18,6 @@ export function SpinLoader({ className, containerProps, ...props }: LoaderPropsT
 			as="span"
 			data-slot="spin-loader"
 			role="status"
-			aria-live="polite"
 			aria-busy="true"
 			className={cn('inline-flex items-center justify-center', containerClassName, className)}
 			{...containerRestProps}
@@ -26,7 +25,7 @@ export function SpinLoader({ className, containerProps, ...props }: LoaderPropsT
 			{/* Spinner Icon. */}
 			<Loader2Icon
 				focusable="false"
-				className={cn('size-full animate-spin text-current', className)}
+				className="size-full animate-spin text-current"
 				aria-hidden="true"
 				{...props}
 			/>

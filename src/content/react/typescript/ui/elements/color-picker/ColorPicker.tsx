@@ -54,7 +54,6 @@ const DEFAULT_GRADIENT: GradientColorType = buildGradientColorType({
 
 /**
  * @description Color picker component with solid/gradient modes, eyedropper, formats, and deferred updates on drag.
- * @param {ColorPickerPropsType} props - The props for the ColorPicker component.
  * @returns {JSX.Element} The ColorPicker component.
  */
 export function ColorPicker({
@@ -95,6 +94,7 @@ export function ColorPicker({
 		const parsedDefault = defaultValue ? parseSyncColorString(defaultValue) : null;
 
 		/** Set the internal value. */
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		if (onlySolidColorPicker) setInternalValue(colorValue ?? parsedDefault ?? DEFAULT_SOLID);
 		if (onlyGradientColorPicker) setInternalValue(colorValue ?? parsedDefault ?? DEFAULT_GRADIENT);
 	}, [colorValue, defaultValue, onlySolidColorPicker, onlyGradientColorPicker]);
@@ -107,6 +107,7 @@ export function ColorPicker({
 		const parsed = parseSyncColorString(syncColor);
 		if (!parsed) return;
 
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		setInternalValue(parsed);
 		if (parsed.mode === 'gradient' && parsed.stops.length > 0) {
 			setSelectedStopId(parsed.stops[0].id);
@@ -306,7 +307,6 @@ export function ColorPicker({
 			>
 				{!onlySolidColorPicker && !onlyGradientColorPicker && (
 					<Container
-						as="div"
 						onClick={(event): void => event.stopPropagation()}
 						className="flex cursor-pointer items-center gap-1 text-sm"
 					>
@@ -321,7 +321,7 @@ export function ColorPicker({
 					</Container>
 				)}
 
-				<Container as="div" className="flex flex-col gap-1.5">
+				<Container className="flex flex-col gap-1.5">
 					{!isSolid && (
 						<GradientPreviewBar
 							gradientValue={gradientValue}

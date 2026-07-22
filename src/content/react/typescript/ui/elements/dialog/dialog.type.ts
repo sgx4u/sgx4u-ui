@@ -84,12 +84,27 @@ export type DialogContextValueType = {
 	backdropProps?: BackdropPropsType;
 };
 
+/** Context value shared from DialogContent to its Title and Description for accessible name wiring. */
+export type DialogContentContextValueType = {
+	/** Id applied to the DialogTitle and referenced by the dialog's aria-labelledby. */
+	titleId: string;
+
+	/** Id applied to the DialogDescription and referenced by the dialog's aria-describedby. */
+	descriptionId: string;
+
+	/** Registers whether a DialogTitle is present so the dialog only labels itself when one exists. */
+	registerTitle: (present: boolean) => void;
+
+	/** Registers whether a DialogDescription is present so the dialog only describes itself when one exists. */
+	registerDescription: (present: boolean) => void;
+};
+
 /** Props for DialogTrigger. */
 export type DialogTriggerPropsType = ButtonPropsType & {
 	/** Optional id that links this trigger to a DialogContent with the same id. If omitted, uses the root-generated default id. */
 	dialogId?: string;
 
-	/** Button action. Default - 'open'. */
+	/** Button action. Default - open. */
 	action?: 'open' | 'toggle';
 };
 
@@ -106,7 +121,13 @@ export type DialogClosePropsType = ButtonPropsType & {
 };
 
 /** Props type for the DialogTitle component. */
-export type DialogTitlePropsType = TextPropsType;
+export type DialogTitlePropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - title. */
+	as?: TextPropsType['as'];
+};
 
 /** Props type for the DialogDescription component. */
-export type DialogDescriptionPropsType = TextPropsType;
+export type DialogDescriptionPropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - subtitle. */
+	as?: TextPropsType['as'];
+};

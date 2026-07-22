@@ -6,6 +6,7 @@ import { BackdropPropsType } from '../backdrop';
 import { ButtonPropsType } from '../button';
 import { ContainerPropsType } from '../container';
 import { TextPropsType } from '../text';
+import { SheetContentVariantTypes } from './Sheet';
 
 /** External store for per-id sheet subscriptions. */
 export type SheetStoreType = AnimatedOverlayStoreType;
@@ -45,6 +46,21 @@ export type SheetContextValueType = {
 	backdropProps?: Omit<BackdropPropsType, 'visible' | 'onVisibilityChange' | 'closeOnClick'>;
 };
 
+/** Context shared from SheetContent to its Title and Description for accessible name wiring. */
+export type SheetContentContextValueType = {
+	/** Id applied to the sheet title element. */
+	titleId: string;
+
+	/** Id applied to the sheet description element. */
+	descriptionId: string;
+
+	/** Register whether a title is rendered inside the content. */
+	registerTitle: (hasTitle: boolean) => void;
+
+	/** Register whether a description is rendered inside the content. */
+	registerDescription: (hasDescription: boolean) => void;
+};
+
 /** Sheet props type. */
 export type SheetPropsType = {
 	/** Whether sheet is open. */
@@ -75,17 +91,23 @@ export type SheetTriggerPropsType = ButtonPropsType & {
 /** Sheet content props type. */
 export type SheetContentPropsType = ContainerPropsType & {
 	/** Side of the screen to slide from. Default - right. */
-	side?: 'top' | 'right' | 'bottom' | 'left';
+	side?: typeof SheetContentVariantTypes.side;
 
 	/** Optional id linking this content to a SheetTrigger with the same id. If omitted, uses the root-generated default id. */
 	sheetId?: string;
 };
 
 /** Sheet title props type. */
-export type SheetTitlePropsType = TextPropsType;
+export type SheetTitlePropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - title. */
+	as?: TextPropsType['as'];
+};
 
 /** Sheet description props type. */
-export type SheetDescriptionPropsType = TextPropsType;
+export type SheetDescriptionPropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - body-small. */
+	as?: TextPropsType['as'];
+};
 
 /** Sheet close props type. */
 export type SheetClosePropsType = ButtonPropsType & {

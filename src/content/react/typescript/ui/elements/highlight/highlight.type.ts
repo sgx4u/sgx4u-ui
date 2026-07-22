@@ -1,8 +1,9 @@
 import { ContainerPropsType } from '../container';
 import { TextPropsType } from '../text';
+import { HighlightMarkVariantTypes } from './Highlight';
 
 /** Props type for the Highlight component. */
-export type HighlightPropsType = Omit<TextPropsType, 'as'> & {
+export type HighlightPropsType = Omit<TextPropsType, 'as' | 'variant'> & {
 	/** Search query. */
 	query: string;
 
@@ -13,11 +14,11 @@ export type HighlightPropsType = Omit<TextPropsType, 'as'> & {
 	wholeWords?: boolean;
 
 	/** Highlight variant. Default - default. */
-	variant?: 'default' | 'outlined' | 'underline' | 'marker';
+	variant?: typeof HighlightMarkVariantTypes.variant;
 
 	/** Props to be passed to the container. */
 	containerProps?: Omit<ContainerPropsType, 'as'> & {
-		/** HTML element to render as. Default - div. */
+		/** HTML element to render as. Default - span. */
 		as?: ContainerPropsType['as'];
 	};
 };

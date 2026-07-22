@@ -24,6 +24,12 @@ export const { variants: labelVariants, types: LabelVariantTypes } = makeVariant
 			default: 'text-sm',
 			lg: 'text-base',
 		},
+		state: {
+			default: '',
+			error: 'text-danger',
+			success: 'text-success',
+			warn: 'text-warn',
+		},
 	},
 	default: {
 		variant: 'default',
@@ -55,15 +61,17 @@ export function Label({
 	const actualVariant = state === 'default' ? variant : state === 'error' ? 'danger' : state;
 
 	const componentProps = {
-		htmlFor,
-		className: cn(labelVariants({ variant: actualVariant, size }), className),
 		'data-slot': 'label',
-		'aria-label': props.title,
-		'aria-required': required ?? undefined,
-		'aria-disabled': disabled || undefined,
-		'aria-invalid': state === 'error' || undefined,
-		'aria-describedby': message ? `${htmlFor}-description` : undefined,
 		...props,
+		htmlFor,
+		className: cn(
+			labelVariants({ variant: actualVariant, size }),
+			disabled && 'pointer-events-none opacity-50',
+			className,
+		),
+		'aria-required': required || undefined,
+		'aria-invalid': state === 'error' || undefined,
+		'aria-disabled': disabled || undefined,
 	} as const;
 
 	/** If asChild is true, merge props with the child element (no new DOM node). */

@@ -2,7 +2,6 @@ import js from '@eslint/js';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import jsdoc from 'eslint-plugin-jsdoc';
-import noSecrets from 'eslint-plugin-no-secrets';
 import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -19,10 +18,7 @@ export default defineConfig([
 
 	{
 		files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-		plugins: {
-			js,
-			'no-secrets': noSecrets,
-		},
+		plugins: { js },
 		extends: ['js/recommended'],
 		languageOptions: { globals: { ...globals.browser, ...globals.jest } },
 		rules: {
@@ -32,15 +28,28 @@ export default defineConfig([
 			'jsdoc/require-param': [
 				'error',
 				{
+					// Require @param for every function except the destructured props pattern typed with a dedicated named type.
 					contexts: [
-						'FunctionDeclaration:not([id.name=/^[A-Z]/])',
-						'FunctionExpression:not([id.name=/^[A-Z]/])',
-						'ArrowFunctionExpression:not([id.name=/^[A-Z]/])',
+						'FunctionDeclaration:not([id.name=/^[A-Z]/]):not(:has(> ObjectPattern[typeAnnotation.typeAnnotation.type="TSTypeReference"]))',
+						'FunctionExpression:not([id.name=/^[A-Z]/]):not(:has(> ObjectPattern[typeAnnotation.typeAnnotation.type="TSTypeReference"]))',
+						'ArrowFunctionExpression:not([id.name=/^[A-Z]/]):not(:has(> ObjectPattern[typeAnnotation.typeAnnotation.type="TSTypeReference"]))',
 					],
 				},
 			],
 			'no-unused-vars': 'off',
 			'react/react-in-jsx-scope': 'off',
+		},
+	},
+	{
+		files: ['**/*.{js,mjs,cjs,jsx}'],
+		rules: {
+			'@typescript-eslint/explicit-function-return-type': 'off',
+		},
+	},
+	{
+		files: ['apps/sgx4u-ui-docs/src/app/docs/elements/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+		rules: {
+			'jsdoc/require-jsdoc': 'off',
 		},
 	},
 

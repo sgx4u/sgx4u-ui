@@ -1,6 +1,6 @@
 'use client';
 
-import { JSX, KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
+import { ChangeEvent, JSX, KeyboardEvent as ReactKeyboardEvent, useState } from 'react';
 
 import { SwitchPropsType } from './switch.type';
 import { cn } from '../../utils/styles.util';
@@ -11,7 +11,7 @@ import { Input } from '../input';
 
 /** Variants for the Switch component. */
 export const { variants: switchVariants, types: SwitchVariantTypes } = makeVariants({
-	base: 'peer min-w-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-muted p-0 outline-2 duration-300 checked:bg-primary not-checked:hover:bg-muted-dark',
+	base: 'peer min-w-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-muted p-0 outline-2 transition-colors duration-300 checked:bg-primary not-checked:hover:bg-muted-dark',
 	variants: {
 		size: {
 			xs: 'h-4 w-7',
@@ -28,18 +28,19 @@ export const { variants: switchVariants, types: SwitchVariantTypes } = makeVaria
 	},
 	default: {
 		size: 'default',
+		state: 'default',
 	},
 });
 
 /** Variants for the Switch thumb component. */
 export const { variants: switchThumbVariants } = makeVariants({
-	base: 'pointer-events-none absolute top-0 bottom-0 left-0.5 my-auto rounded-full bg-background transition-all duration-300',
+	base: 'pointer-events-none absolute top-0 bottom-0 left-0.5 my-auto rounded-full bg-background transition-[left] duration-300',
 	variants: {
 		size: {
 			xs: 'size-3 peer-checked:left-3.5',
-			sm: 'size-4 peer-checked:left-[18px]',
-			default: 'size-5 peer-checked:left-[22px]',
-			lg: 'size-6 peer-checked:left-[30px]',
+			sm: 'size-4 peer-checked:left-4.5',
+			default: 'size-5 peer-checked:left-5.5',
+			lg: 'size-6 peer-checked:left-7.5',
 		},
 	},
 	default: {
@@ -92,26 +93,33 @@ export function Switch({
 		handleCheckedChange(!currentChecked);
 	};
 
+	/**
+	 * @description Sync native change events with the checked state.
+	 * @param {ChangeEvent<HTMLInputElement>} event - The native change event.
+	 * @returns {void}
+	 */
+	const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+		onChange?.(event);
+		handleCheckedChange(event.target.checked);
+	};
+
 	const { className: thumbClassName, ...thumbRestProps } = thumbProps;
 	const { className: containerClassName, ...containerRestProps } = containerProps;
 
 	return (
-		<Container as="div" className={cn('relative inline-flex', containerClassName)} {...containerRestProps}>
+		<Container className={cn('relative inline-flex', containerClassName)} {...containerRestProps}>
 			<Input
+				{...props}
 				checked={currentChecked}
-				onChange={(event) => {
-					onChange?.(event);
-					handleCheckedChange(event.target.checked);
-				}}
+				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				type="checkbox"
 				className={cn(switchVariants({ size: inputSize, state }), className)}
 				data-slot="switch"
-				data-state={state ?? 'default'}
+				data-state={state}
 				role="switch"
 				aria-checked={currentChecked}
-				aria-disabled={props.disabled ?? false}
-				{...props}
+				aria-invalid={state === 'error' || undefined}
 			/>
 			<Container
 				as="span"

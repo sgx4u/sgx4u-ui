@@ -10,3 +10,6 @@ export * from './Image';
 
 /** ProgressiveImage component. */
 export * from './ProgressiveImage';
+
+/** ImageWithTooltip component. */
+export * from './ImageWithTooltip';

@@ -7,13 +7,13 @@ export type BadgePropsType = Omit<ContainerPropsType, 'as'> & {
 	status?: boolean;
 
 	/** Visual style of the badge. Default - primary. */
-	variant?: (typeof BadgeVariantTypes)['variant'];
+	variant?: typeof BadgeVariantTypes.variant;
 
 	/** Size of the badge. Default - default. */
-	size?: (typeof BadgeVariantTypes)['size'];
+	size?: typeof BadgeVariantTypes.size;
 
 	/** Radius of the badge. Default - full. */
-	radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+	radius?: typeof BadgeVariantTypes.radius;
 
 	/** HTML element to render as. Default - span. */
 	as?: ContainerPropsType['as'];

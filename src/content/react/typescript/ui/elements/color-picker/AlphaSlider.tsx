@@ -14,7 +14,6 @@ type AlphaSliderPropsType = {
 
 /**
  * @description Alpha/transparency slider (0–1). Fires onChange only on mouse/pointer release.
- * @param {AlphaSliderPropsType} props - The props object.
  * @returns {JSX.Element} The AlphaSlider component.
  */
 export function AlphaSlider({ value, color, onChange }: AlphaSliderPropsType): JSX.Element {

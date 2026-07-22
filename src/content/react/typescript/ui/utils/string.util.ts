@@ -1,6 +1,15 @@
 import { BG_COLORS, BORDER_COLORS, TEXT_COLORS } from '../constants/color.constant';
 
 /**
+ * @description Capitalizes the first character of a string, leaving the rest unchanged.
+ * @param {string} value - The string to capitalize.
+ * @returns {string} The string with its first character uppercased.
+ */
+export function capitalize(value: string): string {
+	return value.length === 0 ? value : value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+/**
  * @description Converts a string to a stable non-negative integer using the djb2 hash algorithm. djb2 distributes output well even for short strings and anagrams, avoiding the collision problem of a simple character-code sum.
  * @param {string} value - The string to hash.
  * @returns {number} A stable non-negative integer derived from the string.

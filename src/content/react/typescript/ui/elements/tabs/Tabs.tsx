@@ -9,6 +9,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useId,
 	useLayoutEffect,
 	useRef,
 	useState,
@@ -31,6 +32,7 @@ import { Container } from '../container';
 /** Context for the Tabs component. */
 const TabsContext = createContext<TabsContextType>({
 	value: '',
+	baseId: '',
 	onValueChange: () => {},
 	registerTrigger: () => {},
 	getTriggerElement: () => null,
@@ -40,6 +42,18 @@ const TabsContext = createContext<TabsContextType>({
 	tabContentCommonProps: {},
 	tabIndicatorProps: {},
 });
+
+/**
+ * @description Builds the paired DOM ids that connect a tab trigger with its panel.
+ * @param {{ baseId: string; value: string | number }} params - The base id and tab value.
+ * @returns {{ triggerId: string; panelId: string }} The trigger and panel ids.
+ */
+function getTabElementIds({ baseId, value }: { baseId: string; value: string | number }): {
+	triggerId: string;
+	panelId: string;
+} {
+	return { triggerId: `${baseId}-tab-${value}`, panelId: `${baseId}-panel-${value}` };
+}
 
 /**
  * @description A set of stacked triggers that switch between different views or panels in the same space.
@@ -61,6 +75,9 @@ export function Tabs({
 }: TabsPropsType): JSX.Element {
 	/** Internal value state when value is not provided. */
 	const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+
+	/** Stable id used to pair triggers with their panels. */
+	const baseId = useId();
 
 	/** Controlled + Uncontrolled sync. */
 	const currentValue = value ?? internalValue;
@@ -106,6 +123,7 @@ export function Tabs({
 		<TabsContext.Provider
 			value={{
 				value: currentValue,
+				baseId,
 				onValueChange: handleValueChange,
 				registerTrigger,
 				getTriggerElement,
@@ -116,7 +134,7 @@ export function Tabs({
 				tabIndicatorProps,
 			}}
 		>
-			<Container as="div" className={cn('w-full', className)} data-slot="tabs" {...props} />
+			<Container {...props} className={cn('w-full', className)} data-slot="tabs" />
 		</TabsContext.Provider>
 	);
 }
@@ -128,7 +146,7 @@ export const { variants: tabListVariants, types: TabListVariantTypes } = makeVar
 		variant: {
 			default: 'rounded-lg bg-background-light',
 			outline: '',
-			underline: '',
+			underline: 'rounded-t-lg bg-background-light',
 		},
 	},
 	default: {
@@ -142,8 +160,8 @@ export const { variants: tabTriggerVariants, types: TabTriggerVariantTypes } = m
 	variants: {
 		variant: {
 			default: 'rounded-md bg-muted',
-			outline: 'rounded-md border',
-			underline: 'border-b-2 border-border',
+			outline: 'rounded-md border-2 border-muted',
+			underline: 'border-b-2 border-muted',
 		},
 	},
 	default: {
@@ -197,14 +215,13 @@ export function TabList({
 
 	return (
 		<Container
-			as="div"
+			{...props}
 			className={cn(tabListVariants({ variant }), className)}
 			data-slot="tab-list"
 			role="tablist"
-			{...props}
 		>
 			<Container
-				as="div"
+				{...tabIndicatorRestProps}
 				style={indicatorStyle}
 				className={cn(
 					tabTriggerVariants({ variant }),
@@ -213,7 +230,6 @@ export function TabList({
 				)}
 				data-slot="tab-indicator"
 				aria-hidden="true"
-				{...tabIndicatorRestProps}
 			/>
 			{children}
 		</Container>
@@ -225,10 +241,21 @@ export function TabList({
  * @returns {JSX.Element} The TabTrigger component.
  */
 export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: TabTriggerPropsType): JSX.Element {
-	const { value: activeValue, onValueChange, registerTrigger, tabTriggerCommonProps } = useContext(TabsContext);
+	const {
+		value: activeValue,
+		baseId,
+		onValueChange,
+		registerTrigger,
+		tabTriggerCommonProps,
+	} = useContext(TabsContext);
 
 	/** Whether this tab is active. */
 	const isActive = activeValue === value;
+
+	/** Whether any tab is currently selected. */
+	const hasSelection = activeValue !== '';
+
+	const { triggerId, panelId } = getTabElementIds({ baseId, value });
 
 	const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		onValueChange(value);
@@ -244,17 +271,20 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
 
 	return (
 		<Button
+			variant="ghost"
+			{...tabTriggerRestProps}
+			{...props}
 			ref={(element) => registerTrigger(value, element)}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
-			variant="ghost"
 			className={cn('hover:bg-transparent', tabTriggerClassName, className)}
+			id={triggerId}
 			data-slot="tab-trigger"
 			data-value={value}
 			role="tab"
 			aria-selected={isActive}
-			{...tabTriggerRestProps}
-			{...props}
+			aria-controls={panelId}
+			tabIndex={isActive || !hasSelection ? 0 : -1}
 		/>
 	);
 }
@@ -264,21 +294,24 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
  * @returns {JSX.Element} The TabContent component.
  */
 export function TabContent({ value, ...props }: TabContentPropsType): JSX.Element {
-	const { value: activeValue, tabContentCommonProps } = useContext(TabsContext);
+	const { value: activeValue, baseId, tabContentCommonProps } = useContext(TabsContext);
 
 	/** Whether this tab content is active. */
 	const isActive = activeValue === value;
 
 	if (!isActive) return <></>;
+
+	const { triggerId, panelId } = getTabElementIds({ baseId, value });
+
 	return (
 		<Container
-			as="div"
+			{...tabContentCommonProps}
+			{...props}
+			id={panelId}
 			data-slot="tab-content"
 			data-value={value}
 			role="tabpanel"
-			hidden={!isActive}
-			{...tabContentCommonProps}
-			{...props}
+			aria-labelledby={triggerId}
 		/>
 	);
 }

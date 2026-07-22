@@ -20,13 +20,13 @@ export type PopoverPropsType = {
 	/** Controlled state change callback. Used when open is provided. */
 	onOpenChange?: (nextOpen: boolean) => void;
 
-	/** Side of the trigger to align against. Default - 'center'. */
+	/** Side of the trigger to align against. Default - center. */
 	align?: PopoverAlignType;
 
 	/** Distance in pixels from the trigger (alignment axis). Default - 0. */
 	alignOffset?: number;
 
-	/** Preferred side of the trigger to render against. Default - 'bottom'. */
+	/** Preferred side of the trigger to render against. Default - bottom. */
 	side?: PopoverSideType;
 
 	/** Distance in pixels from the trigger (side axis). Default - 6. */
@@ -49,6 +49,9 @@ export type PopoverPropsType = {
 
 	/** Whether to trap focus within the popover content. Default - true. */
 	trapFocus?: boolean;
+
+	/** Whether to lock body scroll while the popover is open. Default - true. */
+	lockScroll?: boolean;
 
 	/** Children to render. */
 	children?: ReactNode;
@@ -103,6 +106,9 @@ export type PopoverContextValueType = {
 	/** Whether to trap focus within the popover content. Default - true. */
 	trapFocus?: boolean;
 
+	/** Whether to lock body scroll while the popover is open. */
+	lockScroll?: boolean;
+
 	/** Side of the trigger to align against. */
 	align: PopoverAlignType;
 
@@ -127,7 +133,7 @@ export type PopoverTriggerPropsType = ButtonPropsType & {
 	/** Optional id that links this trigger to a PopoverContent with the same id. If omitted, uses the root-generated default id. */
 	popoverId?: string;
 
-	/** Button action. Default - 'toggle'. */
+	/** Button action. Default - toggle. */
 	action?: 'open' | 'toggle';
 };
 
@@ -144,7 +150,13 @@ export type PopoverClosePropsType = ButtonPropsType & {
 };
 
 /** Props type for the PopoverTitle component. */
-export type PopoverTitlePropsType = TextPropsType;
+export type PopoverTitlePropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - title. */
+	as?: TextPropsType['as'];
+};
 
 /** Props type for the PopoverDescription component. */
-export type PopoverDescriptionPropsType = TextPropsType;
+export type PopoverDescriptionPropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - subtitle. */
+	as?: TextPropsType['as'];
+};

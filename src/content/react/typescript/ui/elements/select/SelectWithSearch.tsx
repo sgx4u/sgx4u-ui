@@ -1,16 +1,25 @@
 'use client';
 
-import { createContext, Fragment, JSX, ReactNode, useContext, useId, useMemo, useState } from 'react';
+import {
+	createContext,
+	Fragment,
+	JSX,
+	MouseEvent as ReactMouseEvent,
+	ReactNode,
+	useContext,
+	useMemo,
+	useState,
+} from 'react';
 import { CheckIcon, ChevronDownIcon, PlusIcon, SearchIcon } from 'lucide-react';
 
 import {
 	SelectContentPropsType,
-	SelectContextType,
 	SelectItemPropsType,
 	SelectSearchPropsType,
 	SelectTriggerPropsType,
 	SelectWithSearchContextType,
 	SelectWithSearchPropsType,
+	SelectWithSearchSelectedChildType,
 } from './select.type';
 import { cn } from '../../utils/styles.util';
 
@@ -58,7 +67,7 @@ export function SelectWithSearch({
 	const [internalValue, setInternalValue] = useState<Array<string>>(value ?? defaultValue ?? []);
 
 	/** Selected children state. */
-	const [selectedChildren, setSelectedChildren] = useState<SelectContextType['selectedChildren']>([]);
+	const [selectedChildren, setSelectedChildren] = useState<Array<SelectWithSearchSelectedChildType>>([]);
 	/** Search term state. */
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -108,18 +117,17 @@ export function SelectWithSearchTrigger({ className, children, ...props }: Selec
 	return (
 		<PopoverTrigger
 			variant="outline"
+			{...props}
 			className={cn('flex items-center justify-between gap-1', className)}
 			data-slot="select-trigger"
 			role="combobox"
 			aria-expanded={open}
 			aria-haspopup="listbox"
-			{...props}
 		>
 			{selectedChildren.length > 0 ? (
 				<Container className="flex items-center gap-2 overflow-hidden">
-					{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-					{selectedChildren.map((child: any, index: number) => (
-						<Fragment key={index}>
+					{selectedChildren.map((child, index) => (
+						<Fragment key={child.id}>
 							{child.element}
 							<Separator
 								orientation="vertical"
@@ -132,7 +140,10 @@ export function SelectWithSearchTrigger({ className, children, ...props }: Selec
 				children
 			)}
 
-			<ChevronDownIcon className={cn('ml-3 size-4 transition-all', open && 'rotate-180')} aria-hidden="true" />
+			<ChevronDownIcon
+				className={cn('ml-3 size-4 transition-transform', open && 'rotate-180')}
+				aria-hidden="true"
+			/>
 		</PopoverTrigger>
 	);
 }
@@ -142,7 +153,7 @@ export function SelectWithSearchTrigger({ className, children, ...props }: Selec
  * @returns {JSX.Element} The SelectWithSearchContent component.
  */
 export function SelectWithSearchContent({ className, children, ...props }: SelectContentPropsType): JSX.Element {
-	const { searchTerm, onAddSelectItem } = useContext(SelectContext);
+	const { searchTerm, onAddSelectItem, type } = useContext(SelectContext);
 
 	/** Normalize children to a flat array */
 	const childArray = useMemo(() => {
@@ -220,10 +231,11 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 
 	return (
 		<PopoverContent
+			{...props}
 			className={cn('hide-scrollbar overflow-hidden p-0', className)}
 			data-slot="select-content"
 			role="listbox"
-			{...props}
+			aria-multiselectable={type === 'multiple'}
 		>
 			{searchInput}
 			<Container className="flex flex-col p-1">
@@ -238,10 +250,18 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
  * @description Selectable list option that toggles inclusion in the current value array and keeps the trigger's rendered labels in sync for single and multi-select modes.
  * @returns {JSX.Element} The SelectWithSearchItem component.
  */
-export function SelectWithSearchItem({ value, className, children, ...props }: SelectItemPropsType): JSX.Element {
+export function SelectWithSearchItem({
+	value,
+	onClick,
+	className,
+	children,
+	...props
+}: SelectItemPropsType): JSX.Element {
 	const { onOpenChange, onValueChange, value: selectedValue, setSelectedChildren, type } = useContext(SelectContext);
 
-	const handleSelect = (): void => {
+	const handleSelect = (event: ReactMouseEvent<HTMLButtonElement>): void => {
+		onClick?.(event);
+
 		if (type === 'single') {
 			onValueChange([value]);
 			onOpenChange(false);
@@ -257,18 +277,17 @@ export function SelectWithSearchItem({ value, className, children, ...props }: S
 		onOpenChange(false);
 
 		if (selectedValue.includes(value)) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			setSelectedChildren((prev: any) => prev.filter((child: any) => child.id !== value));
+			setSelectedChildren((previous) => previous.filter((child) => child.id !== value));
 		} else {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			setSelectedChildren((prev: any) => [...prev, { id: value, element: children }]);
+			setSelectedChildren((previous) => [...previous, { id: value, element: children }]);
 		}
 	};
 
 	return (
 		<Button
-			onClick={handleSelect}
 			variant="ghost"
+			{...props}
+			onClick={handleSelect}
 			className={cn(
 				'relative h-8 justify-start pr-12 pl-2 font-normal',
 				selectedValue.includes(value) && 'font-medium',
@@ -278,7 +297,6 @@ export function SelectWithSearchItem({ value, className, children, ...props }: S
 			data-value={value}
 			role="option"
 			aria-selected={selectedValue.includes(value)}
-			{...props}
 		>
 			{children}
 
@@ -295,25 +313,23 @@ export function SelectWithSearchItem({ value, className, children, ...props }: S
  */
 export function SelectSearch({ className, ...props }: SelectSearchPropsType): JSX.Element {
 	const { searchTerm, setSearchTerm } = useContext(SelectContext);
-	const searchId = useId();
 
 	return (
 		<Container className="relative">
 			<Input
-				value={searchTerm}
-				onChange={(event): void => setSearchTerm(event.target.value)}
 				autoFocus={true}
 				inputSize="full"
 				placeholder="Search..."
+				aria-label="Search items"
+				{...props}
+				value={searchTerm}
+				onChange={(event): void => setSearchTerm(event.target.value)}
 				className={cn(
 					'w-full rounded-none border-x-0 border-t-0 border-b-2 border-muted-light px-8 py-2 outline-none',
 					className,
 				)}
 				data-slot="select-search"
 				role="searchbox"
-				aria-label="Search items"
-				aria-controls={`listbox-${searchId}`}
-				{...props}
 			/>
 			<SearchIcon
 				className="absolute inset-[0_auto_0_5px] inset-y-0 my-auto ml-1 size-4 text-muted-foreground"

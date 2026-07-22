@@ -18,7 +18,6 @@ type SaturationLuminancePickerPropsType = {
 
 /**
  * @description 2D saturation/luminance picker. Fires onChange only on mouse/pointer release.
- * @param {SaturationLuminancePickerPropsType} props - The props object.
  * @returns {JSX.Element} The SaturationLuminancePicker component.
  */
 export function SaturationLuminancePicker({
@@ -112,7 +111,6 @@ export function SaturationLuminancePicker({
 	return (
 		<Container
 			ref={containerReference}
-			as="div"
 			onPointerDown={handlePointerDown}
 			onPointerMove={handlePointerMove}
 			onPointerUp={handlePointerUp}

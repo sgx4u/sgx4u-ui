@@ -1,17 +1,24 @@
 import { ContainerPropsType } from '../container';
 import { TextPropsType } from '../text';
+import { CardVariantTypes } from './Card';
 
 /** Props type for the Card component. */
 export type CardPropsType = ContainerPropsType & {
 	/** Variant of the card. Default - default. */
-	variant?: 'default' | 'outline' | 'glass' | 'liquid';
+	variant?: typeof CardVariantTypes.variant;
 
 	/** Size of the card. Default - default. */
-	size?: 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+	size?: typeof CardVariantTypes.size;
+
+	/** Border radius of the card. Default - lg. */
+	radius?: typeof CardVariantTypes.radius;
 };
 
 /** Props type for the CardHeader component. */
-export type CardTitlePropsType = TextPropsType;
+export type CardTitlePropsType = Omit<TextPropsType, 'as'> & {
+	/** HTML element to render as. Default - h6. */
+	as?: TextPropsType['as'];
+};
 
 /** Props type for the CardDescription component. */
 export type CardDescriptionPropsType = TextPropsType;

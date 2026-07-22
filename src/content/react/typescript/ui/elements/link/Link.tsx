@@ -7,7 +7,6 @@ import { cn } from '../../utils/styles.util';
 import { makeVariants } from '../../utils/variant.util';
 
 import { buttonVariants } from '../button/Button';
-import { Container } from '../container';
 import { Slot } from '../slot';
 import { AdoptiveLink } from './AdoptiveLink';
 
@@ -77,6 +76,7 @@ export function Link({
 	active,
 	activeVariant = 'default',
 	activeIndicatorPosition = 'bottom',
+	disabled,
 
 	variant = 'link',
 	size = 'link',
@@ -89,7 +89,7 @@ export function Link({
 	const isAriaLabelNeeded = !children || typeof children !== 'string';
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLAnchorElement>): void => {
-		if (props.disabled) return;
+		if (disabled) return;
 
 		onKeyDown?.(event);
 
@@ -102,33 +102,26 @@ export function Link({
 	};
 
 	const componentProps = {
+		'data-slot': 'link',
+		...props,
 		onClick,
 		onKeyDown: handleKeyDown,
 		className: cn(
-			props.disabled && 'pointer-events-none opacity-50',
+			disabled && 'pointer-events-none opacity-50',
 			buttonVariants({ variant, size }),
 			active && activeLinkVariants({ activeVariant, activeIndicatorPosition }),
 			className,
 		),
-		'data-slot': 'link',
 		'data-active': active ? 'true' : 'false',
-		rel: props.target === '_blank' ? 'noopener noreferrer' : undefined,
-		'aria-label': isAriaLabelNeeded ? props.title : props['aria-label'],
+		rel: props.rel ?? (props.target === '_blank' ? 'noopener noreferrer' : undefined),
+		'aria-label': props['aria-label'] ?? (isAriaLabelNeeded ? props.title : undefined),
 		'aria-current': active ? 'page' : undefined,
-		...props,
+		'aria-disabled': disabled ? true : undefined,
+		tabIndex: disabled ? -1 : props.tabIndex,
 	} as const;
 
 	/** If asChild is true, merge props with the child element (no new DOM node). */
 	if (asChild) return <Slot {...componentProps}>{children}</Slot>;
 
-	return (
-		<AdoptiveLink {...componentProps}>
-			{children}
-			{active && (
-				<Container as="span" className="sr-only">
-					Current page.
-				</Container>
-			)}
-		</AdoptiveLink>
-	);
+	return <AdoptiveLink {...componentProps}>{children}</AdoptiveLink>;
 }

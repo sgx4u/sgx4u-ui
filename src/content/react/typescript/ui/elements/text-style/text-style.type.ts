@@ -1,7 +1,7 @@
 import { ComponentPropsWithRef, ElementType } from 'react';
 
 /** Variants for the Text Style component. */
-export type TextStyleVariant =
+export type TextStyleVariantType =
 	| 'bold'
 	| 'italic'
 	| 'underline'
@@ -21,5 +21,5 @@ export type TextStylePropsType<E extends ElementType = 'b'> = {
 	asChild?: boolean;
 
 	/** Text style variant. Default - bold. */
-	as?: TextStyleVariant;
+	as?: TextStyleVariantType;
 } & Omit<ComponentPropsWithRef<E>, 'as'>;

@@ -5,29 +5,25 @@ export type BackgroundPropsType =
 	| ({ variant: 'bg-gradient' } & BackgroundGradientPropsType)
 	| ({ variant: 'pulse' } & GradientPulsePropsType);
 
-export type BackgroundGradientPropsType = Omit<ContainerPropsType, 'as'> & {
+/** Props type for the BackgroundGradient component. */
+export type BackgroundGradientPropsType = ContainerPropsType & {
 	/** Colors in Tailwind CSS to be used for the background gradient. */
 	colors?: Array<string>;
 
 	/** Interval in milliseconds to change the color of the background. Default - 2000. */
 	interval?: number;
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
 };
 
-export type GradientPulsePropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Item positions in Tailwind CSS to be used for the gradient pulse. */
+/** Props type for the GradientPulse component. */
+export type GradientPulsePropsType = ContainerPropsType & {
+	/** Color sets in Tailwind CSS each pulse circle cycles through. */
 	itemColors?: Array<Array<string>>;
 
-	/** Item colors in Tailwind CSS to be used for the gradient pulse. */
+	/** Positions in Tailwind CSS for each pulse circle. */
 	itemPositions?: Array<string>;
 
 	/** Interval in milliseconds to change the color of the items. Default - 2000. */
 	interval?: number;
-
-	/** HTML element to render as. Default - div. */
-	as?: ContainerPropsType['as'];
 
 	/** Props to be passed to the pulse circle. */
 	pulseCircleProps?: Omit<ContainerPropsType, 'as'> & {

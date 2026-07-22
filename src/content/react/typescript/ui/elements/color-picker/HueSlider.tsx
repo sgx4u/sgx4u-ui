@@ -13,7 +13,6 @@ type HueSliderPropsType = {
 
 /**
  * @description Hue slider (0–360). Fires onChange only on mouse/pointer release to avoid updates during drag.
- * @param {HueSliderPropsType} props - The props object.
  * @returns {JSX.Element} The HueSlider component.
  */
 export function HueSlider({ value, onChange }: HueSliderPropsType): JSX.Element {

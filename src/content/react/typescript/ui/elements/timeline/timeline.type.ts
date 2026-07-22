@@ -1,10 +1,11 @@
 import { ContainerPropsType } from '../container';
+import { TimelineStepVariantTypes } from './Timeline';
 
 /** Timeline state type. */
 export type TimelineStateType = {
 	id: string;
 	index: number;
-	status: 'completed' | 'active' | 'pending' | 'error';
+	status: typeof TimelineStepVariantTypes.status;
 };
 
 /** Timeline orientation type. */
@@ -19,10 +20,10 @@ export type TimelineContextPropsType = {
 	orientation: TimelineOrientationType;
 
 	/** Timeline step variant. */
-	variant: 'default' | 'content' | 'outlined';
+	variant: typeof TimelineStepVariantTypes.variant;
 
 	/** Timeline step size. */
-	size: 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+	size: typeof TimelineStepVariantTypes.size;
 
 	/** Progress index. */
 	timelineState: TimelineStateType[];
@@ -35,7 +36,7 @@ export type TimelineContextPropsType = {
 };
 
 /** Timeline props type. */
-export type TimelinePropsType = Omit<ContainerPropsType, 'as'> & {
+export type TimelinePropsType = ContainerPropsType & {
 	/** Timeline orientation. Default - vertical. */
 	orientation?: TimelineOrientationType;
 
@@ -48,14 +49,11 @@ export type TimelinePropsType = Omit<ContainerPropsType, 'as'> & {
 	/** Set progress index. */
 	onTimelineStateChange?: (timelineState: TimelineStateType) => void;
 
-	/** Container variant. Default - div. */
-	as?: ContainerPropsType['as'];
-
-	/** Timeline step variant. Default - default. */
-	variant?: 'default' | 'content' | 'outlined';
+	/** Timeline step variant. Default - outlined. */
+	variant?: typeof TimelineStepVariantTypes.variant;
 
 	/** Timeline step size. Default - default. */
-	size?: 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+	size?: typeof TimelineStepVariantTypes.size;
 };
 
 /** Timeline item context props type. */
@@ -68,25 +66,13 @@ export type TimelineItemContextPropsType = {
 };
 
 /** Timeline item props type. */
-export type TimelineItemPropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Container variant. Default - div. */
-	as?: ContainerPropsType['as'];
-};
+export type TimelineItemPropsType = ContainerPropsType;
 
 /** Timeline step props type. */
-export type TimelineStepPropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Container variant. Default - div. */
-	as?: ContainerPropsType['as'];
-};
+export type TimelineStepPropsType = ContainerPropsType;
 
 /** Timeline content props type. */
-export type TimelineContentPropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Container variant. Default - div. */
-	as?: ContainerPropsType['as'];
-};
+export type TimelineContentPropsType = ContainerPropsType;
 
 /** Timeline connector props type. */
-export type TimelineConnectorPropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Container variant. Default - div. */
-	as?: ContainerPropsType['as'];
-};
+export type TimelineConnectorPropsType = ContainerPropsType;

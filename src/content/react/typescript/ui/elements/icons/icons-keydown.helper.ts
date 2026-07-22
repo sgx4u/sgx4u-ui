@@ -1,5 +1,7 @@
 import { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
+import { isActivationKey } from '../../utils/keyboard.util';
+
 /**
  * @description Handles keyboard events for Enter and Spacebar keys to trigger toggle action.
  * @param {object} props - The props for the helper.
@@ -14,11 +16,9 @@ export function iconsOnKeyDownHelper({
 	event: ReactKeyboardEvent<SVGSVGElement>;
 	toggleVisibility: () => void;
 }): void {
-	const isEnter = event.key === 'Enter';
-	const isSpacebar = event.key === ' ' || event.key === 'Spacebar';
+	if (!isActivationKey(event.key)) return;
 
-	if (isEnter || isSpacebar) {
-		if (isSpacebar) event.preventDefault();
-		toggleVisibility();
-	}
+	/** Prevent page scroll when activating with the space key. */
+	if (event.key === ' ' || event.key === 'Spacebar') event.preventDefault();
+	toggleVisibility();
 }

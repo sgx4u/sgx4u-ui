@@ -8,11 +8,17 @@ import { Container } from '../container';
 
 /** Button group variants. */
 export const { variants: buttonGroupVariants, types: ButtonGroupVariantTypes } = makeVariants({
-	base: 'inline-flex w-max overflow-hidden',
+	/** Shared layout, middle buttons lose their radius, buttons never shrink, and the focused button lifts above its neighbours so its focus ring is never clipped. */
+	base: "inline-flex w-max *:data-[slot='button']:relative *:data-[slot='button']:shrink-0 [&>[data-slot='button']:focus-visible]:z-10 [&>[data-slot='button']:not(:first-child):not(:last-child)]:rounded-none",
 	variants: {
 		orientation: {
-			horizontal: 'flex-row',
-			vertical: 'flex-col',
+			/** Merge edges horizontally: flatten inner corners, drop inner right borders, and add a left separator between buttons. */
+			horizontal:
+				"flex-row [&>[data-slot='button']:first-child]:rounded-r-none [&>[data-slot='button']:last-child]:rounded-l-none [&>[data-slot='button']:not(:first-child)]:border-l-2 [&>[data-slot='button']:not(:last-child)]:border-r-0",
+
+			/** Merge edges vertically: flatten inner corners, drop inner bottom borders, and add a top separator between buttons. */
+			vertical:
+				"flex-col [&>[data-slot='button']:first-child]:rounded-b-none [&>[data-slot='button']:last-child]:rounded-t-none [&>[data-slot='button']:not(:first-child)]:border-t-2 [&>[data-slot='button']:not(:last-child)]:border-b-0",
 		},
 	},
 	default: {
@@ -33,39 +39,7 @@ export function ButtonGroup({
 }: ButtonGroupPropsType): JSX.Element {
 	return (
 		<Container
-			as="div"
-			className={cn(
-				buttonGroupVariants({ orientation }),
-
-				/** Middle buttons: remove all radius. */
-				"[&>[data-slot='button']:not(:first-child):not(:last-child)]:rounded-none",
-
-				/** Horizontal: left button loses right radius, right button loses left radius. */
-				orientation === 'horizontal' &&
-					"[&>[data-slot='button']:first-child]:rounded-r-none [&>[data-slot='button']:last-child]:rounded-l-none",
-
-				/** Vertical: top button loses bottom radius, bottom button loses top radius. */
-				orientation === 'vertical' &&
-					"[&>[data-slot='button']:first-child]:rounded-b-none [&>[data-slot='button']:last-child]:rounded-t-none",
-
-				/** Remove ONLY the side borders (not top/bottom). */
-				/** Horizontal: remove right border from all but last (so only left separator remains). */
-				orientation === 'horizontal' && "[&>[data-slot='button']:not(:last-child)]:border-r-0",
-
-				/** Vertical: remove bottom border from all but last (so only top separator remains). */
-				orientation === 'vertical' && "[&>[data-slot='button']:not(:last-child)]:border-b-0",
-
-				/** Add separators between items (left or top borders only). */
-				/** Horizontal */
-				orientation === 'horizontal' && "[&>[data-slot='button']:not(:first-child)]:border-l-2",
-				/** Vertical */
-				orientation === 'vertical' && "[&>[data-slot='button']:not(:first-child)]:border-t-2",
-
-				/** Ensure children never shrink unexpectedly. */
-				"*:data-[slot='button']:shrink-0",
-
-				className,
-			)}
+			className={cn(buttonGroupVariants({ orientation }), className)}
 			data-slot="button-group"
 			data-orientation={orientation}
 			role="group"

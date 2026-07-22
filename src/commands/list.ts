@@ -43,7 +43,7 @@ export async function listComponents(): Promise<void> {
 			console.log();
 		});
 
-		process.exit(1);
+		return;
 	} catch (error) {
 		configSpinner.fail();
 		console.error(`❌ Error: ${error}`);

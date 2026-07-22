@@ -1,5 +1,5 @@
-import fs from 'fs-extra';
 import path from 'path';
+import fs from 'fs-extra';
 
 import { TailwindVersionType } from '../types/config.type';
 
@@ -80,22 +80,6 @@ async function locateGlobalsCSS(cwd: string): Promise<string | null> {
 }
 
 /**
- * @description Write to a CSS file.
- * @param {object} props - The parameters for writing to a CSS file.
- * @param {string} props.filePath - The path to the CSS file to write to.
- * @param {string} props.content - The content to write to the CSS file.
- * @returns {Promise<boolean>} A promise that resolves to true if the CSS file is written successfully, false otherwise.
- */
-async function writeCSSFile({ filePath, content }: { filePath: string; content: string }): Promise<boolean> {
-	try {
-		await fs.writeFile(filePath, content, 'utf8');
-		return true;
-	} catch {
-		return false;
-	}
-}
-
-/**
  * @description Append theme variables to existing globals.css file.
  * @param {object} props - The parameters for appending theme variables to an existing globals.css file.
  * @param {string} props.filePath - The path to the globals.css file to append theme variables to.
@@ -105,6 +89,22 @@ async function writeCSSFile({ filePath, content }: { filePath: string; content: 
 async function updateGlobalsCSS({ filePath, content }: { filePath: string; content: string }): Promise<boolean> {
 	try {
 		/** Write updated content. */
+		await fs.writeFile(filePath, content, 'utf8');
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * @description Write to a CSS file.
+ * @param {object} props - The parameters for writing to a CSS file.
+ * @param {string} props.filePath - The path to the CSS file to write to.
+ * @param {string} props.content - The content to write to the CSS file.
+ * @returns {Promise<boolean>} A promise that resolves to true if the CSS file is written successfully, false otherwise.
+ */
+async function writeCSSFile({ filePath, content }: { filePath: string; content: string }): Promise<boolean> {
+	try {
 		await fs.writeFile(filePath, content, 'utf8');
 		return true;
 	} catch {

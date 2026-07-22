@@ -9,6 +9,13 @@ import { Container } from '../container/Container';
  * @description Utility for content that should be available to screen readers but not visible on screen.
  * @returns {JSX.Element} The VisuallyHidden component.
  */
-export function VisuallyHidden({ className, ...props }: VisuallyHiddenPropsType): JSX.Element {
-	return <Container as="span" className={cn('sr-only', className)} data-slot="visually-hidden" {...props} />;
+export function VisuallyHidden({ focusable = false, className, ...props }: VisuallyHiddenPropsType): JSX.Element {
+	return (
+		<Container
+			as="span"
+			className={cn('sr-only', focusable && 'focus-within:not-sr-only focus:not-sr-only', className)}
+			data-slot="visually-hidden"
+			{...props}
+		/>
+	);
 }

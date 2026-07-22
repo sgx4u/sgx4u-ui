@@ -1,5 +1,4 @@
-/** Toast variant type. */
-export type ToastVariant = 'default' | 'success' | 'warn' | 'error' | 'info' | 'promise';
+import { ToastVariantTypes } from './Toaster';
 
 /** Promise toast status (loading → fulfilled or rejected). */
 export type ToastPromiseStatus = 'pending' | 'fulfilled' | 'rejected';
@@ -25,8 +24,8 @@ export type ToastItemType = {
 	/** Optional description shown below the title. */
 	description?: string;
 
-	/** Visual variant. */
-	variant: ToastVariant;
+	/** Visual variant. Default - default. */
+	variant: typeof ToastVariantTypes.variant;
 
 	/** Promise status (only when variant is 'promise'). */
 	promiseStatus?: ToastPromiseStatus;
@@ -63,9 +62,7 @@ export type ToastOptionsType = {
 };
 
 /** Default options for all toasts (passed to Toaster). */
-export type ToastDefaultOptionsType = Partial<
-	Pick<ToastOptionsType, 'position' | 'dismissible' | 'duration'>
->;
+export type ToastDefaultOptionsType = Partial<Pick<ToastOptionsType, 'position' | 'dismissible' | 'duration'>>;
 
 /** Options for promise toast. */
 export type ToastPromiseOptionsType = ToastOptionsType & {

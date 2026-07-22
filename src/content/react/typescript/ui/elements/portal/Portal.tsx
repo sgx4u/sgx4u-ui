@@ -10,13 +10,14 @@ import { PortalPropsType } from './portal.type';
  * @returns {JSX.Element} The Portal component.
  */
 export function Portal({ container, children }: PortalPropsType): JSX.Element {
-	const [mountNode, setMountNode] = useState<Element | null>(null);
+	/** Defer rendering until after mount so the server and client output match during hydration. */
+	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
 		// eslint-disable-next-line react-hooks/set-state-in-effect
-		setMountNode(container ?? document.body);
-	}, [container]);
+		setIsMounted(true);
+	}, []);
 
-	if (!mountNode) return <></>;
-	return createPortal(children, mountNode);
+	if (!isMounted) return <></>;
+	return createPortal(children, container ?? document.body);
 }

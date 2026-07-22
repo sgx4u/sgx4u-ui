@@ -1,32 +1,8 @@
-import fs from 'fs-extra';
 import { execSync } from 'child_process';
 import path from 'path';
+import fs from 'fs-extra';
 
 import { PackageManagerType, ProjectInfoType, TailwindVersionType } from '../types/config.type';
-
-/**
- * @description Validate project dependencies.
- * @param {string} cwd - The current working directory.
- * @returns {Promise<ProjectInfoType>} A promise that resolves to the project information.
- */
-export async function getProjectInfo(cwd: string): Promise<ProjectInfoType> {
-	/** Check for React. */
-	const hasReact = await isPackageInstalled({ packageName: 'react', cwd });
-	/** Check for Next.js. */
-	const hasNextJS = await isPackageInstalled({ packageName: 'next', cwd });
-	/** Check for TypeScript. */
-	const hasTypeScript = await isPackageInstalled({ packageName: 'typescript', cwd });
-	/** Detect Tailwind version. */
-	const tailwindVersion = await getTailwindVersion(cwd);
-	/** Check for Lucide Icons Version. */
-	const lucideVersion = await getPackageVersion({ packageName: 'lucide-react', cwd });
-	/** Detect package manager. */
-	const packageManager = await detectPackageManager(cwd);
-
-	const project: ProjectInfoType['project'] = hasNextJS ? 'next' : hasReact ? 'react' : 'none';
-
-	return { project, hasTypeScript, tailwindVersion, lucideVersion, packageManager };
-}
 
 /**
  * @description Check if a package is installed in the current project.
@@ -55,6 +31,30 @@ export async function isPackageInstalled({ packageName, cwd }: { packageName: st
 }
 
 /**
+ * @description Validate project dependencies.
+ * @param {string} cwd - The current working directory.
+ * @returns {Promise<ProjectInfoType>} A promise that resolves to the project information.
+ */
+export async function getProjectInfo(cwd: string): Promise<ProjectInfoType> {
+	/** Check for React. */
+	const hasReact = await isPackageInstalled({ packageName: 'react', cwd });
+	/** Check for Next.js. */
+	const hasNextJS = await isPackageInstalled({ packageName: 'next', cwd });
+	/** Check for TypeScript. */
+	const hasTypeScript = await isPackageInstalled({ packageName: 'typescript', cwd });
+	/** Detect Tailwind version. */
+	const tailwindVersion = await getTailwindVersion(cwd);
+	/** Check for Lucide Icons Version. */
+	const lucideVersion = await getPackageVersion({ packageName: 'lucide-react', cwd });
+	/** Detect package manager. */
+	const packageManager = await detectPackageManager(cwd);
+
+	const project: ProjectInfoType['project'] = hasNextJS ? 'next' : hasReact ? 'react' : 'none';
+
+	return { project, hasTypeScript, tailwindVersion, lucideVersion, packageManager };
+}
+
+/**
  * @description Install missing dependencies (general purpose).
  * @param {object} props - The parameters for installing dependencies.
  * @param {string} props.cwd - The current working directory.
@@ -80,6 +80,30 @@ export async function installDependencies({
 	} catch {
 		return false;
 	}
+}
+
+/**
+ * @description Detect Tailwind version from package.json.
+ * @param {string} cwd - The current working directory.
+ * @returns {Promise<TailwindVersionType>} A promise that resolves to the Tailwind version or null if it fails.
+ */
+async function getTailwindVersion(cwd: string): Promise<TailwindVersionType> {
+	const packageJsonPath = path.join(cwd, 'package.json');
+	if (!(await fs.pathExists(packageJsonPath))) return 'none';
+
+	const packageJson = await fs.readJson(packageJsonPath);
+	const allDeps = {
+		...packageJson.dependencies,
+		...packageJson.devDependencies,
+		...packageJson.peerDependencies,
+	};
+
+	/** Check for Tailwind v4. */
+	if (allDeps['tailwindcss'] && (allDeps['tailwindcss'].startsWith('4') || allDeps['tailwindcss'].startsWith('^4'))) {
+		return 'v4';
+	}
+
+	return 'none';
 }
 
 /**
@@ -202,28 +226,4 @@ function getInstallCommand({
 		default:
 			return isDev ? `npm install --save-dev ${packagesStr}` : `npm install ${packagesStr}`;
 	}
-}
-
-/**
- * @description Detect Tailwind version from package.json.
- * @param {string} cwd - The current working directory.
- * @returns {Promise<TailwindVersionType>} A promise that resolves to the Tailwind version or null if it fails.
- */
-async function getTailwindVersion(cwd: string): Promise<TailwindVersionType> {
-	const packageJsonPath = path.join(cwd, 'package.json');
-	if (!(await fs.pathExists(packageJsonPath))) return 'none';
-
-	const packageJson = await fs.readJson(packageJsonPath);
-	const allDeps = {
-		...packageJson.dependencies,
-		...packageJson.devDependencies,
-		...packageJson.peerDependencies,
-	};
-
-	/** Check for Tailwind v4. */
-	if (allDeps['tailwindcss'] && (allDeps['tailwindcss'].startsWith('4') || allDeps['tailwindcss'].startsWith('^4'))) {
-		return 'v4';
-	}
-
-	return 'none';
 }

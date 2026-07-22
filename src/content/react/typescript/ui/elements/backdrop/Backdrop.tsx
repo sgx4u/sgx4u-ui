@@ -8,8 +8,9 @@ import { makeVariants } from '../../utils/variant.util';
 
 import { Container } from '../container';
 
+/** Backdrop variants. */
 export const { variants: backdropVariants, types: BackdropVariantTypes } = makeVariants({
-	base: `fixed inset-0 z-overlay flex items-center justify-center transition-all`,
+	base: `fixed inset-0 z-overlay flex items-center justify-center transition-opacity`,
 	variants: {
 		variant: {
 			dark: 'bg-dark/60 backdrop-blur-sm',
@@ -24,7 +25,6 @@ export const { variants: backdropVariants, types: BackdropVariantTypes } = makeV
 
 /**
  * @description Reusable backdrop for overlays (dialogs, drawers, popovers).
- * @param {BackdropPropsType} props - The props for the Backdrop component.
  * @returns {JSX.Element} The Backdrop component.
  */
 export function Backdrop({
@@ -32,6 +32,7 @@ export function Backdrop({
 	onClick,
 	onVisibilityChange,
 	closeOnClick = true,
+	closeOnEscape = true,
 
 	variant = 'dark',
 	duration = 150,
@@ -40,43 +41,40 @@ export function Backdrop({
 
 	...props
 }: BackdropPropsType): JSX.Element {
-	/* Handle the mouse down event on the backdrop. */
+	/**
+	 * @description Dismiss only when the overlay itself is clicked, never its children.
+	 * @param {ReactMouseEvent<HTMLDivElement>} event - The click event on the backdrop.
+	 */
 	const handleClick = (event: ReactMouseEvent<HTMLDivElement>): void => {
-		if (!closeOnClick || event.target !== event.currentTarget) return;
-		if (onClick && event) onClick(event);
-		onVisibilityChange?.(false);
+		if (event.target !== event.currentTarget) return;
+
+		onClick?.(event);
+		if (closeOnClick) onVisibilityChange?.(false);
 	};
 
+	/** Dismiss on Escape while the backdrop is visible and Escape dismissal is enabled. */
 	useEffect(() => {
-		const closeOnEscape = (event: KeyboardEvent): void => {
-			if (event.key === 'Escape' && closeOnClick) {
-				event.stopPropagation();
-				event.preventDefault();
-				onVisibilityChange?.(false);
-			}
+		if (!visible || !closeOnClick || !closeOnEscape) return;
+
+		const handleEscape = (event: KeyboardEvent): void => {
+			if (event.key !== 'Escape') return;
+
+			event.stopPropagation();
+			event.preventDefault();
+			onVisibilityChange?.(false);
 		};
 
-		window.addEventListener('keydown', closeOnEscape);
-		return (): void => {
-			window.removeEventListener('keydown', closeOnEscape);
-		};
-	}, [closeOnClick, onVisibilityChange]);
+		window.addEventListener('keydown', handleEscape);
+		return (): void => window.removeEventListener('keydown', handleEscape);
+	}, [visible, closeOnClick, closeOnEscape, onVisibilityChange]);
 
 	return (
 		<Container
-			as="div"
 			onClick={handleClick}
 			style={{ transitionDuration: `${duration}ms`, ...style }}
-			className={cn(
-				backdropVariants({ variant }),
-				`duration-${duration}`,
-				visible ? 'opacity-100' : 'opacity-0',
-				className,
-			)}
-			data-slot={'Backdrop'}
+			className={cn(backdropVariants({ variant }), visible ? 'opacity-100' : 'opacity-0', className)}
+			data-slot="backdrop"
 			role="presentation"
-			tabIndex={visible ? 0 : undefined}
-			aria-live="off"
 			inert={!visible}
 			{...props}
 		/>

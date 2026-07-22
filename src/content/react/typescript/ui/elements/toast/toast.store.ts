@@ -1,4 +1,6 @@
-import { ToastDefaultOptionsType, ToastItemType, ToastOptionsType, ToastVariant } from './toast.type';
+import { ToastDefaultOptionsType, ToastItemType, ToastOptionsType } from './toast.type';
+
+import { ToastVariantTypes } from './Toaster';
 
 /** Listener function type. */
 type Listener = () => void;
@@ -47,13 +49,13 @@ export function setToastDefaults(options: ToastDefaultOptionsType): void {
 /**
  * @description Add a toast to the store.
  * @param {ToastOptionsType} options - The options for the toast.
- * @param {ToastVariant} variant - The variant of the toast.
+ * @param {typeof ToastVariantTypes.variant} variant - The variant of the toast.
  * @param {object} extra - Extra fields (e.g. promiseStatus for promise toasts).
  * @returns {string} The ID of the toast.
  */
 export function addToast(
 	options: ToastOptionsType,
-	variant: ToastVariant,
+	variant: typeof ToastVariantTypes.variant,
 	extra?: Partial<Pick<ToastItemType, 'promiseStatus'>>,
 ): string {
 	const id = generateId();

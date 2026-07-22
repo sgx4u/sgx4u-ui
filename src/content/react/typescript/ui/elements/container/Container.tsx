@@ -1,27 +1,18 @@
-import { createElement, JSX } from 'react';
+import { AriaRole, createElement, JSX } from 'react';
 
-import { ContainerPropsType } from './container.type';
-import { cn } from '../../utils/styles.util';
-import { makeVariants } from '../../utils/variant.util';
+import { ContainerPropsType, ContainerVariant } from './container.type';
 
 import { Slot } from '../slot';
 
-/** Variants for the Container component. */
-export const { variants: containerVariants, types: ContainerVariantTypes } = makeVariants({
-	base: '',
-	variants: {
-		radius: {
-			none: 'rounded-none',
-			sm: 'rounded-sm',
-			md: 'rounded-md',
-			lg: 'rounded-lg',
-			full: 'rounded-full',
-		},
-	},
-	default: {
-		radius: 'none',
-	},
-});
+/** Default ARIA roles inferred from the semantic element type. */
+const elementRoleMap: Partial<Record<ContainerVariant, AriaRole>> = {
+	main: 'main',
+	nav: 'navigation',
+	header: 'banner',
+	footer: 'contentinfo',
+	aside: 'complementary',
+	article: 'article',
+};
 
 /**
  * @description Layout wrapper used to arrange and align content using consistent flex or grid primitives.
@@ -31,29 +22,16 @@ export function Container({
 	as = 'div',
 	asChild,
 
-	radius,
-	className,
 	children,
 
 	...props
 }: ContainerPropsType): JSX.Element {
 	/** Determine default role based on semantic element type and aria attributes. */
+	const hasAriaLabel = Boolean(props['aria-label'] || props['aria-labelledby']);
 	const inferredRole =
-		props['role'] ??
-		{
-			main: 'main',
-			nav: 'navigation',
-			header: 'banner',
-			footer: 'contentinfo',
-			aside: 'complementary',
-			section: props['aria-label'] || props['aria-labelledby'] ? 'region' : undefined,
-			article: 'article',
-			span: undefined,
-			div: undefined,
-		}[as];
+		props['role'] ?? (as === 'section' ? (hasAriaLabel ? 'region' : undefined) : elementRoleMap[as]);
 
 	const componentProps = {
-		className: cn(containerVariants({ radius }), className),
 		'data-slot': 'container',
 		role: inferredRole,
 		...props,

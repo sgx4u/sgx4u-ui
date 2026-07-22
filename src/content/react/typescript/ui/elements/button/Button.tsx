@@ -3,6 +3,7 @@
 import { JSX, KeyboardEvent as ReactKeyboardEvent } from 'react';
 
 import { ButtonPropsType } from './button.type';
+import { isActivationKey } from '../../utils/keyboard.util';
 import { cn } from '../../utils/styles.util';
 import { makeVariants } from '../../utils/variant.util';
 
@@ -12,7 +13,7 @@ import { Slot } from '../slot';
 
 /** Variants for the Button component. */
 export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVariants({
-	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
+	base: `relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg font-medium whitespace-nowrap outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
 	variants: {
 		variant: {
 			primary: `bg-primary text-primary-foreground hover:bg-primary-dark data-[state=on]:bg-primary-dark`,
@@ -59,7 +60,7 @@ export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVaria
 
 			link: `text-muted-foreground hover:text-primary data-[state=on]:text-primary`,
 
-			wrapper: `cursor-pointer outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
+			wrapper: `cursor-pointer rounded-lg outline-2 outline-offset-2 outline-transparent transition-all focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:outline-danger/25 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
 		},
 		size: {
 			xs: `h-7 px-2.5 text-xs [&_[data-slot=spin-loader]:not([class*='size-'])]:size-3 [&_svg:not([class*='size-'])]:size-3`,
@@ -74,18 +75,10 @@ export const { variants: buttonVariants, types: ButtonVariantTypes } = makeVaria
 			link: `h-max w-max text-sm`,
 			wrapper: `h-max w-max text-sm`,
 		},
-		radius: {
-			none: 'rounded-none',
-			sm: 'rounded-sm',
-			md: 'rounded-md',
-			lg: 'rounded-lg',
-			full: 'rounded-full',
-		},
 	},
 	default: {
 		variant: 'primary',
 		size: 'default',
-		radius: 'lg',
 	},
 	skipBaseClasses: ['wrapper'],
 });
@@ -106,7 +99,6 @@ export function Button({
 
 	variant = 'primary',
 	size = 'default',
-	radius = 'lg',
 	className,
 
 	children,
@@ -114,41 +106,50 @@ export function Button({
 }: ButtonPropsType): JSX.Element {
 	const isDisabled = Boolean(props.disabled) || Boolean(loading);
 
+	/**
+	 * @description Emulates native button activation for non-native elements rendered through "asChild".
+	 * @param {ReactKeyboardEvent<HTMLButtonElement>} event - The keyboard event.
+	 * @returns {void}
+	 */
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
-		if (isDisabled) return;
+		if (isDisabled) {
+			event.preventDefault();
+			return;
+		}
 
 		onKeyDown?.(event);
 
-		const isEnter = event.key === 'Enter';
-		const isSpacebar = event.key === ' ' || event.key === 'Spacebar';
-		if (!isEnter && !isSpacebar) return;
+		if (!isActivationKey(event.key) || event.repeat) return;
 
 		event.preventDefault();
 		event.currentTarget.click();
 	};
 
 	const componentProps = {
+		'data-slot': 'button',
+		...props,
 		onClick,
-		onKeyDown: handleKeyDown,
 		type,
 		disabled: isDisabled,
-		className: cn(buttonVariants({ variant, size, radius }), className),
-		'data-slot': 'button',
+		className: cn(buttonVariants({ variant, size }), className),
 		'data-variant': variant,
-		'aria-label': props.title,
-		'aria-pressed': props['aria-pressed'],
+		'aria-label': props['aria-label'] ?? props.title,
 		'aria-disabled': isDisabled,
 		'aria-busy': loading || undefined,
 		'aria-live': loading ? 'polite' : undefined,
 		'data-loading': loading ? '' : undefined,
-		...props,
 	} as const;
 
-	/** If asChild is true, merge props with the child element (no new DOM node). */
-	if (asChild) return <Slot {...componentProps}>{children}</Slot>;
+	/** If asChild is true, merge props with the child element (no new DOM node) and emulate keyboard activation. */
+	if (asChild)
+		return (
+			<Slot {...componentProps} onKeyDown={handleKeyDown}>
+				{children}
+			</Slot>
+		);
 
 	return (
-		<button {...componentProps}>
+		<button {...componentProps} onKeyDown={onKeyDown}>
 			{/* Loader on the left. */}
 			{loading && loaderPosition === 'left' && (
 				<Container as="span" aria-hidden="true" className="flex">

@@ -12,8 +12,8 @@ import { Slot } from '../slot';
 import { Text } from '../text';
 
 /** Tooltip variants. */
-export const { variants: tooltipVariants } = makeVariants({
-	base: `after:z-tooltip-after pointer-events-none fixed z-tooltip rounded-md border shadow-md transition-opacity before:absolute before:inset-0 before:z-tooltip-before before:rounded-md after:absolute after:size-5 after:rotate-45 after:rounded-sm after:border data-[state=closed]:opacity-0 data-[state=open]:opacity-100`,
+export const { variants: tooltipVariants, types: TooltipVariantTypes } = makeVariants({
+	base: `pointer-events-none fixed z-tooltip rounded-md border shadow-md transition-opacity before:absolute before:inset-0 before:-z-10 before:rounded-md after:absolute after:-z-20 after:size-5 after:rotate-45 after:rounded-sm after:border data-[state=closed]:opacity-0 data-[state=open]:opacity-100`,
 	variants: {
 		variant: {
 			default: `text-foreground before:bg-background after:border-muted after:bg-background`,
@@ -78,10 +78,13 @@ export function Tooltip({
 	/** Controlled + Uncontrolled sync. */
 	const currentOpen = open ?? isOpen;
 
-	const toggleTooltip = (value: boolean): void => {
-		onOpenChange?.(value);
-		if (open === undefined) setIsOpen(value);
-	};
+	const toggleTooltip = useCallback(
+		(value: boolean): void => {
+			onOpenChange?.(value);
+			if (open === undefined) setIsOpen(value);
+		},
+		[open, onOpenChange],
+	);
 
 	/**
 	 * Compute tooltip position.
@@ -121,10 +124,39 @@ export function Tooltip({
 		setPosition({ top: newTop, left: newLeft });
 	}, [side, effectiveOffset, tooltipUid]);
 
-	/** Update position whenever tooltip opens. */
+	/** Reposition whenever the tooltip is open, and keep it aligned on scroll and resize. */
 	useEffect(() => {
-		if (isOpen) setTimeout(() => updatePosition(), 20);
-	}, [isOpen, updatePosition]);
+		if (!currentOpen) return;
+
+		const animationFrameId = requestAnimationFrame(updatePosition);
+		window.addEventListener('scroll', updatePosition, true);
+		window.addEventListener('resize', updatePosition);
+
+		return (): void => {
+			cancelAnimationFrame(animationFrameId);
+			window.removeEventListener('scroll', updatePosition, true);
+			window.removeEventListener('resize', updatePosition);
+		};
+	}, [currentOpen, updatePosition]);
+
+	/** Dismiss the tooltip with the Escape key while it is open. */
+	useEffect(() => {
+		if (!currentOpen) return;
+
+		const handleEscape = (event: KeyboardEvent): void => {
+			if (event.key === 'Escape') toggleTooltip(false);
+		};
+
+		document.addEventListener('keydown', handleEscape);
+		return (): void => document.removeEventListener('keydown', handleEscape);
+	}, [currentOpen, toggleTooltip]);
+
+	/** Clear any pending delay timer on unmount. */
+	useEffect(() => {
+		return (): void => {
+			if (timerRef.current) clearTimeout(timerRef.current);
+		};
+	}, []);
 
 	/** Event handlers based on trigger type. */
 	const show = (): void => {
@@ -140,6 +172,7 @@ export function Tooltip({
 	const { className: containerClassName, ...containerRestProps } = containerProps ?? {};
 
 	const componentProps = {
+		...containerRestProps,
 		as: 'div',
 		onMouseEnter: trigger === 'hover' ? show : undefined,
 		onMouseLeave: trigger === 'hover' ? hide : undefined,
@@ -149,9 +182,7 @@ export function Tooltip({
 		className: cn('relative inline-block w-max cursor-pointer', containerClassName),
 		'data-slot': 'tooltip',
 		'data-uid': tooltipUid,
-		'aria-describedby': currentOpen ? 'tooltip' : undefined,
-		'aria-expanded': currentOpen,
-		...containerRestProps,
+		'aria-describedby': currentOpen ? `tooltip-${tooltipUid}` : undefined,
 	} as const;
 
 	if (asChild) return <Slot {...componentProps} />;
@@ -162,15 +193,16 @@ export function Tooltip({
 			{/* Always rendered in Portal; data-state drives the opacity transition. aria-hidden hides it from assistive technology when closed. */}
 			<Portal>
 				<Text
+					{...props}
 					as="span"
-					style={{ top: position.top, left: position.left }}
-					className={cn(tooltipVariants({ variant, size, side }))}
+					style={{ ...props.style, top: position.top, left: position.left }}
+					className={cn(tooltipVariants({ variant, size, side }), props.className)}
+					id={`tooltip-${tooltipUid}`}
 					data-slot="tooltip-content"
 					data-uid={tooltipUid}
 					data-state={currentOpen ? 'open' : 'closed'}
 					role="tooltip"
 					aria-hidden={!currentOpen}
-					{...props}
 				>
 					{content}
 				</Text>

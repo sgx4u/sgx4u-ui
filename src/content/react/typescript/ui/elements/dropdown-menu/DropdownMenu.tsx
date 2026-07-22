@@ -41,7 +41,6 @@ import { Separator } from '../separator';
 const DropdownMenuContext = createContext<DropdownMenuContextType>({
 	open: false,
 	onOpenChange: () => {},
-	openedViaKeyboard: { current: false },
 });
 
 /**
@@ -55,13 +54,9 @@ export function DropdownMenu({ open, onOpenChange, children, ...props }: Dropdow
 	/** Controlled + Uncontrolled sync. */
 	const currentOpen = open ?? internalOpen;
 
-	/** Track if dropdown was opened via keyboard. */
-	const openedViaKeyboardRef = useRef(false);
-
 	const handleOpenChange = (newOpen: boolean): void => {
 		onOpenChange?.(newOpen);
 		if (open === undefined) setInternalOpen(newOpen);
-		if (!newOpen) openedViaKeyboardRef.current = false;
 	};
 
 	return (
@@ -69,7 +64,6 @@ export function DropdownMenu({ open, onOpenChange, children, ...props }: Dropdow
 			value={{
 				open: currentOpen,
 				onOpenChange: handleOpenChange,
-				openedViaKeyboard: openedViaKeyboardRef,
 			}}
 		>
 			<Popover open={currentOpen} onOpenChange={handleOpenChange} trapFocus={false} {...props}>
@@ -83,17 +77,8 @@ export function DropdownMenu({ open, onOpenChange, children, ...props }: Dropdow
  * @description Button trigger that toggles the dropdown menu open state and exposes ARIA menu semantics for assistive technologies.
  * @returns {JSX.Element} The DropdownMenuTrigger component.
  */
-export function DropdownMenuTrigger({ onKeyDown, ...props }: DropdownMenuTriggerPropsType): JSX.Element {
-	const { openedViaKeyboard: openedViaKeyboardRef } = useContext(DropdownMenuContext);
-
-	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
-		if (event.key === 'Enter' || event.key === ' ') openedViaKeyboardRef.current = true;
-		onKeyDown?.(event);
-	};
-
-	return (
-		<PopoverTrigger onKeyDown={handleKeyDown} data-slot="dropdown-menu-trigger" aria-haspopup="menu" {...props} />
-	);
+export function DropdownMenuTrigger(props: DropdownMenuTriggerPropsType): JSX.Element {
+	return <PopoverTrigger {...props} data-slot="dropdown-menu-trigger" aria-haspopup="menu" />;
 }
 
 /**
@@ -101,12 +86,12 @@ export function DropdownMenuTrigger({ onKeyDown, ...props }: DropdownMenuTrigger
  * @returns {JSX.Element} The DropdownMenuContent component.
  */
 export function DropdownMenuContent({ className, ...props }: DropdownMenuContentPropsType): JSX.Element {
-	const { open, openedViaKeyboard: openedViaKeyboardRef } = useContext(DropdownMenuContext);
+	const { open } = useContext(DropdownMenuContext);
 	const { defaultPopoverId } = usePopoverContext();
 
-	/** Auto-focus first item when menu opens via keyboard. */
+	/** Move focus to the first item when the menu opens so keyboard navigation works regardless of how it was opened. */
 	useEffect(() => {
-		if (!open || !openedViaKeyboardRef.current) return;
+		if (!open) return;
 
 		const timeoutId = setTimeout(() => {
 			const menuContainer = document.getElementById(`popover-${defaultPopoverId}`);
@@ -122,14 +107,14 @@ export function DropdownMenuContent({ className, ...props }: DropdownMenuContent
 		}, 50);
 
 		return (): void => clearTimeout(timeoutId);
-	}, [open, openedViaKeyboardRef, defaultPopoverId]);
+	}, [open, defaultPopoverId]);
 
 	return (
 		<PopoverContent
+			{...props}
+			className={cn('flex flex-col gap-0.5 p-1', className)}
 			data-slot="dropdown-menu-content"
 			role="menu"
-			className={cn('flex flex-col gap-0.5 p-1', className)}
-			{...props}
 		/>
 	);
 }
@@ -172,15 +157,13 @@ export function DropdownMenuItem({
 
 	return (
 		<Button
+			variant="ghost"
+			{...props}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
-			variant="ghost"
-			size="xs"
-			radius="sm"
-			className={cn('justify-start px-1.5', className)}
+			className={cn('h-7 justify-start rounded-sm px-1.5', className)}
 			data-slot="dropdown-menu-item"
 			role="menuitem"
-			{...props}
 		/>
 	);
 }
@@ -192,9 +175,10 @@ export function DropdownMenuItem({
 export function DropdownMenuLabel({ className, ...props }: DropdownMenuLabelPropsType): JSX.Element {
 	return (
 		<Label
-			className={cn('mt-1.5 mb-1 px-1.5 font-normal text-muted-dark', className)}
-			data-slot="dropdown-menu-label"
 			{...props}
+			size="sm"
+			className={cn('px-1.5 font-normal text-muted-dark', className)}
+			data-slot="dropdown-menu-label"
 		/>
 	);
 }
@@ -205,12 +189,7 @@ export function DropdownMenuLabel({ className, ...props }: DropdownMenuLabelProp
  */
 export function DropdownMenuSeparator({ className, ...props }: DropdownMenuSeparatorPropsType): JSX.Element {
 	return (
-		<Separator
-			thickness="thin"
-			className={cn('my-1.5', className)}
-			data-slot="dropdown-menu-separator"
-			{...props}
-		/>
+		<Separator thickness="thin" {...props} className={cn('my-1', className)} data-slot="dropdown-menu-separator" />
 	);
 }
 
@@ -230,7 +209,7 @@ export function DropdownMenuSub({
 
 	side = 'right',
 	align = 'start',
-	sideOffset = 4,
+	sideOffset = 8,
 
 	children,
 
@@ -305,17 +284,22 @@ export function DropdownMenuSubTrigger({
 	return (
 		<PopoverTrigger
 			ref={setRef}
-			onKeyDown={handleKeyDown}
 			variant="ghost"
-			size="xs"
-			className={cn('justify-start gap-16 rounded-sm px-1.5', className)}
+			{...props}
+			onKeyDown={handleKeyDown}
+			className={cn(
+				'h-7 justify-start rounded-sm px-1.5 [&:not(:has([data-slot=keyboard-shortcut]))]:gap-8',
+				className,
+			)}
 			data-slot="dropdown-menu-sub-trigger"
 			role="menuitem"
 			aria-haspopup="menu"
-			{...props}
 		>
 			{children}
-			<ChevronRightIcon className={cn('ml-auto size-4 transition-all', open && 'rotate-90')} />
+			<ChevronRightIcon
+				className={cn('ml-auto size-4 transition-transform', open && 'rotate-90')}
+				aria-hidden="true"
+			/>
 		</PopoverTrigger>
 	);
 }
@@ -327,10 +311,10 @@ export function DropdownMenuSubTrigger({
 export function DropdownMenuSubContent({ className, ...props }: DropdownMenuSubContentPropsType): JSX.Element {
 	return (
 		<PopoverContent
+			{...props}
 			className={cn('flex flex-col gap-0.5 p-1', className)}
 			data-slot="dropdown-menu-sub-content"
 			role="menu"
-			{...props}
 		/>
 	);
 }

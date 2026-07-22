@@ -27,6 +27,7 @@ import { cn } from '../../utils/styles.util';
 import { createAnimatedOverlayStore } from '../../helpers/animated-overlay-store.helper';
 import { computePopoverPosition, getClosedTranslateClass } from './popover.helper';
 
+import { useLockScroll } from '../../hooks/useLockScroll.hook';
 import { useReducedMotion } from '../../hooks/useReducedMotion.hook';
 import {
 	PopoverContext,
@@ -44,7 +45,6 @@ import { Text } from '../text';
 
 /**
  * @description Root element for the Popover component.
- * @param {PopoverPropsType} props - The props for the Popover component.
  * @returns {JSX.Element} The Popover component.
  */
 export function Popover({
@@ -54,6 +54,7 @@ export function Popover({
 	closeOnClickOutside = true,
 	ignoreOutsideClick,
 	trapFocus = true,
+	lockScroll = true,
 
 	align = 'center',
 	alignOffset = 0,
@@ -126,6 +127,7 @@ export function Popover({
 				closeOnClickOutside,
 				ignoreOutsideClick,
 				trapFocus,
+				lockScroll,
 
 				align,
 				alignOffset,
@@ -142,7 +144,6 @@ export function Popover({
 
 /**
  * @description A trigger button that opens/toggles a popover by id.
- * @param {PopoverTriggerPropsType} props - The props for the PopoverTrigger component.
  * @returns {JSX.Element} The PopoverTrigger component.
  */
 export function PopoverTrigger({
@@ -195,7 +196,7 @@ export function PopoverTrigger({
 		<Button
 			ref={setTriggerRef}
 			onClick={handleClick}
-			data-slot="PopoverTrigger"
+			data-slot="popover-trigger"
 			aria-haspopup="true"
 			aria-expanded={isOpen}
 			aria-controls={`popover-${effectivePopoverId}`}
@@ -206,7 +207,6 @@ export function PopoverTrigger({
 
 /**
  * @description Popover panel that renders in a portal, anchors to its trigger, and animates in/out.
- * @param {PopoverContentPropsType} props - The props for the PopoverContent component.
  * @returns {JSX.Element} The PopoverContent component.
  */
 export function PopoverContent({
@@ -234,6 +234,7 @@ export function PopoverContent({
 		closeOnClickOutside,
 		ignoreOutsideClick,
 		trapFocus,
+		lockScroll,
 
 		align,
 		alignOffset,
@@ -291,6 +292,9 @@ export function PopoverContent({
 	const isOpenLike = record.isMounted && (record.phase === 'open' || record.phase === 'opening');
 	/* Check if the popover should render. */
 	const shouldRender = record.isMounted;
+
+	/* Lock body scroll while the popover is open, unless the consumer opts out. */
+	useLockScroll(isOpenLike && lockScroll !== false);
 
 	/* Handle the close event. */
 	const handleClose = useCallback((): void => {
@@ -402,7 +406,7 @@ export function PopoverContent({
 						'z-top overflow-visible transition-transform will-change-transform',
 						isVisible ? 'translate-x-0 translate-y-0' : getClosedTranslateClass(activeSide),
 					)}
-					data-slot="PopoverMotion"
+					data-slot="popover-motion"
 					aria-hidden={!isVisible}
 				>
 					{/* Inner wrapper: opacity animation + accessible content. */}
@@ -418,7 +422,8 @@ export function PopoverContent({
 							isVisible ? 'opacity-100' : 'opacity-0',
 							className,
 						)}
-						data-slot="PopoverContent"
+						data-slot="popover-content"
+						data-category="floating-content"
 						aria-modal="false"
 						tabIndex={-1}
 						{...props}
@@ -433,7 +438,6 @@ export function PopoverContent({
 
 /**
  * @description A button that closes a specific popover by id.
- * @param {PopoverClosePropsType} props - The props for the PopoverClose component.
  * @returns {JSX.Element} The PopoverClose component.
  */
 export function PopoverClose({
@@ -461,7 +465,7 @@ export function PopoverClose({
 			onClick={handleClick}
 			variant="ghost"
 			size="icon-sm"
-			data-slot="PopoverClose"
+			data-slot="popover-close"
 			aria-label="Close popover"
 			aria-controls={`popover-${effectivePopoverId}`}
 			{...props}

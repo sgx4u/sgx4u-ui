@@ -35,13 +35,11 @@ export function Highlight({
 	wholeWords = false,
 	variant = 'default',
 
+	className,
 	children,
 
 	containerProps = {},
-	...props
 }: HighlightPropsType): JSX.Element {
-	const { className: highlightClassName, ...highlightRestProps } = props;
-
 	const highlightedChildren = useMemo(() => {
 		/** Trim the query and return children if query is empty. */
 		const trimmedQuery = query.trim();
@@ -64,8 +62,8 @@ export function Highlight({
 		/** Reset regex lastIndex after test (safety for global flag). */
 		regex.lastIndex = 0;
 
-		return processNode({ node: children, regex, variant, className: highlightClassName, ...highlightRestProps });
-	}, [children, query, caseSensitive, wholeWords, variant, highlightClassName, highlightRestProps]);
+		return processNode({ node: children, regex, variant, className });
+	}, [children, query, caseSensitive, wholeWords, variant, className]);
 
 	return (
 		<Container as="span" {...containerProps}>

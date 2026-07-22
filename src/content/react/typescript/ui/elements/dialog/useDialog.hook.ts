@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 
-import { DialogContextValueType } from './dialog.type';
+import { DialogContentContextValueType, DialogContextValueType } from './dialog.type';
 import { OverlayRecordType } from '../../helpers/animated-overlay-store.helper';
 
 const DEFAULT_DIALOG_RECORD: OverlayRecordType = { isMounted: false, phase: 'closed' };
 
 /** Context for the Dialog component. */
 export const DialogContext = createContext<DialogContextValueType | null>(null);
+
+/** Context shared from DialogContent to its Title and Description for accessible name wiring. */
+export const DialogContentContext = createContext<DialogContentContextValueType | null>(null);
 
 /**
  * @description Accessor for dialog context. Throws if used outside a <Dialog> tree.

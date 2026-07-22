@@ -15,7 +15,7 @@ import { Text } from '../text';
 
 /** Card variants. */
 export const { variants: cardVariants, types: CardVariantTypes } = makeVariants({
-	base: 'flex flex-col text-wrap',
+	base: 'relative flex flex-col text-wrap',
 	variants: {
 		variant: {
 			default: 'shadow-md',
@@ -33,10 +33,22 @@ export const { variants: cardVariants, types: CardVariantTypes } = makeVariants(
 			lg: 'p-4 mobile:p-6 laptop:p-8',
 			xl: 'p-5 mobile:p-7 laptop:p-9',
 		},
+		radius: {
+			none: 'rounded-none',
+			sm: 'rounded-sm',
+			md: 'rounded-md',
+			lg: 'rounded-lg',
+			xl: 'rounded-xl',
+			'2xl': 'rounded-2xl',
+			'3xl': 'rounded-3xl',
+			'4xl': 'rounded-4xl',
+			full: 'rounded-full',
+		},
 	},
 	default: {
 		variant: 'default',
 		size: 'default',
+		radius: 'lg',
 	},
 });
 
@@ -54,13 +66,7 @@ export function Card({
 	...props
 }: CardPropsType): JSX.Element {
 	return (
-		<Container
-			as="div"
-			radius={radius}
-			className={cn(cardVariants({ variant, size }), className)}
-			data-slot="card"
-			{...props}
-		>
+		<Container className={cn(cardVariants({ variant, size, radius }), className)} data-slot="card" {...props}>
 			{children}
 		</Container>
 	);
@@ -78,10 +84,9 @@ export function CardTitle({ as = 'h6', ...props }: CardTitlePropsType): JSX.Elem
  * @description Description wrapper used to display content in a card format.
  * @returns {JSX.Element} The CardDescription component.
  */
-export function CardDescription({ as = 'body', className, ...props }: CardDescriptionPropsType): JSX.Element {
+export function CardDescription({ className, ...props }: CardDescriptionPropsType): JSX.Element {
 	return (
 		<Text
-			as={as}
 			data-slot="card-description"
 			className={cn('scroll-mt-0.5 font-medium text-muted-foreground', className)}
 			{...props}
@@ -95,7 +100,11 @@ export function CardDescription({ as = 'body', className, ...props }: CardDescri
  */
 export function CardContent({ className, ...props }: CardContentPropsType): JSX.Element {
 	return (
-		<Container as="div" className={cn('mt-3 flex flex-col gap-2', className)} data-slot="card-content" {...props} />
+		<Container
+			className={cn('mt-3 flex flex-col gap-2 pt-2 pb-4', className)}
+			data-slot="card-content"
+			{...props}
+		/>
 	);
 }
 
@@ -104,12 +113,5 @@ export function CardContent({ className, ...props }: CardContentPropsType): JSX.
  * @returns {JSX.Element} The CardFooter component.
  */
 export function CardFooter({ className, ...props }: CardFooterPropsType): JSX.Element {
-	return (
-		<Container
-			as="div"
-			className={cn('mt-auto flex justify-end gap-2', className)}
-			data-slot="card-footer"
-			{...props}
-		/>
-	);
+	return <Container className={cn('mt-auto flex justify-end gap-2', className)} data-slot="card-footer" {...props} />;
 }

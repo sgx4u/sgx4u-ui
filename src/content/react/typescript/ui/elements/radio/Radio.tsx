@@ -1,6 +1,6 @@
 'use client';
 
-import { JSX, KeyboardEvent as ReactKeyboardEvent, useId, useState } from 'react';
+import { JSX, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, useId, useState } from 'react';
 
 import { RadioPropsType } from './radio.type';
 import { cn } from '../../utils/styles.util';
@@ -49,11 +49,11 @@ export const { variants: radioVariants, types: RadioVariantTypes } = makeVariant
 		},
 		{
 			when: { variant: 'default', size: 'default' },
-			apply: 'size-6 before:size-6 after:top-[5px] after:left-[5px] after:size-3.5',
+			apply: 'size-6 before:size-6 after:top-1.25 after:left-1.25 after:size-3.5',
 		},
 		{
 			when: { variant: 'default', size: 'lg' },
-			apply: 'size-7 before:size-7 after:top-[5px] after:left-[5px] after:size-4.5',
+			apply: 'size-7 before:size-7 after:top-1.25 after:left-1.25 after:size-4.5',
 		},
 	],
 	default: {
@@ -72,6 +72,7 @@ export function Radio({
 	checked,
 	defaultChecked,
 	onCheckedChange,
+	onClick,
 	onKeyDown,
 
 	variant = 'default',
@@ -94,14 +95,30 @@ export function Radio({
 	/** Unique identifier to identify the radio element. */
 	const radioUid = id ?? defaultId;
 
-	const handleCheckedChange = (): void => {
-		if (props.disabled) return;
-
+	/** Toggle the checked state and notify listeners. */
+	const toggleChecked = (): void => {
 		const nextChecked = !currentChecked;
 		onCheckedChange?.(nextChecked);
 		if (checked === undefined) setIsChecked(nextChecked);
 	};
 
+	/**
+	 * @description Toggles selection on click and forwards the original click event.
+	 * @param {ReactMouseEvent<HTMLLabelElement>} event - The click event on the radio label.
+	 * @returns {void}
+	 */
+	const handleClick = (event: ReactMouseEvent<HTMLLabelElement>): void => {
+		if (props.disabled) return;
+
+		onClick?.(event);
+		toggleChecked();
+	};
+
+	/**
+	 * @description Toggles selection on Space or Enter and forwards the original keydown event.
+	 * @param {ReactKeyboardEvent<HTMLLabelElement>} event - The keydown event on the radio label.
+	 * @returns {void}
+	 */
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLLabelElement>): void => {
 		if (props.disabled) return;
 
@@ -112,29 +129,29 @@ export function Radio({
 		if (!isEnter && !isSpacebar) return;
 
 		event.preventDefault();
-		handleCheckedChange();
+		toggleChecked();
 	};
 
 	return (
-		<Container as="div" className="inline-flex" {...containerProps}>
+		<Container {...containerProps} className={cn('inline-flex', containerProps.className)}>
 			<Input
+				{...inputProps}
 				id={radioUid}
 				type="radio"
 				checked={currentChecked}
 				onChange={() => {}}
-				className="peer hidden"
-				{...inputProps}
+				className={cn(inputProps.className, 'peer hidden')}
 			/>
 			<Label
+				{...props}
 				htmlFor={radioUid}
-				onClick={handleCheckedChange}
-				onKeyDown={handleKeyDown}
 				className={cn(radioVariants({ variant, size, state }), className)}
 				role="radio"
 				tabIndex={props.disabled ? undefined : 0}
 				aria-checked={currentChecked}
-				aria-disabled={props.disabled}
-				{...props}
+				aria-disabled={props.disabled ? true : undefined}
+				onClick={handleClick}
+				onKeyDown={handleKeyDown}
 			/>
 		</Container>
 	);

@@ -39,7 +39,6 @@ type ColorFormatInputPropsType = {
 
 /**
  * @description Manual color input for hex, rgb, hsl, hsv, and cmyk formats.
- * @param {ColorFormatInputPropsType} props - The props object.
  * @returns {JSX.Element} The ColorFormatInput component.
  */
 export function ColorFormatInput({
@@ -94,7 +93,6 @@ export function ColorFormatInput({
 		<Container className="mt-1 flex flex-col gap-1.5">
 			{/* Checkbox to toggle alpha. When unchecked, alpha slider is hidden and input shows no alpha. */}
 			<Container
-				as="div"
 				onClick={(event): void => event.stopPropagation()}
 				className="flex cursor-pointer items-center gap-1 text-sm"
 			>
@@ -108,7 +106,7 @@ export function ColorFormatInput({
 				<Label htmlFor="show-alpha-checkbox">Show alpha</Label>
 			</Container>
 
-			<Container as="div" className="flex gap-1" data-slot="color-format-input">
+			<Container className="flex gap-1" data-slot="color-format-input">
 				{eyedropperSupported && (
 					<Button onClick={onEyedropperClick} variant="outline" size="icon" aria-label="Pick color">
 						<PipetteIcon />

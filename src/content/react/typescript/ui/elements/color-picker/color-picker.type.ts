@@ -56,7 +56,7 @@ type ColorPickerPropsBase = {
 	/** Whether the picker is disabled. */
 	disabled?: boolean;
 
-	/** Whether to show the selection color/gradient on the trigger. Default true. */
+	/** Whether to show the selection color/gradient on the trigger. Default - true. */
 	showSelectionOnTrigger?: boolean;
 
 	/** When set, syncs the picker to this color string. Accepts hex, rgb, rgba, hsl, hsla, or gradient CSS. */
@@ -74,7 +74,10 @@ type ColorPickerPropsBase = {
 
 /** Props when only solid color picker is shown. */
 type ColorPickerPropsSolidOnly = ColorPickerPropsBase & {
+	/** Whether to render only the solid color picker. Default - true. */
 	onlySolidColorPicker: true;
+
+	/** Whether to render only the gradient color picker. Default - false. */
 	onlyGradientColorPicker?: false;
 
 	/** Current color value (solid only). */
@@ -86,7 +89,10 @@ type ColorPickerPropsSolidOnly = ColorPickerPropsBase & {
 
 /** Props when only gradient color picker is shown. */
 type ColorPickerPropsGradientOnly = ColorPickerPropsBase & {
+	/** Whether to render only the solid color picker. Default - false. */
 	onlySolidColorPicker?: false;
+
+	/** Whether to render only the gradient color picker. Default - true. */
 	onlyGradientColorPicker: true;
 
 	/** Current color value (gradient only). */
@@ -98,7 +104,10 @@ type ColorPickerPropsGradientOnly = ColorPickerPropsBase & {
 
 /** Props when both solid and gradient pickers are available. */
 type ColorPickerPropsBoth = ColorPickerPropsBase & {
+	/** Whether to render only the solid color picker. Default - false. */
 	onlySolidColorPicker?: false;
+
+	/** Whether to render only the gradient color picker. Default - false. */
 	onlyGradientColorPicker?: false;
 
 	/** Current color value (solid or gradient). */
