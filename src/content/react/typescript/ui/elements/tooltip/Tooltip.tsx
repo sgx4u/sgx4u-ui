@@ -19,7 +19,7 @@ export const { variants: tooltipVariants, types: TooltipVariantTypes } = makeVar
 			default: `text-foreground before:bg-background after:border-muted after:bg-background`,
 			success: `border-success-dark text-success-dark before:bg-success-light after:border-success-dark after:bg-success-light`,
 			warn: `border-warn-dark text-warn-dark before:bg-warn-light after:border-warn-dark after:bg-warn-light`,
-			error: `border-danger-dark text-danger-dark before:bg-danger-light after:border-danger-dark after:bg-danger-light`,
+			danger: `border-danger-dark text-danger-dark before:bg-danger-light after:border-danger-dark after:bg-danger-light`,
 			dark: `border-dark text-light before:bg-dark after:border-dark after:bg-dark`,
 			light: `border-light text-dark before:bg-light after:border-light after:bg-light`,
 		},
@@ -72,7 +72,6 @@ export function Tooltip({
 	/** Unique identifier to identify the tooltip element. */
 	const tooltipUid = useId();
 
-	/** Effective offset based on side and offset. */
 	const effectiveOffset = offset ?? (['top', 'bottom'].includes(side) ? 12 : 15);
 
 	/** Controlled + Uncontrolled sync. */

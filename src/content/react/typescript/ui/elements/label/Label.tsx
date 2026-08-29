@@ -26,7 +26,7 @@ export const { variants: labelVariants, types: LabelVariantTypes } = makeVariant
 		},
 		state: {
 			default: '',
-			error: 'text-danger',
+			danger: 'text-danger',
 			success: 'text-success',
 			warn: 'text-warn',
 		},
@@ -58,7 +58,7 @@ export function Label({
 	...props
 }: LabelPropsType): JSX.Element {
 	/** If particular state is mentioned, then update the variants accordingly. */
-	const actualVariant = state === 'default' ? variant : state === 'error' ? 'danger' : state;
+	const actualVariant = state === 'default' ? variant : state;
 
 	const componentProps = {
 		'data-slot': 'label',
@@ -70,7 +70,7 @@ export function Label({
 			className,
 		),
 		'aria-required': required || undefined,
-		'aria-invalid': state === 'error' || undefined,
+		'aria-invalid': state === 'danger' || undefined,
 		'aria-disabled': disabled || undefined,
 	} as const;
 

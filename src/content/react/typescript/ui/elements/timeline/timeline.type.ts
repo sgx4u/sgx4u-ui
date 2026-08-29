@@ -26,7 +26,7 @@ export type TimelineContextPropsType = {
 	size: typeof TimelineStepVariantTypes.size;
 
 	/** Progress index. */
-	timelineState: TimelineStateType[];
+	timelineState: Array<TimelineStateType>;
 
 	/** Set timeline state. */
 	handleTimelineStateChange: (timelineState: TimelineStateType) => void;
@@ -41,10 +41,10 @@ export type TimelinePropsType = ContainerPropsType & {
 	orientation?: TimelineOrientationType;
 
 	/** Timeline state. */
-	timelineState?: TimelineStateType[];
+	timelineState?: Array<TimelineStateType>;
 
 	/** Default progress index. */
-	defaultTimelineState?: TimelineStateType[];
+	defaultTimelineState?: Array<TimelineStateType>;
 
 	/** Set progress index. */
 	onTimelineStateChange?: (timelineState: TimelineStateType) => void;

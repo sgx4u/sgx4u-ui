@@ -3,7 +3,10 @@ import { ComponentPropsWithRef } from 'react';
 import { InputVariantTypes } from './Input';
 
 /** Props type for the Input component. */
-export type InputPropsType = ComponentPropsWithRef<'input'> & {
+export type InputPropsType = Omit<ComponentPropsWithRef<'input'>, 'name'> & {
+	/** Form field name. Required for form association and accessibility. */
+	name: string;
+
 	/** Input variant style. Default - default. */
 	variant?: typeof InputVariantTypes.variant;
 

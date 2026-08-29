@@ -23,7 +23,7 @@ export const { variants: checkboxVariants, types: CheckboxVariantTypes } = makeV
 			default: 'outline-transparent',
 			success: 'outline-success',
 			warn: 'outline-warn',
-			error: 'outline-danger',
+			danger: 'outline-danger',
 		},
 		size: {
 			sm: 'size-4 rounded-sm',
@@ -99,7 +99,7 @@ export function Checkbox({
 			data-state={state}
 			role="checkbox"
 			aria-checked={currentChecked}
-			aria-invalid={state === 'error' || undefined}
+			aria-invalid={state === 'danger' || undefined}
 			aria-disabled={props.disabled}
 			aria-label={props.title ?? props.name ?? 'Checkbox'}
 			tabIndex={props.disabled ? undefined : 0}

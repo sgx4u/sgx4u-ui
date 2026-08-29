@@ -243,7 +243,7 @@ export function SheetContent({
 						id={`sheet-${effectiveSheetId}`}
 						style={{ transitionDuration: `${effectiveAnimationSpeed}ms` }}
 						className={cn(
-							'z-top transition-[opacity,transform]',
+							'z-top transition-[opacity,translate]',
 							sheetContentVariants({ side }),
 							isVisible
 								? 'translate-x-0 translate-y-0 opacity-100'

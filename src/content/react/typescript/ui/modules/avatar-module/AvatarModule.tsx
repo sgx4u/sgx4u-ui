@@ -1,60 +1,45 @@
 import { JSX } from 'react';
 
 import { AvatarModulePropsType } from './avatar-module.type';
-import { stringToNumber } from '../../utils/string.util';
 import { cn } from '../../utils/styles.util';
-
-import { BG_COLORS } from '../../constants/color.constant';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../elements/avatar';
 
 /**
- * @description An image element with a fallback for representing the user.
+ * @description Composed avatar with image, initials fallback, and stable color derived from the display name.
+ * @param {AvatarModulePropsType} props - The props for the AvatarModule component.
  * @returns {JSX.Element} The AvatarModule component.
  */
-export const AvatarModule = ({
+export function AvatarModule({
 	src,
 	alt,
-	imageClassName,
 	fallback,
-	fallbackClassName,
+	size,
+	radius,
+	colors,
+
 	className,
+	imageClassName,
+	fallbackClassName,
 
 	avatarProps,
 	avatarImageProps,
 	avatarFallbackProps,
-}: AvatarModulePropsType): JSX.Element => {
-	const avatarBgColors = BG_COLORS[stringToNumber(String(fallback)) % BG_COLORS.length];
-
-	const avatarFallbackText = String(fallback)
-		.split(' ')
-		.map((part) => part[0])
-		.join('')
-		.slice(0, 2);
+}: AvatarModulePropsType): JSX.Element {
+	const resolvedAlt = alt ?? fallback;
 
 	return (
-		<Avatar
-			title={alt}
-			className={cn('group flex size-10 shrink-0 overflow-hidden rounded-full bg-muted', className)}
-			{...avatarProps}
-		>
+		<Avatar {...avatarProps} size={size} radius={radius} title={resolvedAlt} className={cn('group', className)}>
 			<AvatarImage
-				src={src}
-				alt={alt}
-				className={cn('aspect-square size-full transition-all group-hover:opacity-75', imageClassName)}
 				{...avatarImageProps}
+				src={src}
+				alt={resolvedAlt}
+				className={cn('transition-opacity group-hover:opacity-75', imageClassName)}
 			/>
 
-			<AvatarFallback
-				className={cn(
-					'flex size-full items-center justify-center rounded-full bg-muted font-medium text-light',
-					avatarBgColors,
-					fallbackClassName,
-				)}
-				{...avatarFallbackProps}
-			>
-				{avatarFallbackText}
+			<AvatarFallback {...avatarFallbackProps} colors={colors} className={cn('text-light', fallbackClassName)}>
+				{fallback}
 			</AvatarFallback>
 		</Avatar>
 	);
-};
+}

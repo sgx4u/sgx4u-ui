@@ -32,7 +32,6 @@ export function PasswordShowHideIcon({
 	/** Internal state for the visibility of the password when visible is not provided. */
 	const [isPasswordVisible, setIsPasswordVisible] = useState(defaultVisible ?? false);
 
-	/** Reference to the icon element. */
 	const iconElementRef = useRef<SVGSVGElement | null>(null);
 
 	/** Track if focus should be restored after the icon swaps on toggle. */

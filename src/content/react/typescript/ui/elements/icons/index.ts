@@ -1,9 +1,15 @@
 /**
  * @name Icons
- * @description Small reusable icon components, including controls like the password show/hide toggle.
+ * @description Small reusable icon components, including controls like the password show/hide toggle and directional arrows.
  */
-/** Password show hide icon props type. */
+/** Icons props types. */
 export * from './icons.type';
 
-/** Password show hide icon component. */
+/** Icons dispatcher component. */
 export * from './Icons';
+
+/** Arrow icon component. */
+export * from './ArrowIcon';
+
+/** Password show hide icon component. */
+export * from './PasswordShowHideIcon';

@@ -2,22 +2,11 @@
 
 import { JSX, PointerEvent, MouseEvent as ReactMouseEvent, useMemo, useRef, useState } from 'react';
 
-import { GradientColorType } from './color-picker.type';
+import { GradientPreviewBarPropsType } from './color-picker.type';
 import { cn } from '../../utils/styles.util';
 import { getPositionFromClientX, gradientToCss } from './color-picker.helper';
 
 import { Container } from '../container';
-
-/** Props for the GradientPreviewBar component. */
-type GradientPreviewBarPropsType = {
-	gradientValue: GradientColorType;
-	selectedStopId: string | null;
-	onSelectedStopChange: (stopId: string) => void;
-	onAddStopAtPosition: (position: number) => void;
-	onStopPositionChange: (stopId: string, position: number) => void;
-	onDeleteStop?: (stopId: string) => void;
-	className?: string;
-};
 
 /**
  * @description Gradient preview bar with white circle indicators for each stop, matching saturation/alpha picker style.
@@ -46,15 +35,12 @@ export function GradientPreviewBar({
 	const getPositionFromEvent = (clientX: number): number => {
 		const container = containerReference.current;
 		if (!container) return 50;
-
-		/** Compute the new position from the event. */
 		return getPositionFromClientX({ clientX, rect: container.getBoundingClientRect() });
 	};
 
 	const handleBarClick = (event: ReactMouseEvent<HTMLDivElement>): void => {
 		if (event.target !== event.currentTarget) return;
 
-		/** Compute the new position from the event. */
 		const rect = (event.currentTarget as HTMLDivElement).getBoundingClientRect();
 		const position = getPositionFromClientX({ clientX: event.clientX, rect });
 		onAddStopAtPosition(position);
@@ -64,7 +50,6 @@ export function GradientPreviewBar({
 		event.stopPropagation();
 		event.currentTarget.setPointerCapture(event.pointerId);
 
-		/** Select the stop. */
 		onSelectedStopChange(stopId);
 		setDraggingStopId(stopId);
 		setDragPosition(getPositionFromEvent(event.clientX));
@@ -73,7 +58,6 @@ export function GradientPreviewBar({
 	const handleStopPointerMove = (event: PointerEvent, stopId: string): void => {
 		if (draggingStopId !== stopId) return;
 
-		/** Compute the new position from the event. */
 		const position = getPositionFromEvent(event.clientX);
 		setDragPosition(position);
 		onStopPositionChange(stopId, position);
@@ -81,8 +65,6 @@ export function GradientPreviewBar({
 
 	const handleStopPointerUp = (event: PointerEvent): void => {
 		event.currentTarget.releasePointerCapture(event.pointerId);
-
-		/** Reset the dragging state. */
 		setDraggingStopId(null);
 		setDragPosition(null);
 	};

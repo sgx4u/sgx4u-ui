@@ -1,9 +1,9 @@
 'use client';
 
-import { ChangeEvent, JSX, useEffect, useState } from 'react';
+import { ChangeEvent, JSX, useEffect, useId, useState } from 'react';
 import { PipetteIcon } from 'lucide-react';
 
-import { ColorFormatType } from './color-picker.type';
+import { ColorFormatInputPropsType, ColorFormatType } from './color-picker.type';
 import { formatColorForDisplay, parseColorInput } from './color-picker.helper';
 
 import { Button } from '../button';
@@ -12,30 +12,6 @@ import { Container } from '../container';
 import { Input } from '../input';
 import { Label } from '../label';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '../select';
-
-/** Props for the ColorFormatInput component. */
-type ColorFormatInputPropsType = {
-	/** Color format. */
-	format: ColorFormatType;
-	/** Hex color. */
-	hex: string;
-	/** Alpha value. */
-	alpha: number;
-	/** Whether to show the alpha slider. */
-	showAlpha: boolean;
-	/** Callback when the color format changes. */
-	onFormatChange: (format: ColorFormatType) => void;
-	/** Callback when the color changes. */
-	onColorChange: (hex: string, alpha: number) => void;
-	/** Callback when the show alpha checkbox changes. */
-	onShowAlphaChange: (show: boolean) => void;
-	/** Whether the eyedropper is supported. */
-	eyedropperSupported?: boolean;
-	/** Callback when the eyedropper is clicked. */
-	onEyedropperClick?: () => void;
-	/** Callback when the Select opens or closes. */
-	onSelectOpenChange?: (open: boolean) => void;
-};
 
 /**
  * @description Manual color input for hex, rgb, hsl, hsv, and cmyk formats.
@@ -46,14 +22,18 @@ export function ColorFormatInput({
 	hex,
 	alpha,
 	showAlpha,
+	eyedropperSupported,
+
 	onFormatChange,
 	onColorChange,
 	onShowAlphaChange,
-	eyedropperSupported,
 	onEyedropperClick,
 	onSelectOpenChange,
 }: ColorFormatInputPropsType): JSX.Element {
 	const effectiveAlpha = showAlpha ? alpha : 1;
+
+	/** Unique id linking the show-alpha checkbox to its label. */
+	const showAlphaCheckboxId = useId();
 
 	const [inputValue, setInputValue] = useState(
 		formatColorForDisplay({ hex, format, alpha: effectiveAlpha, includeAlpha: showAlpha }),
@@ -91,40 +71,47 @@ export function ColorFormatInput({
 
 	return (
 		<Container className="mt-1 flex flex-col gap-1.5">
-			{/* Checkbox to toggle alpha. When unchecked, alpha slider is hidden and input shows no alpha. */}
 			<Container
 				onClick={(event): void => event.stopPropagation()}
-				className="flex cursor-pointer items-center gap-1 text-sm"
+				className="flex w-max cursor-pointer items-center gap-1 text-sm"
 			>
 				<Checkbox
-					id="show-alpha-checkbox"
+					id={showAlphaCheckboxId}
+					name="show-alpha"
 					checked={showAlpha}
 					onCheckedChange={handleAlphaCheckboxChange}
 					className="size-4 rounded-sm"
 					aria-label="Show alpha"
 				/>
-				<Label htmlFor="show-alpha-checkbox">Show alpha</Label>
+				<Label htmlFor={showAlphaCheckboxId}>Show alpha</Label>
 			</Container>
 
 			<Container className="flex gap-1" data-slot="color-format-input">
 				{eyedropperSupported && (
-					<Button onClick={onEyedropperClick} variant="outline" size="icon" aria-label="Pick color">
-						<PipetteIcon />
+					<Button
+						onClick={onEyedropperClick}
+						variant="outline"
+						size="icon"
+						className="size-8"
+						aria-label="Pick color"
+					>
+						<PipetteIcon className="size-4" />
 					</Button>
 				)}
 
 				<Input
+					name="color-value"
 					value={inputValue}
 					onChange={handleInputChange}
 					onBlur={handleBlur}
 					inputSize="sm"
-					className="w-36 max-w-full min-w-0"
+					className="h-8 w-36 max-w-full min-w-0"
 					aria-label="Color value"
 					aria-valuetext={inputValue}
 				/>
 
 				<Select value={[format]} onValueChange={handleFormatChange} onOpenChange={onSelectOpenChange}>
-					<SelectTrigger size="sm" className="w-22 shrink-0 px-1.5" arrowClassName="ml-2">
+					<SelectTrigger size="sm" className="h-8 w-22 shrink-0 px-1.5" arrowClassName="ml-2">
 						{format.toUpperCase()}
 					</SelectTrigger>
 					<SelectContent>

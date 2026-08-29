@@ -1,28 +1,12 @@
 import { JSX } from 'react';
-import { LucideProps, XIcon } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 
+import { SquareImageViewPropsType } from './file-input.type';
 import { cn } from '../../utils/styles.util';
 
-import { Button, ButtonPropsType } from '../button';
-import { Container, ContainerPropsType } from '../container';
-import { Image, ImagePropsType } from '../image';
-
-/** Square image view props type. */
-export type SquareImageViewPropsType = {
-	src?: string;
-	onChange?: (src: string | undefined) => void;
-	status?: 'error' | 'success';
-
-	imageClassName?: string;
-	closeButtonClassName?: string;
-	closeIconClassName?: string;
-	containerClassName?: string;
-
-	containerProps?: Omit<ContainerPropsType, 'className'>;
-	imageProps?: Omit<ImagePropsType, 'src' | 'alt' | 'className'>;
-	closeButtonProps?: Omit<ButtonPropsType, 'className'>;
-	closeIconProps?: Omit<LucideProps, 'className'>;
-};
+import { Button } from '../button';
+import { Container } from '../container';
+import { Image } from '../image';
 
 /**
  * @description Square image view component.
@@ -43,22 +27,19 @@ export function SquareImageView({
 	closeIconProps,
 	containerProps,
 }: SquareImageViewPropsType): JSX.Element {
+	if (!src) return <></>;
+
 	return (
 		<Container
 			data-slot="square-image-view"
 			className={cn(
 				'relative h-52 w-full overflow-hidden rounded-xl',
-				status === 'error' && 'border border-danger',
+				status === 'danger' && 'border border-danger',
 				containerClassName,
 			)}
 			{...containerProps}
 		>
-			<Image
-				src={src}
-				alt={`Uploaded`}
-				className={cn('size-full object-cover', imageClassName)}
-				{...imageProps}
-			/>
+			<Image src={src} alt="Uploaded" className={cn('size-full object-cover', imageClassName)} {...imageProps} />
 			<Button
 				onClick={(event) => {
 					event.stopPropagation();

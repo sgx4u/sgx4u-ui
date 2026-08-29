@@ -19,7 +19,6 @@ export function ProgressiveImage({
 
 	...props
 }: ProgressiveImagePropsType): JSX.Element {
-	/** State for the loading of the image. */
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	/** Reference to the full image element. */

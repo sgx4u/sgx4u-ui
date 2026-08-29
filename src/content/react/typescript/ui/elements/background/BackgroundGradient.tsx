@@ -36,13 +36,11 @@ export function BackgroundGradient({
 
 	...props
 }: BackgroundGradientPropsType): JSX.Element {
-	/** Get the final colors. */
 	const finalColors = colors?.length ? colors : defaultColors;
 
 	/** Respect the user's reduced-motion preference (WCAG 2.3.3). */
 	const prefersReducedMotion = useReducedMotion();
 
-	/** Keep track of the current background color. */
 	const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
 
 	/** Cycle colors every interval while motion is allowed. */

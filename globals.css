@@ -156,6 +156,15 @@
 			transform: scale(1);
 		}
 	}
+
+	@keyframes progress-indeterminate {
+		0% {
+			transform: translateX(-100%);
+		}
+		100% {
+			transform: translateX(300%);
+		}
+	}
 }
 
 @theme inline {
@@ -314,5 +323,10 @@
 	/* Copy-to-clipboard success checkmark entrance. */
 	.animate-copy-button-check {
 		animation: copy-button-check-reveal 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+	}
+
+	/* Indeterminate progress bar sweep. */
+	.animate-progress-indeterminate {
+		animation: progress-indeterminate 1.4s ease-in-out infinite;
 	}
 }

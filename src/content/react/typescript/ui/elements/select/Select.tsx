@@ -65,10 +65,8 @@ export function Select({
 	const [internalOpen, setInternalOpen] = useState(false);
 	/** Internal selected value state when value is not provided. */
 	const [internalValue, setInternalValue] = useState<Array<string>>(value ?? defaultValue ?? []);
-	/** All select items state. */
 	const [allSelectItems, setAllSelectItems] = useState<Array<ReactElement<SelectItemPropsType>>>([]);
 
-	/** Track if select was opened via keyboard. */
 	const openedViaKeyboardRef = useRef(false);
 
 	/** Controlled + Uncontrolled sync. */
@@ -216,29 +214,28 @@ export function SelectContent({ className, style, ...props }: SelectContentProps
 
 	/** Match content width to trigger width when open. */
 	useLayoutEffect(() => {
-		/* If the select is not open, return. */
 		if (!open) return;
-		/* Get the trigger element. */
+
 		const triggerElement = getTriggerElement(defaultPopoverId);
 		if (!triggerElement) return;
+
 		/* Get the width of the trigger element. */
 		const width = triggerElement.getBoundingClientRect().width;
 		const timeoutId = setTimeout(() => setTriggerWidth(width), 0);
+
 		return (): void => clearTimeout(timeoutId);
 	}, [open, defaultPopoverId, getTriggerElement]);
 
 	/** Update content width when trigger or window resizes while open. */
 	useEffect(() => {
-		/* If the select is not open, return. */
 		if (!open) return;
-		/* Get the trigger element. */
+
 		const triggerElement = getTriggerElement(defaultPopoverId);
 		if (!triggerElement) return;
 
 		/* Get the width of the trigger element. */
 		const updateWidth = (): void => setTriggerWidth(triggerElement.getBoundingClientRect().width);
 
-		/* Add a resize listener to the window. */
 		window.addEventListener('resize', updateWidth);
 		const resizeObserver = new ResizeObserver(updateWidth);
 		resizeObserver.observe(triggerElement);
@@ -287,7 +284,7 @@ export function SelectContent({ className, style, ...props }: SelectContentProps
 				...(triggerWidth != null && { width: triggerWidth }),
 				...style,
 			}}
-			className={cn('hide-scrollbar flex max-h-96 min-w-max flex-col p-1', className)}
+			className={cn('hide-scrollbar flex max-h-96 min-w-max flex-col py-1 ps-1 pe-0', className)}
 			data-slot="select-content"
 			role="listbox"
 			aria-multiselectable={type === 'multiple'}
@@ -338,7 +335,7 @@ export function SelectItem({
 			onClick={handleSelect}
 			onKeyDown={handleKeyDown}
 			className={cn(
-				'relative justify-start pr-12 pl-2 font-normal',
+				'relative h-7 justify-start pr-12 pl-2 font-normal',
 				selectedValue.includes(value) && 'font-semibold',
 				className,
 			)}

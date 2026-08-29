@@ -35,9 +35,7 @@ export function GradientPulse({
 
 	...props
 }: GradientPulsePropsType): JSX.Element {
-	/** Get the final item colors. */
 	const finalItemColors = itemColors?.length ? itemColors : defaultItemColors;
-	/** Get the final item positions. */
 	const finalItemPositions = itemPositions?.length ? itemPositions : defaultItemPositions;
 	/** Clamp circles to the smallest configured length to avoid out-of-range access. */
 	const circleCount = Math.min(finalItemColors.length, finalItemPositions.length);
@@ -73,7 +71,6 @@ export function GradientPulse({
 			aria-hidden="true"
 			{...props}
 		>
-			{/* Animated Background Circles. */}
 			{finalItemPositions.slice(0, circleCount).map((positionClassName, index) => {
 				const palette = finalItemColors[index] ?? [];
 				const colorIndex = colorIndices[index] ?? 0;

@@ -132,7 +132,6 @@ export function DialogTrigger({
 
 	const dialogIsOpen = open ?? (record.isMounted && (record.phase === 'open' || record.phase === 'opening'));
 
-	/* Handle the click event. */
 	const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		if (open !== undefined) {
 			onOpenChange?.(action === 'toggle' ? !dialogIsOpen : true);
@@ -172,7 +171,6 @@ export function DialogContent({
 
 	...props
 }: DialogContentPropsType): JSX.Element {
-	/* Get the dialog context. */
 	const {
 		defaultDialogId,
 		store,
@@ -186,7 +184,9 @@ export function DialogContent({
 		duration,
 		backdropProps,
 	} = useDialogContext();
+
 	const effectiveDialogId = dialogIdProp ?? defaultDialogId;
+
 	/* Get the dialog record. */
 	const record = useDialogRecord(effectiveDialogId);
 
@@ -209,9 +209,7 @@ export function DialogContent({
 	/* Destroy the store record when this content unmounts, freeing memory. */
 	useDialogRecordCleanup(effectiveDialogId);
 
-	/* Ref for the panel element. */
 	const dialogContentRef = useRef<HTMLDivElement | null>(null);
-	/* Ref for the last focused element. */
 	const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
 	/* Accessible name/description wiring: only reference ids that actually render. */
@@ -220,9 +218,7 @@ export function DialogContent({
 	const [hasTitle, setHasTitle] = useState(false);
 	const [hasDescription, setHasDescription] = useState(false);
 
-	/* Check if the dialog is open like. */
 	const isOpenLike = record.isMounted && (record.phase === 'open' || record.phase === 'opening');
-	/* Check if the dialog should render. */
 	const shouldRender = record.isMounted;
 
 	/* Focus the dialog content when the dialog is open. */
@@ -248,20 +244,17 @@ export function DialogContent({
 		previous?.focus?.();
 	}, [shouldRender]);
 
-	/* Handle the visibility change of the backdrop. */
 	const onVisibilityChange = (): void => {
 		if (open === undefined) store.close(effectiveDialogId);
 		else onOpenChange?.(false);
 	};
 
-	/* Handle the mouse down event on the backdrop. */
 	const handleBackdropClick = (event: ReactMouseEvent<HTMLDivElement>): void => {
 		if (!closeOnBackdropClick) return;
 		if (event.target !== event.currentTarget) return;
 		onVisibilityChange();
 	};
 
-	/* Handle the key down event on the dialog content. */
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>): void => {
 		onKeyDown?.(event);
 
@@ -276,9 +269,7 @@ export function DialogContent({
 
 	if (!shouldRender) return <></>;
 
-	/* Check if the dialog is visible. */
 	const isVisible = record.phase === 'open';
-	/* Get the transition duration. */
 	const transitionDuration = prefersReducedMotion ? 0 : duration;
 
 	return (

@@ -11,15 +11,12 @@ import { highlightMarkVariants } from './Highlight';
  * @returns {string} The text content from the node.
  */
 export function extractTextFromNode(node: ReactNode): string {
-	/** If node is a string or number, return the string value. */
 	if (typeof node === 'string' || typeof node === 'number') return String(node);
 
 	if (isValidElement(node)) {
-		/** If children is not present, return empty string. */
 		const { children } = node.props as { children?: ReactNode };
 		if (!children) return '';
 
-		/** If children is a string or number, extract text from children. */
 		if (typeof children === 'string' || typeof children === 'number') return String(children);
 		/** If children is an array, extract text from each child. */
 		if (Array.isArray(children)) return children.map(extractTextFromNode).join('');
@@ -39,7 +36,6 @@ export function extractTextFromNode(node: ReactNode): string {
  */
 export function processNode({ node, regex, ...props }: ProcessNodePropsType): ReactNode {
 	if (typeof node === 'string' || typeof node === 'number') {
-		/** Convert node to string. */
 		const text = String(node);
 		const highlightedNodes = createHighlightedText({ text, regex, ...props });
 
@@ -94,7 +90,6 @@ export function createHighlightedText({
 	/** Get the matches from the text using the regex. */
 	const matches = text.match(regex) || [];
 
-	/** Initialize the result array. */
 	const result: Array<ReactNode> = [];
 
 	/** Loop through the parts and add the parts to the result array. */

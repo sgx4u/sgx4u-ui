@@ -154,7 +154,6 @@ function matchesCondition<TVariants extends Record<string, Record<string, string
 			/** If expectedValue is an array, check if actualValue is in the array. */
 			if (!expectedValue.includes(actualValue as VariantValues<TVariants>[keyof TVariants])) return false;
 		} else {
-			/** Direct comparison. */
 			if (actualValue !== expectedValue) return false;
 		}
 	}

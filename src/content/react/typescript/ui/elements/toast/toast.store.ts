@@ -1,12 +1,10 @@
-import { ToastDefaultOptionsType, ToastItemType, ToastOptionsType } from './toast.type';
-
-import { ToastVariantTypes } from './Toaster';
+import { ToastDefaultOptionsType, ToastItemType, ToastOptionsType, ToastVariantType } from './toast.type';
 
 /** Listener function type. */
 type Listener = () => void;
 
 /** Toasts array. */
-let toasts: ToastItemType[] = [];
+let toasts: Array<ToastItemType> = [];
 
 /** User-provided default options. */
 let defaultOptions: ToastDefaultOptionsType = {};
@@ -14,12 +12,12 @@ const exitingIds = new Set<string>();
 const listeners = new Set<Listener>();
 
 /** Cached snapshot. */
-let cachedSnapshot: { toasts: ToastItemType[]; exitingIds: Set<string> } | null = null;
+let cachedSnapshot: { toasts: Array<ToastItemType>; exitingIds: Set<string> } | null = null;
 let cachedVersion = -1;
 let snapshotVersion = 0;
 
 /** Default duration in milliseconds. */
-const DEFAULT_DURATION = 2000;
+export const DEFAULT_DURATION = 2000;
 
 /**
  * @description Generate a unique ID.
@@ -49,20 +47,19 @@ export function setToastDefaults(options: ToastDefaultOptionsType): void {
 /**
  * @description Add a toast to the store.
  * @param {ToastOptionsType} options - The options for the toast.
- * @param {typeof ToastVariantTypes.variant} variant - The variant of the toast.
+ * @param {ToastVariantType} variant - The variant of the toast.
  * @param {object} extra - Extra fields (e.g. promiseStatus for promise toasts).
  * @returns {string} The ID of the toast.
  */
 export function addToast(
 	options: ToastOptionsType,
-	variant: typeof ToastVariantTypes.variant,
+	variant: ToastVariantType,
 	extra?: Partial<Pick<ToastItemType, 'promiseStatus'>>,
 ): string {
 	const id = generateId();
 	const merged = { ...defaultOptions, ...options };
 	const duration = variant === 'promise' ? 0 : (merged.duration ?? DEFAULT_DURATION);
 
-	/** Create the toast item. */
 	const toast: ToastItemType = {
 		id,
 		title: options.title,
@@ -82,14 +79,16 @@ export function addToast(
 }
 
 /**
- * @description Update a toast (e.g. when promise fulfills or rejects).
+ * @description Update a toast (e.g. when a promise settles or a loading toast is resolved).
  * @param {string} id - The ID of the toast.
- * @param {Partial<Pick<ToastItemType, 'title' | 'description' | 'variant' | 'promiseStatus'>>} updates - The updates.
+ * @param {Partial<Pick<ToastItemType, 'title' | 'description' | 'variant' | 'promiseStatus' | 'duration' | 'dismissible'>>} updates - The updates.
  * @returns {void}
  */
 export function updateToast(
 	id: string,
-	updates: Partial<Pick<ToastItemType, 'title' | 'description' | 'variant' | 'promiseStatus' | 'duration'>>,
+	updates: Partial<
+		Pick<ToastItemType, 'title' | 'description' | 'variant' | 'promiseStatus' | 'duration' | 'dismissible'>
+	>,
 ): void {
 	const index = toasts.findIndex((toast) => toast.id === id);
 	if (index === -1) return;
@@ -123,23 +122,14 @@ export function removeToast(id: string): void {
 }
 
 /**
- * @description Get current toasts.
- * @returns {ToastItemType[]} The current toasts.
- */
-export function getToasts(): ToastItemType[] {
-	return toasts;
-}
-
-/**
  * @description Snapshot for useSyncExternalStore (toasts + exiting IDs). Cached to avoid infinite loops.
- * @returns {{ toasts: ToastItemType[]; exitingIds: Set<string> }} The snapshot.
+ * @returns {{ toasts: Array<ToastItemType>; exitingIds: Set<string> }} The snapshot.
  */
-export function getSnapshot(): { toasts: ToastItemType[]; exitingIds: Set<string> } {
+export function getSnapshot(): { toasts: Array<ToastItemType>; exitingIds: Set<string> } {
 	if (cachedSnapshot !== null && cachedVersion === snapshotVersion) {
 		return cachedSnapshot;
 	}
 
-	/** Update the cached snapshot. */
 	cachedVersion = snapshotVersion;
 	cachedSnapshot = { toasts, exitingIds: new Set(exitingIds) };
 	return cachedSnapshot;

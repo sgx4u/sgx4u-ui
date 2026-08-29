@@ -66,9 +66,7 @@ export function SelectWithSearch({
 	/** Internal selected value state when value is not provided. */
 	const [internalValue, setInternalValue] = useState<Array<string>>(value ?? defaultValue ?? []);
 
-	/** Selected children state. */
 	const [selectedChildren, setSelectedChildren] = useState<Array<SelectWithSearchSelectedChildType>>([]);
-	/** Search term state. */
 	const [searchTerm, setSearchTerm] = useState('');
 
 	/** Controlled + Uncontrolled sync. */
@@ -160,7 +158,6 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 		return (Array.isArray(children) ? children : [children]).flat();
 	}, [children]);
 
-	/** Search term in lowercase. */
 	const term = (searchTerm ?? '').toString().trim().toLowerCase();
 
 	/** Build final children: keep non-items, include items only when they match the search. */
@@ -238,7 +235,7 @@ export function SelectWithSearchContent({ className, children, ...props }: Selec
 			aria-multiselectable={type === 'multiple'}
 		>
 			{searchInput}
-			<Container className="flex flex-col p-1">
+			<Container className="flex flex-col py-1 ps-1 pe-0">
 				{filteredChildren}
 				{noMatchBlock}
 			</Container>
@@ -289,7 +286,7 @@ export function SelectWithSearchItem({
 			{...props}
 			onClick={handleSelect}
 			className={cn(
-				'relative h-8 justify-start pr-12 pl-2 font-normal',
+				'relative h-7 justify-start pr-12 pl-2 font-normal',
 				selectedValue.includes(value) && 'font-medium',
 				className,
 			)}
@@ -325,7 +322,7 @@ export function SelectSearch({ className, ...props }: SelectSearchPropsType): JS
 				value={searchTerm}
 				onChange={(event): void => setSearchTerm(event.target.value)}
 				className={cn(
-					'w-full rounded-none border-x-0 border-t-0 border-b-2 border-muted-light px-8 py-2 outline-none',
+					'mb-0.5 w-full rounded-none border-x-0 border-t-0 border-b-2 border-muted-light px-8 py-2 outline-none',
 					className,
 				)}
 				data-slot="select-search"

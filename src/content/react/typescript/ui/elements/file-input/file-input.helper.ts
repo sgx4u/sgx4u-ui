@@ -1,29 +1,28 @@
 /** Options for validating files. */
 export type ValidateFilesOptions = {
-	accept?: string[];
+	accept?: Array<string>;
 	maxSize?: number;
 	minSize?: number;
 	maxFiles?: number;
-	validator?: (files: File[]) => boolean;
+	validator?: (files: Array<File>) => boolean;
 };
 
 /** Result of validating files. */
 export type ValidateFilesResult = {
-	accepted: File[];
-	rejected: File[];
+	accepted: Array<File>;
+	rejected: Array<File>;
 };
 
 /**
  * @description Check if a file passes the accept filter (MIME or extension).
  * @param {object} props - The parameters object.
  * @param {File} props.file - The file to check.
- * @param {string[]} props.accept - The accept array to check against.
+ * @param {Array<string>} props.accept - The accept array to check against.
  * @returns {boolean} True if the file passes the accept filter, false otherwise.
  */
-function fileMatchesAccept({ file, accept }: { file: File; accept: string[] }): boolean {
+function fileMatchesAccept({ file, accept }: { file: File; accept: Array<string> }): boolean {
 	/* If the accept array is empty, return true. */
 	if (accept.length === 0) return true;
-	/** Convert the accept array to lowercase. */
 	const acceptLower = accept.map((item) => item.toLowerCase());
 
 	const name = file.name.toLowerCase();
@@ -40,7 +39,7 @@ function fileMatchesAccept({ file, accept }: { file: File; accept: string[] }): 
 /**
  * @description Validate files and split into accepted and rejected.
  * @param {object} props - The parameters object.
- * @param {File[]} props.files - The files to validate.
+ * @param {Array<File>} props.files - The files to validate.
  * @param {ValidateFilesOptions} props.options - The options for validating the files.
  * @returns {ValidateFilesResult} The result of validating the files.
  */
@@ -48,16 +47,14 @@ export function validateFiles({
 	files,
 	options,
 }: {
-	files: File[];
+	files: Array<File>;
 	options: ValidateFilesOptions;
 }): ValidateFilesResult {
-	/** Destructure the options. */
 	const { accept, maxSize, minSize, maxFiles, validator } = options;
 
-	const accepted: File[] = [];
-	const rejected: File[] = [];
+	const accepted: Array<File> = [];
+	const rejected: Array<File> = [];
 
-	/** Validate the files. */
 	for (const file of files) {
 		/** Check if the file matches the accept array. */
 		if (accept && accept.length > 0 && !fileMatchesAccept({ file, accept })) {
@@ -81,15 +78,10 @@ export function validateFiles({
 
 	/** Cap the accepted files to the maximum number of files. */
 	const capped = maxFiles !== undefined && accepted.length > maxFiles ? accepted.slice(0, maxFiles) : accepted;
-	/** Get the extra files. */
 	const extra = maxFiles !== undefined && accepted.length > maxFiles ? accepted.slice(maxFiles) : [];
-	/** Check if the files pass the validator. */
 	const passesValidator = !validator || validator(capped);
-	/** Get the final accepted files. */
 	const finalAccepted = passesValidator ? capped : [];
-	/** Get the final rejected files. */
 	const finalRejected = [...rejected, ...extra, ...(passesValidator ? [] : capped)];
 
-	/** Return the final accepted and rejected files. */
 	return { accepted: finalAccepted, rejected: finalRejected };
 }

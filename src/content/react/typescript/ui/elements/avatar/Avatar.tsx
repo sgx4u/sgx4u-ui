@@ -12,6 +12,7 @@ import {
 import { stringToColor } from '../../utils/string.util';
 import { cn } from '../../utils/styles.util';
 import { makeVariants } from '../../utils/variant.util';
+import { getAvatarInitials } from './avatar.helper';
 
 import { Container } from '../container';
 import { Image } from '../image';
@@ -121,13 +122,15 @@ export function AvatarImage({ className, onLoad, onError, ref, ...props }: Avata
  * @description Fallback shown while the avatar image loads, when it fails, or when no image is provided.
  * @returns {JSX.Element | null} The AvatarFallback component, or null when the image has loaded.
  */
-export function AvatarFallback({ colors, className, ...props }: AvatarFallbackPropsType): JSX.Element | null {
+export function AvatarFallback({ colors, className, children, ...props }: AvatarFallbackPropsType): JSX.Element | null {
 	const { status } = useContext(AvatarContext);
 
 	/** Hide the fallback once the image has loaded successfully. */
 	if (status === 'loaded') return null;
 
-	const fallbackColor = stringToColor({ value: String(props.children ?? ''), type: 'bg', colors });
+	const fallbackLabel = typeof children === 'string' ? children : String(children ?? '');
+	const fallbackColor = stringToColor({ value: fallbackLabel, type: 'bg', colors });
+	const fallbackContent = typeof children === 'string' ? getAvatarInitials(fallbackLabel) : children;
 
 	return (
 		<Text
@@ -139,6 +142,8 @@ export function AvatarFallback({ colors, className, ...props }: AvatarFallbackPr
 			)}
 			data-slot="avatar-fallback"
 			{...props}
-		/>
+		>
+			{fallbackContent}
+		</Text>
 	);
 }

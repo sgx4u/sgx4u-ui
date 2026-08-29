@@ -1,37 +1,15 @@
 'use client';
 
-import { JSX, useMemo } from 'react';
+import { JSX } from 'react';
 import { PercentIcon, Scale3DIcon, Trash2Icon } from 'lucide-react';
 
-import { ColorStopType, GradientType } from './color-picker.type';
+import { GradientEditorPropsType, GradientType } from './color-picker.type';
 import { cn } from '../../utils/styles.util';
 
 import { Button } from '../button';
 import { Container } from '../container';
 import { Input } from '../input';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '../select';
-
-/** Props for the GradientEditor component. */
-type GradientEditorPropsType = {
-	/** Gradient type. */
-	type: GradientType;
-	/** Gradient angle. */
-	angle: number;
-	/** Gradient stops. */
-	stops: Array<ColorStopType>;
-	/** Selected stop ID. */
-	selectedStopId: string | null;
-	/** Callback when the selected stop changes. */
-	onSelectedStopChange: (stopId: string | null) => void;
-	/** Callback when the gradient type changes. */
-	onTypeChange: (type: GradientType) => void;
-	/** Callback when the gradient angle changes. */
-	onAngleChange: (angle: number) => void;
-	/** Callback when the gradient stops change. */
-	onStopsChange: (stops: Array<ColorStopType>) => void;
-	/** Callback when the gradient type Select opens or closes. */
-	onSelectOpenChange?: (open: boolean) => void;
-};
 
 /**
  * @description Editor for gradient type, angle, and color stops.
@@ -49,18 +27,13 @@ export function GradientEditor({
 	onSelectOpenChange,
 }: GradientEditorPropsType): JSX.Element {
 	/** Ensure the stops array is not null. */
-	const safeStops = useMemo(() => stops ?? [], [stops]);
+	const safeStops = stops ?? [];
 
-	/** Find the selected stop. */
-	const selectedStop = useMemo(
-		() => safeStops.find((stop) => stop.id === selectedStopId) ?? null,
-		[safeStops, selectedStopId],
-	);
+	const selectedStop = safeStops.find((stop) => stop.id === selectedStopId) ?? null;
 
 	const handleRemoveSelectedStop = (): void => {
 		if (!selectedStopId || safeStops.length <= 2) return;
 
-		/** Remove the selected stop. */
 		const nextStops = safeStops.filter((stop) => stop.id !== selectedStopId);
 		onStopsChange(nextStops);
 
@@ -89,17 +62,19 @@ export function GradientEditor({
 		<Container className="flex flex-col gap-3" data-slot="gradient-editor">
 			<Container className="flex flex-wrap items-center gap-1">
 				<Button
+					onClick={handleRemoveSelectedStop}
 					variant="outline"
 					size="icon"
-					aria-label="Remove selected stop"
-					onClick={handleRemoveSelectedStop}
+					className="size-8"
 					disabled={!selectedStop || stops.length <= 2}
+					aria-label="Remove selected stop"
 				>
-					<Trash2Icon />
+					<Trash2Icon className="size-4" />
 				</Button>
 
 				<Container className="relative">
 					<Input
+						name="gradient-stop-position"
 						type="number"
 						value={selectedStop ? Math.round(selectedStop.position) : ''}
 						onChange={(event): void => handleSelectedStopPositionChange(Number(event.target.value) || 0)}
@@ -115,7 +90,7 @@ export function GradientEditor({
 
 				<Container className="relative">
 					<Input
-						id="gradient-angle"
+						name="gradient-angle"
 						type="number"
 						min={0}
 						max={360}

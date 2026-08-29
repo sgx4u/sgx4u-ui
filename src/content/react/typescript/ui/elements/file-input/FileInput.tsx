@@ -62,11 +62,9 @@ export function FileInput({
 
 	const [isDragOver, setIsDragOver] = useState(false);
 
-	/** The accept attribute for the input element. */
 	const acceptAttribute = accept && accept.length ? accept.join(',') : '*';
 
-	const processFiles = (files: File[]): void => {
-		/** Validate the files. */
+	const processFiles = (files: Array<File>): void => {
 		const { accepted, rejected } = validateFiles({
 			files,
 			options: {
@@ -200,9 +198,23 @@ export function FileInput({
 		event.target.value = '';
 	};
 
+	/**
+	 * @description Stops the hidden input's programmatic click from bubbling back to the wrapper, which would reopen the dialog.
+	 * @param {ReactMouseEvent<HTMLInputElement>} event - The input click event.
+	 * @returns {void}
+	 */
+	const handleInputClick = (event: ReactMouseEvent<HTMLInputElement>): void => {
+		event.stopPropagation();
+	};
+
 	return (
 		<Container
-			className={cn('relative', isDragOver && 'animate-pulse rounded-xl bg-muted-light', className)}
+			className={cn(
+				'relative',
+				disabled && 'pointer-events-none opacity-50',
+				isDragOver && 'animate-pulse rounded-xl bg-muted-light',
+				className,
+			)}
 			onClick={handleWrapperClick}
 			onKeyDown={handleKeyDown}
 			onDragEnter={disableDragAndDropAction ? undefined : handleDragEnter}
@@ -220,6 +232,7 @@ export function FileInput({
 			<VisuallyHidden>
 				<Input
 					ref={inputRef}
+					name="file-input"
 					type="file"
 					accept={acceptAttribute}
 					multiple={multiple}
@@ -228,6 +241,7 @@ export function FileInput({
 					tabIndex={-1}
 					aria-hidden
 					{...inputProps}
+					onClick={handleInputClick}
 				/>
 			</VisuallyHidden>
 			{children}

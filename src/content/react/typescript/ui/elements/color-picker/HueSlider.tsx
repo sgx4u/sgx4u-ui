@@ -2,14 +2,10 @@
 
 import { ChangeEvent, JSX, useRef, useState } from 'react';
 
+import { HueSliderPropsType } from './color-picker.type';
+
 import { Container } from '../container';
 import { Input } from '../input';
-
-/** Props for the HueSlider component. */
-type HueSliderPropsType = {
-	value: number;
-	onChange: (value: number) => void;
-};
 
 /**
  * @description Hue slider (0–360). Fires onChange only on mouse/pointer release to avoid updates during drag.
@@ -58,11 +54,10 @@ export function HueSlider({ value, onChange }: HueSliderPropsType): JSX.Element 
 			}}
 			className="relative mt-2 h-4 w-full overflow-hidden rounded-full"
 			data-slot="hue-slider"
-			aria-label="Hue"
-			aria-valuetext={`Hue ${Math.round(displayValue)}`}
 		>
 			<Input
 				ref={inputReference}
+				name="hue"
 				type="range"
 				value={displayValue}
 				onPointerDown={handlePointerDown}

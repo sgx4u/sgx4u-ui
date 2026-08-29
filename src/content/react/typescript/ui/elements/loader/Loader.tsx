@@ -22,7 +22,6 @@ export function SpinLoader({ className, containerProps, ...props }: LoaderPropsT
 			className={cn('inline-flex items-center justify-center', containerClassName, className)}
 			{...containerRestProps}
 		>
-			{/* Spinner Icon. */}
 			<Loader2Icon
 				focusable="false"
 				className="size-full animate-spin text-current"

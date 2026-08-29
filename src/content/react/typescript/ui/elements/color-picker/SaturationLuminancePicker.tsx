@@ -1,20 +1,12 @@
 'use client';
 
-import { JSX, PointerEvent, useMemo, useRef, useState } from 'react';
+import { JSX, PointerEvent, KeyboardEvent as ReactKeyboardEvent, useMemo, useRef, useState } from 'react';
 
+import { SaturationLuminancePickerPropsType } from './color-picker.type';
 import { cn } from '../../utils/styles.util';
 import { hsvToRgb } from './color-picker.helper';
 
 import { Container } from '../container';
-
-/** Props for the SaturationLuminancePicker component. */
-type SaturationLuminancePickerPropsType = {
-	hue: number;
-	saturation: number;
-	luminance: number;
-	onChange: (saturation: number, luminance: number) => void;
-	removeTopPadding?: boolean;
-};
 
 /**
  * @description 2D saturation/luminance picker. Fires onChange only on mouse/pointer release.
@@ -54,11 +46,9 @@ export function SaturationLuminancePicker({
 		clientX: number;
 		clientY: number;
 	}): { saturation: number; luminance: number } | null => {
-		/** Get the container element. */
 		const container = containerReference.current;
 		if (!container) return null;
 
-		/** Get the bounding client rect of the container. */
 		const { left, top, width, height } = container.getBoundingClientRect();
 		const x = Math.max(0, Math.min(1, (clientX - left) / width));
 		const y = Math.max(0, Math.min(1, (clientY - top) / height));
@@ -66,11 +56,9 @@ export function SaturationLuminancePicker({
 	};
 
 	const handlePointerDown = (event: PointerEvent): void => {
-		/** Set the pointer capture. */
 		event.currentTarget.setPointerCapture(event.pointerId);
 		setIsDragging(true);
 
-		/** Get the position from the event. */
 		const position = getPositionFromEvent({ clientX: event.clientX, clientY: event.clientY });
 		if (position) {
 			setDragSaturation(position.saturation);
@@ -79,10 +67,8 @@ export function SaturationLuminancePicker({
 	};
 
 	const handlePointerMove = (event: PointerEvent): void => {
-		/** If not dragging, return. */
 		if (!isDragging) return;
 
-		/** Get the position from the event. */
 		const position = getPositionFromEvent({ clientX: event.clientX, clientY: event.clientY });
 		if (position) {
 			setDragSaturation(position.saturation);
@@ -91,21 +77,44 @@ export function SaturationLuminancePicker({
 	};
 
 	const handlePointerUp = (event: PointerEvent): void => {
-		/** Release the pointer capture. */
 		event.currentTarget.releasePointerCapture(event.pointerId);
 		if (!isDragging) return;
 
-		/** Call the onChange callback. */
 		onChange(dragSaturation, dragLuminance);
 		setIsDragging(false);
 	};
 
 	const handlePointerLeave = (): void => {
 		if (!isDragging) return;
-
-		/** Call the onChange callback. */
 		onChange(dragSaturation, dragLuminance);
 		setIsDragging(false);
+	};
+
+	const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>): void => {
+		/** Larger step while holding Shift for faster keyboard adjustments. */
+		const step = event.shiftKey ? 10 : 1;
+		let nextSaturation = saturation;
+		let nextLuminance = luminance;
+
+		switch (event.key) {
+			case 'ArrowLeft':
+				nextSaturation -= step;
+				break;
+			case 'ArrowRight':
+				nextSaturation += step;
+				break;
+			case 'ArrowUp':
+				nextLuminance += step;
+				break;
+			case 'ArrowDown':
+				nextLuminance -= step;
+				break;
+			default:
+				return;
+		}
+
+		event.preventDefault();
+		onChange(Math.max(0, Math.min(100, nextSaturation)), Math.max(0, Math.min(100, nextLuminance)));
 	};
 
 	return (
@@ -115,17 +124,19 @@ export function SaturationLuminancePicker({
 			onPointerMove={handlePointerMove}
 			onPointerUp={handlePointerUp}
 			onPointerLeave={handlePointerLeave}
+			onKeyDown={handleKeyDown}
 			style={{
 				background: `linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, ${pureColorCss})`,
 			}}
 			className={cn(
-				'relative aspect-16/10 w-full cursor-crosshair overflow-hidden rounded-md',
+				'relative aspect-16/10 w-full cursor-crosshair overflow-hidden rounded-md outline-none focus-visible:ring-2 focus-visible:ring-primary',
 				!removeTopPadding && 'mt-2',
 			)}
 			data-slot="saturation-luminance-picker"
+			role="slider"
 			tabIndex={0}
 			aria-label="Saturation and luminance"
-			aria-valuetext={`Saturation ${Math.round(displaySaturation)}%, Luminance ${Math.round(displayLuminance)}%`}
+			aria-valuetext={`Saturation ${Math.round(displaySaturation)}%, luminance ${Math.round(displayLuminance)}%`}
 		>
 			<Container
 				style={{

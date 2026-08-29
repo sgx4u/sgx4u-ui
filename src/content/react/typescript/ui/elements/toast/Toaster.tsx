@@ -1,11 +1,16 @@
 'use client';
 
-import { JSX, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { JSX, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { CircleCheckIcon, InfoIcon, OctagonXIcon, TriangleAlertIcon, XIcon } from 'lucide-react';
 
-import { ToastDefaultOptionsType, ToastItemType, ToastPosition, ToastPromiseStatus } from './toast.type';
+import {
+	ToastDefaultOptionsType,
+	ToastItemType,
+	ToastPosition,
+	ToastPromiseStatus,
+	ToastVariantType,
+} from './toast.type';
 import { cn } from '../../utils/styles.util';
-import { makeVariants } from '../../utils/variant.util';
 
 import { getSnapshot, removeToast, requestDismiss, setToastDefaults, subscribe } from './toast.store';
 
@@ -15,51 +20,32 @@ import { SpinLoader } from '../loader';
 import { Portal } from '../portal';
 import { Text } from '../text';
 
-/** Stacked overlap in pixels. */
-const STACK_OVERLAP = 32;
-
-/** Approximate toast height for positioning. */
-const TOAST_HEIGHT = 65;
-
-/** Exit = slide towards where it came from (same as enter "from"). */
+/** Time the exit animation runs before the toast is removed from the store. */
 const EXIT_DURATION_MS = 300;
 
-/** Variants for toast item styling. */
-export const { variants: toastVariants, types: ToastVariantTypes } = makeVariants({
-	base: 'flex w-80 items-start gap-2 rounded-lg border bg-background px-4 py-3 shadow-lg transition-opacity',
-	variants: {
-		variant: {
-			default: '',
-			success: '',
-			warn: '',
-			error: '',
-			info: '',
-			promise: '',
-		},
-	},
-	default: { variant: 'default' },
-});
+/** Use a layout effect on the client and a plain effect during SSR to avoid warnings. */
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 /**
- * @description Icon for variant (loading for promise pending).
+ * @description Icon for a toast variant (spinner while a promise is pending).
  * @returns {JSX.Element} The toast icon element.
  */
 function ToastIcon({
-	variant = 'default',
+	variant,
 	promiseStatus,
 	className,
 }: {
-	variant: typeof ToastVariantTypes.variant;
+	variant: ToastVariantType;
 	promiseStatus?: ToastPromiseStatus;
 	className?: string;
 }): JSX.Element {
 	const isPending = variant === 'promise' && promiseStatus === 'pending';
-	if (isPending) return <SpinLoader className={cn(className)} />;
+	if (isPending) return <SpinLoader className={className} />;
 
 	switch (variant) {
 		case 'success':
 			return <CircleCheckIcon className={cn('text-success-dark', className)} />;
-		case 'error':
+		case 'danger':
 			return <OctagonXIcon className={cn('text-danger-dark', className)} />;
 		case 'warn':
 			return <TriangleAlertIcon className={cn('text-warn-dark', className)} />;
@@ -70,7 +56,7 @@ function ToastIcon({
 	}
 }
 
-/** Position classes for the toast stack container. */
+/** Anchor classes for a toast stack per position. */
 const positionClasses: Record<ToastPosition, string> = {
 	'top-right': 'top-4 right-4',
 	'top-left': 'top-4 left-4',
@@ -81,15 +67,15 @@ const positionClasses: Record<ToastPosition, string> = {
 	center: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
 };
 
-/** Slide direction classes per position (small offset, not full edge). */
-const slideEnterClasses: Record<string, { from: string; to: string }> = {
+/** Enter/exit slide offsets per position (resting state is `to`). */
+const slideClasses: Record<ToastPosition, { from: string; to: string }> = {
 	'top-right': { from: 'translate-x-6 opacity-0', to: 'translate-x-0 opacity-100' },
 	'bottom-right': { from: 'translate-x-6 opacity-0', to: 'translate-x-0 opacity-100' },
 	'top-left': { from: '-translate-x-6 opacity-0', to: 'translate-x-0 opacity-100' },
 	'bottom-left': { from: '-translate-x-6 opacity-0', to: 'translate-x-0 opacity-100' },
 	'top-center': { from: '-translate-y-6 opacity-0', to: 'translate-y-0 opacity-100' },
 	'bottom-center': { from: 'translate-y-6 opacity-0', to: 'translate-y-0 opacity-100' },
-	center: { from: 'scale-[0.98] opacity-0', to: 'scale-100 opacity-100' },
+	center: { from: 'scale-95 opacity-0', to: 'scale-100 opacity-100' },
 };
 
 /** Props for the Toaster component. */
@@ -100,7 +86,6 @@ type ToasterPropsType = {
 
 /**
  * @description Renders toasts from the imperative API. Place once in your app (e.g. layout).
- * Toasts stack when idle; hover to expand and show all.
  * @returns {JSX.Element} The Toaster component.
  */
 export function Toaster({ defaultOptions }: ToasterPropsType = {}): JSX.Element {
@@ -111,18 +96,16 @@ export function Toaster({ defaultOptions }: ToasterPropsType = {}): JSX.Element 
 	const { toasts, exitingIds } = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 	if (toasts.length === 0) return <></>;
 
-	/** Group toasts by position. */
-	const byPosition = toasts.reduce<Record<string, typeof toasts>>((accumulator, toast) => {
-		const key = toast.position;
-		if (!accumulator[key]) accumulator[key] = [];
-		accumulator[key].push(toast);
+	/** Group toasts by their position so each corner renders its own stack. */
+	const toastsByPosition = toasts.reduce<Record<string, Array<ToastItemType>>>((accumulator, toast) => {
+		(accumulator[toast.position] ??= []).push(toast);
 		return accumulator;
 	}, {});
 
 	return (
 		<Portal>
 			<Container className="pointer-events-none fixed inset-0 z-top">
-				{Object.entries(byPosition).map(([position, positionToasts]) => (
+				{Object.entries(toastsByPosition).map(([position, positionToasts]) => (
 					<ToastStack
 						key={position}
 						position={position as ToastPosition}
@@ -136,7 +119,7 @@ export function Toaster({ defaultOptions }: ToasterPropsType = {}): JSX.Element 
 }
 
 /**
- * @description Stack of toasts for a position. Stacked when idle; expands on hover.
+ * @description Vertical stack of toasts anchored to a position. Newest toast sits closest to the edge.
  * @returns {JSX.Element} The toast stack element.
  */
 function ToastStack({
@@ -145,95 +128,94 @@ function ToastStack({
 	exitingIds,
 }: {
 	position: ToastPosition;
-	toasts: ToastItemType[];
+	toasts: Array<ToastItemType>;
 	exitingIds: Set<string>;
 }): JSX.Element {
-	const [isHovered, setIsHovered] = useState(false);
-
-	const reversed = [...toasts].reverse();
-	const stackStep = isHovered ? TOAST_HEIGHT + 8 : TOAST_HEIGHT - STACK_OVERLAP;
+	const isBottom = position.startsWith('bottom');
+	const orderedToasts = [...toasts].reverse();
 
 	return (
-		<Container className={cn(positionClasses[position], 'overflow-visible')} style={{ position: 'fixed' }}>
-			<Container
-				className="pointer-events-auto relative w-80 overflow-visible"
-				style={{
-					minHeight: reversed.length === 0 ? 0 : (reversed.length - 1) * stackStep + TOAST_HEIGHT,
-				}}
-				onMouseEnter={(): void => setIsHovered(true)}
-				onMouseLeave={(): void => setIsHovered(false)}
-			>
-				{reversed.map((toast, index) => (
-					<Container
-						key={toast.id}
-						className="absolute right-0 left-0 overflow-visible transition-transform duration-300 ease-out"
-						style={{
-							transform: `translateY(${index * stackStep}px)`,
-							zIndex: reversed.length - index,
-						}}
-					>
-						<ToastItem
-							toast={toast}
-							position={position}
-							isExiting={exitingIds.has(toast.id)}
-							isHovered={isHovered}
-						/>
-					</Container>
-				))}
-			</Container>
+		<Container
+			className={cn(
+				'absolute flex w-80 flex-col gap-1.5',
+				positionClasses[position],
+				isBottom && 'flex-col-reverse',
+			)}
+		>
+			{orderedToasts.map((toast) => (
+				<ToastItem key={toast.id} toast={toast} position={position} isExiting={exitingIds.has(toast.id)} />
+			))}
 		</Container>
 	);
 }
 
 /**
- * @description Single toast item with slide-in, fade-in, and exit animation.
+ * @description Single toast that slides and fades in on enter and out on exit.
  * @returns {JSX.Element} The toast item element.
  */
 function ToastItem({
 	toast,
 	position,
 	isExiting,
-	isHovered,
 }: {
 	toast: ToastItemType;
 	position: ToastPosition;
 	isExiting: boolean;
-	isHovered: boolean;
 }): JSX.Element {
-	const [mounted, setMounted] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
 
+	const outerRef = useRef<HTMLDivElement>(null);
+	const previousTopRef = useRef<number | null>(null);
 	const durationEndRef = useRef<number>(0);
 	const pausedRemainingRef = useRef<number>(0);
 	const hasPausedRef = useRef<boolean>(false);
 
-	/** Slide direction classes per position (small offset, not full edge). */
-	const slide = slideEnterClasses[position] ?? slideEnterClasses['top-right'];
+	const slide = slideClasses[position];
+	const isAssertive = toast.variant === 'danger' || toast.variant === 'warn';
 
-	/** Mount the toast item. */
+	/** Animate layout shifts (FLIP) so neighbouring toasts slide up or down instead of jumping. */
+	useIsomorphicLayoutEffect(() => {
+		const element = outerRef.current;
+		if (!element) return;
+
+		element.style.transition = 'none';
+		element.style.transform = '';
+		const currentTop = element.getBoundingClientRect().top;
+		const previousTop = previousTopRef.current;
+		previousTopRef.current = currentTop;
+
+		if (previousTop === null || previousTop === currentTop) return;
+
+		element.style.transform = `translateY(${previousTop - currentTop}px)`;
+		element.getBoundingClientRect();
+
+		const frameId = requestAnimationFrame((): void => {
+			element.style.transition = `transform ${EXIT_DURATION_MS}ms ease-out`;
+			element.style.transform = 'translateY(0px)';
+		});
+		return (): void => cancelAnimationFrame(frameId);
+	});
+
+	/** Defer the entered state by two frames so the initial closed state paints first. */
 	useEffect(() => {
 		const frameId = requestAnimationFrame((): void => {
-			requestAnimationFrame((): void => {
-				setMounted(true);
-			});
+			requestAnimationFrame((): void => setIsMounted(true));
 		});
 		return (): void => cancelAnimationFrame(frameId);
 	}, []);
 
-	/** Exit the toast item. */
+	/** Remove the toast from the store once its exit animation has finished. */
 	useEffect(() => {
 		if (!isExiting) return;
-		const timeoutId = setTimeout((): void => {
-			removeToast(toast.id);
-		}, EXIT_DURATION_MS);
+		const timeoutId = setTimeout((): void => removeToast(toast.id), EXIT_DURATION_MS);
 		return (): void => clearTimeout(timeoutId);
 	}, [isExiting, toast.id]);
 
-	/** Handle the duration of the toast item. */
+	/** Auto-dismiss after the duration, pausing while hovered. A duration of 0 keeps it open. */
 	useEffect(() => {
-		const duration = toast.duration ?? 2000;
-		if (duration <= 0 || isExiting) return;
+		if (toast.duration <= 0 || isExiting) return;
 
-		/** Handle the hover state of the toast item. */
 		if (isHovered) {
 			if (durationEndRef.current > 0) {
 				hasPausedRef.current = true;
@@ -242,69 +224,66 @@ function ToastItem({
 			return;
 		}
 
-		/** Handle the remaining duration of the toast item. */
-		const remaining = hasPausedRef.current ? pausedRemainingRef.current : duration;
-
+		const remaining = hasPausedRef.current ? pausedRemainingRef.current : toast.duration;
 		if (remaining <= 0) {
 			requestDismiss(toast.id);
 			return;
 		}
 
-		/** Handle the duration end of the toast item. */
 		durationEndRef.current = Date.now() + remaining;
 		hasPausedRef.current = false;
 
-		/** Handle the timeout of the toast item. */
-		const timeoutId = setTimeout((): void => {
-			requestDismiss(toast.id);
-		}, remaining);
-
+		const timeoutId = setTimeout((): void => requestDismiss(toast.id), remaining);
 		return (): void => clearTimeout(timeoutId);
 	}, [toast.id, toast.duration, isHovered, isExiting]);
 
-	/** Show the exit state of the toast item. */
-	const showExit = mounted && isExiting;
-	const showEntered = mounted && !isExiting;
+	const isVisible = isMounted && !isExiting;
 
 	return (
-		<Container
-			className={cn(
-				toastVariants({ variant: toast.variant }),
-				'transition-all duration-300 ease-out',
-				(!mounted || showExit) && slide.from,
-				showEntered && slide.to,
-			)}
-			data-slot="toast"
-			role="status"
-			aria-live="polite"
-			aria-atomic="true"
-		>
-			<ToastIcon variant={toast.variant} promiseStatus={toast.promiseStatus} className="mt-px size-5 shrink-0" />
-			<Container className="flex flex-1 flex-col">
-				<Text as="body-small" className="font-semibold">
-					{toast.title}
-				</Text>
-				{toast.description && (
-					<Text
-						as="body-small"
-						className={toast.variant === 'default' ? 'text-muted-foreground' : 'opacity-90'}
-					>
-						{toast.description}
+		<Container ref={outerRef} className="w-full">
+			<Container
+				className={cn(
+					'pointer-events-auto flex w-full items-start gap-2 rounded-lg border bg-background px-4 py-3 transition-[translate,scale,opacity] duration-300 ease-out',
+					isVisible ? slide.to : slide.from,
+				)}
+				data-slot="toast"
+				role={isAssertive ? 'alert' : 'status'}
+				aria-live={isAssertive ? 'assertive' : 'polite'}
+				aria-atomic="true"
+				onMouseEnter={(): void => setIsHovered(true)}
+				onMouseLeave={(): void => setIsHovered(false)}
+			>
+				<ToastIcon
+					variant={toast.variant}
+					promiseStatus={toast.promiseStatus}
+					className="mt-px size-5 shrink-0"
+				/>
+				<Container className="flex flex-1 flex-col">
+					<Text as="body-small" className="font-semibold">
+						{toast.title}
 					</Text>
+					{toast.description && (
+						<Text
+							as="body-small"
+							className={toast.variant === 'default' ? 'text-muted-foreground' : 'opacity-90'}
+						>
+							{toast.description}
+						</Text>
+					)}
+				</Container>
+
+				{toast.dismissible && (
+					<Button
+						onClick={(): void => requestDismiss(toast.id)}
+						variant="ghost"
+						size="icon-sm"
+						className="size-4 rounded-full hover:bg-danger hover:text-danger-foreground"
+						aria-label="Dismiss"
+					>
+						<XIcon className="size-3 stroke-4" />
+					</Button>
 				)}
 			</Container>
-
-			{toast.dismissible && (
-				<Button
-					onClick={(): void => requestDismiss(toast.id)}
-					variant="ghost"
-					size="icon-sm"
-					className="size-4 rounded-full hover:bg-danger hover:text-danger-foreground"
-					aria-label="Dismiss"
-				>
-					<XIcon className="size-3 stroke-4" />
-				</Button>
-			)}
 		</Container>
 	);
 }

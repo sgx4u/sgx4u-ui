@@ -85,7 +85,6 @@ export function Popover({
 	/* Counter that increments each time a trigger mounts or unmounts, allowing dependents to re-run position logic. */
 	const [triggerRegistrationCount, setTriggerRegistrationCount] = useState(0);
 
-	/* Get the trigger element for a popover id. */
 	const getTriggerElement = useCallback((popoverId: string): HTMLElement | null => {
 		return triggerElementsRef.current.get(popoverId) ?? null;
 	}, []);
@@ -154,11 +153,9 @@ export function PopoverTrigger({
 
 	...props
 }: PopoverTriggerPropsType): JSX.Element {
-	/* Get the popover context. */
 	const { defaultPopoverId, store, open, onOpenChange, registerTriggerRef } = usePopoverContext();
 	const effectivePopoverId = popoverIdProp ?? defaultPopoverId;
 
-	/* Get the popover record. */
 	const record = usePopoverRecord(effectivePopoverId);
 
 	/* Controlled + Uncontrolled sync. */
@@ -179,7 +176,6 @@ export function PopoverTrigger({
 		else if (refFromProps) refFromProps.current = element;
 	};
 
-	/* Handle the mouse down event. */
 	const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
 		if (open !== undefined) {
 			onOpenChange?.(action === 'toggle' ? !isOpen : true);
@@ -220,7 +216,6 @@ export function PopoverContent({
 
 	...props
 }: PopoverContentPropsType): JSX.Element {
-	/* Get the popover context. */
 	const {
 		defaultPopoverId,
 		store,
@@ -245,7 +240,6 @@ export function PopoverContent({
 	} = usePopoverContext();
 	const effectivePopoverId = popoverIdProp ?? defaultPopoverId;
 
-	/* Get the popover record. */
 	const record = usePopoverRecord(effectivePopoverId);
 
 	/* Controlled + Uncontrolled sync. */
@@ -288,15 +282,12 @@ export function PopoverContent({
 	/* Destroy the store record when this content unmounts, freeing memory. */
 	usePopoverRecordCleanup(effectivePopoverId);
 
-	/* Check if the popover is open like. */
 	const isOpenLike = record.isMounted && (record.phase === 'open' || record.phase === 'opening');
-	/* Check if the popover should render. */
 	const shouldRender = record.isMounted;
 
 	/* Lock body scroll while the popover is open, unless the consumer opts out. */
 	useLockScroll(isOpenLike && lockScroll !== false);
 
-	/* Handle the close event. */
 	const handleClose = useCallback((): void => {
 		if (open === undefined) store.close(effectivePopoverId);
 		else onOpenChange?.(false);
@@ -338,14 +329,17 @@ export function PopoverContent({
 	useEffect(() => {
 		if (!isOpenLike || !closeOnClickOutside) return;
 
-		/* Handle the outside mouse down event. */
 		const handleOutsideMouseDown = (event: MouseEvent): void => {
 			const contentElement = popoverContentRef.current;
 			const triggerElement = getTriggerElement(effectivePopoverId);
+			const eventTarget = event.target as Node | null;
 
-			if (contentElement?.contains(event.target as Node)) return;
-			if (triggerElement?.contains(event.target as Node)) return;
+			if (contentElement?.contains(eventTarget)) return;
+			if (triggerElement?.contains(eventTarget)) return;
 			if (ignoreOutsideClick) return;
+
+			/** Nested floating content (for example a Select inside this popover) is portaled, so treat it as inside. */
+			if (eventTarget instanceof Element && eventTarget.closest('[data-category="floating-content"]')) return;
 
 			handleClose();
 		};
@@ -418,7 +412,7 @@ export function PopoverContent({
 							...style,
 						}}
 						className={cn(
-							'max-w-[95dvw] overflow-auto rounded-xl bg-background p-4 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
+							'max-w-[95dvw] overflow-auto rounded-xl bg-background py-4 ps-4 pe-0 shadow-lg transition-opacity will-change-[opacity] outline-none backface-hidden transform-3d',
 							isVisible ? 'opacity-100' : 'opacity-0',
 							className,
 						)}

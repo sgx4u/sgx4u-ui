@@ -150,14 +150,12 @@ export function Button({
 
 	return (
 		<button {...componentProps} onKeyDown={onKeyDown}>
-			{/* Loader on the left. */}
 			{loading && loaderPosition === 'left' && (
 				<Container as="span" aria-hidden="true" className="flex">
 					{loader}
 				</Container>
 			)}
 
-			{/* Loader replacing the children. */}
 			{loading && loaderPosition === 'replace-children' && (
 				<>
 					<Container as="span" className="sr-only">
@@ -170,10 +168,8 @@ export function Button({
 				</>
 			)}
 
-			{/* Children. */}
 			{loaderPosition !== 'replace-children' && children}
 
-			{/* Loader on the right. */}
 			{loading && loaderPosition === 'right' && (
 				<Container as="span" aria-hidden="true" className="flex">
 					{loader}

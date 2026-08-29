@@ -1,7 +1,11 @@
 import { DragEvent as ReactDragEvent, MouseEvent as ReactMouseEvent } from 'react';
+import { LucideProps } from 'lucide-react';
 
+import { ButtonPropsType } from '../button';
 import { ContainerPropsType } from '../container';
+import { ImagePropsType } from '../image';
 import { InputPropsType } from '../input';
+import { TextPropsType } from '../text';
 
 type ContainerOmittedProps =
 	| 'accept'
@@ -31,7 +35,7 @@ type ContainerOmittedProps =
 /** FileInput props type. */
 export type FileInputPropsType = Omit<ContainerPropsType, ContainerOmittedProps> & {
 	/** Accepted file types (e.g. ['.png', 'image/*']). */
-	accept?: string[];
+	accept?: Array<string>;
 
 	/** Whether the file input is disabled. */
 	disabled?: boolean;
@@ -66,17 +70,17 @@ export type FileInputPropsType = Omit<ContainerPropsType, ContainerOmittedProps>
 	/** Callback when a file is dragged over the file input. */
 	onDragOver?: (event: ReactDragEvent<HTMLDivElement>) => void;
 
+	/** Callback when the selected files change (called with accepted files after selection or drop). */
+	onChange?: (files: Array<File>) => void;
+
 	/** Callback when a file is dropped on the file input. */
 	onDrop?: (event: ReactDragEvent<HTMLDivElement>) => void;
 
-	/** Callback when the selected files change (called with accepted files after selection or drop). */
-	onChange?: (files: File[]) => void;
-
 	/** Callback when files are dropped and accepted. */
-	onDropAccepted?: (files: File[]) => void;
+	onDropAccepted?: (files: Array<File>) => void;
 
 	/** Callback when files are dropped and rejected. */
-	onDropRejected?: (files: File[]) => void;
+	onDropRejected?: (files: Array<File>) => void;
 
 	/** Callback when an error occurs. */
 	onError?: (error: Error) => void;
@@ -88,7 +92,7 @@ export type FileInputPropsType = Omit<ContainerPropsType, ContainerOmittedProps>
 	onFileDialogCancel?: () => void;
 
 	/** Validator function; return false to reject files. */
-	validator?: (files: File[]) => boolean;
+	validator?: (files: Array<File>) => boolean;
 
 	/** Prevent click event propagation. */
 	preventClickEventPropagation?: boolean;
@@ -99,9 +103,129 @@ export type FileInputPropsType = Omit<ContainerPropsType, ContainerOmittedProps>
 	/** Prevent key down event propagation. */
 	preventKeyboardEventPropagation?: boolean;
 
-	/** Props for the input element. */
+	/** Additional props for the input element. */
 	inputProps?: Omit<
 		InputPropsType,
 		'ref' | 'type' | 'accept' | 'multiple' | 'disabled' | 'onChange' | 'tabIndex' | 'className'
 	>;
+};
+
+/** Square image pickup props type. */
+export type SquareImagePickupPropsType = {
+	/** Visual state used to tint the border. */
+	status?: 'danger' | 'success';
+
+	/** Class names for the icon. */
+	iconClassName?: string;
+
+	/** Class names for the text container. */
+	textContainerClassName?: string;
+
+	/** Class names for the text. */
+	textClassName?: string;
+
+	/** Class names for the container. */
+	containerClassName?: string;
+
+	/** Additional props for the container. */
+	containerProps?: Omit<ContainerPropsType, 'className'>;
+
+	/** Additional props for the icon. */
+	iconProps?: Omit<LucideProps, 'className'>;
+
+	/** Additional props for the text container. */
+	textContainerProps?: Omit<ContainerPropsType, 'className'>;
+
+	/** Additional props for the text. */
+	textProps?: Omit<TextPropsType, 'className'>;
+};
+
+/** Square image view props type. */
+export type SquareImageViewPropsType = {
+	/** Source of the image. */
+	src?: string;
+
+	/** Callback when the image source changes. */
+	onChange?: (src: string | undefined) => void;
+
+	/** Visual state used to tint the border. */
+	status?: 'danger' | 'success';
+
+	/** Class names for the image. */
+	imageClassName?: string;
+
+	/** Class names for the close button. */
+	closeButtonClassName?: string;
+
+	/** Class names for the close icon. */
+	closeIconClassName?: string;
+
+	/** Class names for the container. */
+	containerClassName?: string;
+
+	/** Additional props for the container. */
+	containerProps?: Omit<ContainerPropsType, 'className'>;
+
+	/** Additional props for the image. */
+	imageProps?: Omit<ImagePropsType, 'src' | 'alt' | 'className'>;
+
+	/** Additional props for the close button. */
+	closeButtonProps?: Omit<ButtonPropsType, 'className'>;
+
+	/** Additional props for the close icon. */
+	closeIconProps?: Omit<LucideProps, 'className'>;
+};
+
+/** Circle image pickup props type. */
+export type CircleImagePickupPropsType = {
+	/** Visual state used to tint the border. */
+	status?: 'danger' | 'success';
+
+	/** Class names for the icon. */
+	iconClassName?: string;
+
+	/** Class names for the container. */
+	containerClassName?: string;
+
+	/** Additional props for the container. */
+	containerProps?: Omit<ContainerPropsType, 'className'>;
+
+	/** Additional props for the icon. */
+	iconProps?: Omit<LucideProps, 'className'>;
+};
+
+/** Circle image view props type. */
+export type CircleImageViewPropsType = {
+	/** Source of the image. */
+	src?: string;
+
+	/** Callback when the image source changes. */
+	onChange?: (src: string | undefined) => void;
+
+	/** Visual state used to tint the border. */
+	status?: 'danger' | 'success';
+
+	/** Class names for the image. */
+	imageClassName?: string;
+
+	/** Class names for the close button. */
+	closeButtonClassName?: string;
+
+	/** Class names for the close icon. */
+	closeIconClassName?: string;
+
+	/** Class names for the container. */
+	containerClassName?: string;
+
+	/** Additional props for the image. */
+	imageProps?: Omit<ImagePropsType, 'src' | 'alt' | 'className'>;
+
+	/** Additional props for the close button. */
+	closeButtonProps?: Omit<ButtonPropsType, 'className'>;
+
+	/** Additional props for the close icon. */
+	closeIconProps?: Omit<LucideProps, 'className'>;
+
+	/** Additional props for the container. */
+	containerProps?: Omit<ContainerPropsType, 'className'>;
 };

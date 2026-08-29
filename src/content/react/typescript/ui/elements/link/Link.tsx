@@ -85,7 +85,6 @@ export function Link({
 	children,
 	...props
 }: LinkPropsType): JSX.Element {
-	/** Whether aria label is needed. */
 	const isAriaLabelNeeded = !children || typeof children !== 'string';
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLAnchorElement>): void => {

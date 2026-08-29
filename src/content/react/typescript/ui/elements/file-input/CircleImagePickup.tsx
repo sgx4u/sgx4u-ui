@@ -1,20 +1,10 @@
 import { JSX } from 'react';
-import { LucideProps, PlusIcon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 
+import { CircleImagePickupPropsType } from './file-input.type';
 import { cn } from '../../utils/styles.util';
 
-import { Container, ContainerPropsType } from '../container';
-
-/** Circle image pickup props type. */
-export type CircleImagePickupPropsType = {
-	status?: 'error' | 'success';
-
-	iconClassName?: string;
-	containerClassName?: string;
-
-	containerProps?: Omit<ContainerPropsType, 'className'>;
-	iconProps?: Omit<LucideProps, 'className'>;
-};
+import { Container } from '../container';
 
 /**
  * @description Circle image pickup component.
@@ -34,7 +24,7 @@ export function CircleImagePickup({
 			data-slot="circle-image-pickup"
 			className={cn(
 				'flex size-20 cursor-pointer items-center justify-center rounded-full border-2 border-dotted border-muted transition-all hover:border-primary',
-				status === 'error' ? 'border-danger' : 'border-muted',
+				status === 'danger' ? 'border-danger' : 'border-muted',
 				containerClassName,
 			)}
 			{...containerProps}

@@ -20,7 +20,7 @@ export const { variants: radioVariants, types: RadioVariantTypes } = makeVariant
 		},
 		state: {
 			default: 'outline-transparent focus-visible:outline-primary',
-			error: 'outline-danger',
+			danger: 'outline-danger',
 			success: 'outline-success',
 			warn: 'outline-warn',
 		},
@@ -136,6 +136,7 @@ export function Radio({
 		<Container {...containerProps} className={cn('inline-flex', containerProps.className)}>
 			<Input
 				{...inputProps}
+				name={inputProps.name ?? 'radio'}
 				id={radioUid}
 				type="radio"
 				checked={currentChecked}

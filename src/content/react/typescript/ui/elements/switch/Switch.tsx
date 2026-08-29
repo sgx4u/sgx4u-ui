@@ -23,7 +23,7 @@ export const { variants: switchVariants, types: SwitchVariantTypes } = makeVaria
 			default: 'outline-transparent',
 			success: 'outline-success',
 			warn: 'outline-warn',
-			error: 'outline-danger',
+			danger: 'outline-danger',
 		},
 	},
 	default: {
@@ -119,7 +119,7 @@ export function Switch({
 				data-state={state}
 				role="switch"
 				aria-checked={currentChecked}
-				aria-invalid={state === 'error' || undefined}
+				aria-invalid={state === 'danger' || undefined}
 			/>
 			<Container
 				as="span"

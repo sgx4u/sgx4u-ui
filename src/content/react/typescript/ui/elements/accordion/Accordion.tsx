@@ -21,7 +21,8 @@ import {
 	AccordionTriggerPropsType,
 } from './accordion.type';
 import { cn } from '../../utils/styles.util';
-import { accordionOnKeyDownHelper, slideAccordion } from './accordion.helper';
+import { slidePanel } from '../../helpers/slide-panel.helper';
+import { accordionOnKeyDownHelper } from './accordion.helper';
 
 import { useReducedMotion } from '../../hooks/useReducedMotion.hook';
 
@@ -90,7 +91,6 @@ export function Accordion({
 				: [...nextValue, itemValue];
 		}
 
-		/** Update the open items. */
 		onOpenItemsChange?.(nextValue);
 		if (openItems === undefined) setInternalOpenItems(nextValue);
 
@@ -100,15 +100,14 @@ export function Accordion({
 
 		const effectiveSpeed = prefersReducedMotion ? 0 : speed;
 
-		if (nextValue.includes(itemValue))
-			slideAccordion({ element: entry.body, speed: effectiveSpeed, action: 'down' });
-		else slideAccordion({ element: entry.body, speed: effectiveSpeed, action: 'up' });
+		if (nextValue.includes(itemValue)) slidePanel({ element: entry.body, speed: effectiveSpeed, action: 'down' });
+		else slidePanel({ element: entry.body, speed: effectiveSpeed, action: 'up' });
 
 		/** If single type, collapse all other items when the current item is opened. */
 		if (type === 'single') {
 			itemsMap.current.forEach((other, key) => {
 				if (key === itemValue) return;
-				if (other.body) slideAccordion({ element: other.body, speed: effectiveSpeed, action: 'up' });
+				if (other.body) slidePanel({ element: other.body, speed: effectiveSpeed, action: 'up' });
 			});
 		}
 	};
@@ -155,7 +154,6 @@ export function AccordionItem({ value, className, ...props }: AccordionItemProps
 		registerItem({ value, element: itemElementRef.current, type: 'item' });
 	}, [value, registerItem]);
 
-	/** Check if the item is currently open. */
 	const isOpen = openItems.includes(value);
 
 	return (
@@ -190,7 +188,6 @@ export function AccordionTrigger({
 	const { onToggle, openItems } = useContext(AccordionContext);
 	const { value } = useAccordionItem();
 
-	/** Check if the item is currently open. */
 	const isOpen = value && openItems.includes(value);
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
@@ -218,7 +215,6 @@ export function AccordionTrigger({
 			>
 				{children}
 
-				{/* Icon to indicate the open state. */}
 				{!hideArrow && (
 					<ChevronDownIcon
 						className={cn(
@@ -248,7 +244,6 @@ export function AccordionContent({ className, ...props }: AccordionContentPropsT
 		registerItem({ value: value ?? '', element: contentElementRef.current, type: 'body' });
 	}, [registerItem, value]);
 
-	/** Check if the item is currently open. */
 	const isOpen = value && openItems.includes(value);
 
 	return (

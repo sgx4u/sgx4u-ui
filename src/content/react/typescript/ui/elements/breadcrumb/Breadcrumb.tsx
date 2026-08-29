@@ -68,7 +68,6 @@ export function Breadcrumb({
 	/** Window resize direction to determine from which side the breadcrumb items should be hidden or shown. */
 	const { resizeDirection } = useWindowResize();
 
-	/** Store the child elements. */
 	const [childElements, setChildElements] = useState<Record<string, RegisterItemPropsType>>({});
 
 	/** Store the width of the ellipsis (collapsed popover trigger). */
@@ -80,7 +79,6 @@ export function Breadcrumb({
 	const registerItem = (element: HTMLElement): RegisterItemPropsType | null => {
 		if (element.getAttribute('data-id')) return null;
 
-		/** Get the breadcrumb container. */
 		const breadcrumb = document.querySelector(`[data-uid="${breadcrumbUid}"][data-slot="breadcrumb"]`);
 		if (!breadcrumb) return null;
 
@@ -129,8 +127,8 @@ export function Breadcrumb({
 			) as HTMLElement | null;
 			if (!breadcrumb) return;
 
-			/** Get the width of the breadcrumb container. */
 			const breadcrumbWidth = breadcrumb.offsetWidth;
+
 			/** Get the width of all the visible child elements. */
 			const childElementsWidth = Object.values(childElements).reduce((acc, item: RegisterItemPropsType) => {
 				if (!item.isVisible) return acc;
@@ -173,7 +171,6 @@ export function Breadcrumb({
 					);
 					if (!nextVisibleItem) break;
 
-					/** Add the item to the items to hide. */
 					itemsToHide.push(nextVisibleItem);
 					/** Add the width of the item to the width to hide. */
 					updatedWidthToHide = updatedWidthToHide + childElements[nextVisibleItem].width;
@@ -186,7 +183,6 @@ export function Breadcrumb({
 				 */
 				if (itemsToHide.length === 1 && itemsToHide[0].startsWith('breadcrumb-separator-')) return;
 
-				/** Set the child elements. */
 				setChildElements((prev) => {
 					/** Get the updated child elements. */
 					const updatedChildElements = { ...prev };
@@ -204,15 +200,10 @@ export function Breadcrumb({
 				const isItemHidden = Object.values(childElements).some((item) => !item.isVisible);
 				if (!isItemHidden) return;
 
-				/** Get the width difference. */
 				const widthDifference = breadcrumbWidth - childElementsWidth;
 
-				/** Initialize the width to show. */
-
 				let updatedWidthToShow = 0;
-				/** Initialize the width to show satisfied. */
 				let updatedWidthToShowSatisfied = false;
-				/** Initialize the items to show. */
 				const itemsToShow: Array<string> = [];
 
 				/** While the width to show is less than the width difference, find the next hidden item to show. */
@@ -268,7 +259,6 @@ export function Breadcrumb({
 					itemsToShow.push(`breadcrumb-separator-${index - 1}`);
 				}
 
-				/** Set the child elements. */
 				setChildElements((prev) => {
 					/** Get the updated child elements. */
 					const updatedChildElements = { ...prev };
@@ -344,7 +334,6 @@ export function BreadcrumbItem({
 	const [is2ndItem, setIs2ndItem] = useState(false);
 	const [itemHeight, setItemHeight] = useState(0);
 
-	/** This item data id. */
 	const itemDataIdRef = useRef<string | undefined>(undefined);
 
 	/** Unique identifier to identify the item element. */
@@ -377,7 +366,6 @@ export function BreadcrumbItem({
 		setIsHidden(!isVisible);
 	}, [childElements]);
 
-	/** Component to use for the item. */
 	const Component = current ? Container : Link;
 
 	return (
@@ -430,10 +418,8 @@ export function BreadcrumbSeparator({
 }: BreadcrumbSeparatorPropsType): JSX.Element {
 	const { breadcrumbUid, registerItem, childElements } = useContext(BreadcrumbContext);
 
-	/** Whether the separator is hidden. */
 	const [isHidden, setIsHidden] = useState(false);
 
-	/** This item data id. */
 	const separatorDataIdRef = useRef<string | undefined>(undefined);
 
 	/** Unique identifier to identify the separator element. */

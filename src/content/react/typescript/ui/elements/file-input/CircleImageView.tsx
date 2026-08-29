@@ -1,28 +1,12 @@
 import { JSX } from 'react';
-import { LucideProps, XIcon } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 
+import { CircleImageViewPropsType } from './file-input.type';
 import { cn } from '../../utils/styles.util';
 
-import { Button, ButtonPropsType } from '../button';
-import { Container, ContainerPropsType } from '../container';
-import { Image, ImagePropsType } from '../image';
-
-/** Circle image view props type. */
-export type CircleImageViewPropsType = {
-	src?: string;
-	onChange?: (src: string | undefined) => void;
-	status?: 'error' | 'success';
-
-	imageClassName?: string;
-	closeButtonClassName?: string;
-	closeIconClassName?: string;
-	containerClassName?: string;
-
-	imageProps?: Omit<ImagePropsType, 'src' | 'alt' | 'className'>;
-	closeButtonProps?: Omit<ButtonPropsType, 'className'>;
-	closeIconProps?: Omit<LucideProps, 'className'>;
-	containerProps?: Omit<ContainerPropsType, 'className'>;
-};
+import { Button } from '../button';
+import { Container } from '../container';
+import { Image } from '../image';
 
 /**
  * @description Circle image view component.
@@ -46,7 +30,11 @@ export function CircleImageView({
 	return (
 		<Container
 			data-slot="circle-image-view"
-			className={cn('absolute inset-0 size-20', status === 'error' && 'border border-danger', containerClassName)}
+			className={cn(
+				'absolute inset-0 size-20',
+				status === 'danger' && 'border border-danger',
+				containerClassName,
+			)}
 			{...containerProps}
 		>
 			<Image

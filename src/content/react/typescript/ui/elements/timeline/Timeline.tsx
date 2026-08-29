@@ -86,7 +86,6 @@ export function Timeline({
 		/** If the element is already registered, return. */
 		if (element.getAttribute('data-id')) return null;
 
-		/** Get the timeline container. */
 		const timeline = document.querySelector(`[data-uid="${timelineUid}"][data-slot="timeline"]`);
 		if (!timeline) return null;
 
@@ -101,7 +100,6 @@ export function Timeline({
 		const newElementId = type === 'item' ? `timeline-item-${index}` : `timeline-connector-${index}`;
 		element.setAttribute('data-id', newElementId);
 
-		/** Update the timeline state. */
 		handleTimelineStateChange({ id: newElementId, index, status: 'pending' });
 		return { id: newElementId, index, status: 'pending' };
 	};
@@ -229,14 +227,14 @@ export const { variants: timelineStepVariants, types: TimelineStepVariantTypes }
 			pending: '',
 			active: '',
 			completed: '',
-			error: '',
+			danger: '',
 		},
 	},
 	conditionals: [
 		{ when: { variant: 'default', status: 'pending' }, apply: 'bg-muted' },
 		{ when: { variant: 'default', status: 'active' }, apply: 'bg-primary' },
 		{ when: { variant: 'default', status: 'completed' }, apply: 'bg-success' },
-		{ when: { variant: 'default', status: 'error' }, apply: 'bg-danger' },
+		{ when: { variant: 'default', status: 'danger' }, apply: 'bg-danger' },
 		{
 			when: { variant: ['outlined', 'content'], status: 'pending' },
 			apply: 'border-muted text-muted-dark before:bg-muted',
@@ -250,7 +248,7 @@ export const { variants: timelineStepVariants, types: TimelineStepVariantTypes }
 			apply: 'border-success text-success before:bg-success',
 		},
 		{
-			when: { variant: ['outlined', 'content'], status: 'error' },
+			when: { variant: ['outlined', 'content'], status: 'danger' },
 			apply: 'border-danger text-danger before:bg-danger',
 		},
 	],
@@ -280,7 +278,7 @@ export function TimelineStep({
 				return <LoaderIcon className="size-4 animate-spin motion-reduce:animate-none" />;
 			case 'completed':
 				return <CheckIcon className="size-4" />;
-			case 'error':
+			case 'danger':
 				return <XIcon className="size-4" />;
 			default:
 				return (
@@ -297,7 +295,7 @@ export function TimelineStep({
 			aria-label={`Timeline step ${index + 1} is ${status}`}
 			{...props}
 			className={cn(
-				'shrink-0',
+				'relative z-10 shrink-0',
 				typeof children === 'undefined' && timelineStepVariants({ size, variant, status }),
 				className,
 			)}
@@ -342,7 +340,6 @@ export function TimelineConnector({ className, ...props }: TimelineConnectorProp
 	/** Unique identifier to identify the timeline connector element. */
 	const connectorUid = useId();
 
-	/** Check if the step is completed. */
 	const isStepCompleted = useMemo(() => {
 		/** Copy before sorting to avoid mutating the shared timeline state. */
 		const timelineIndexOrdered = [...timelineState].sort((a, b) => b.index - a.index);
@@ -369,41 +366,38 @@ export function TimelineConnector({ className, ...props }: TimelineConnectorProp
 		) as HTMLElement | null;
 		if (!nextStepElement) return;
 
-		/** Get the bounding rectangles. */
+		/** Identify the timeline item hosting the current step so connector offsets are measured relative to it, accounting for step margins and alignment. */
+		const timelineItemElement = currentStepElement.closest('[data-slot="timeline-item"]') as HTMLElement | null;
+		if (!timelineItemElement) return;
+
 		const currentRect = currentStepElement.getBoundingClientRect();
 		const nextRect = nextStepElement.getBoundingClientRect();
+		const timelineItemRect = timelineItemElement.getBoundingClientRect();
 
-		/** Compute styles per orientation */
 		let style: CSSProperties = {};
 
-		/** Vertical orientation. */
 		if (orientation === 'vertical' || orientation === 'vertical-reverse') {
-			/** Compute the gap between the current and next step. */
-			const gap = nextRect.top - currentRect.top;
-			/** Compute the center of the current step. */
-			const centerX = currentRect.width / 2 - 1;
+			/** Bottom edge of the current step relative to the item, so the line starts exactly where the circle ends. */
+			const currentStepBottom = currentRect.bottom - timelineItemRect.top;
+			/** Top edge of the next step relative to the item, so the line ends exactly where the next circle starts. */
+			const nextStepTop = nextRect.top - timelineItemRect.top;
+			/** Horizontal center of the current step relative to the item (offset by 1 to center the 2px line). */
+			const centerX = currentRect.left - timelineItemRect.left + currentRect.width / 2 - 1;
 
 			style = {
 				left: centerX,
-				top: currentRect.height,
+				top: currentStepBottom,
 				width: 2,
-				height: gap - currentRect.height,
+				height: nextStepTop - currentStepBottom,
 			};
-			/** If the orientation is vertical-reverse, reverse the left and right styles. */
+			/** If the orientation is vertical-reverse, anchor to the right edge instead. */
 			if (orientation === 'vertical-reverse') {
 				delete style.left;
-				style.right = centerX;
+				style.right = timelineItemRect.right - currentRect.right + currentRect.width / 2 - 1;
 			}
 		}
 
-		/** Horizontal orientation. */
 		if (orientation === 'horizontal' || orientation === 'horizontal-reverse') {
-			/** Identify the current timeline item container to measure offsets. */
-			const timelineItemElement = currentStepElement.closest('[data-slot="timeline-item"]') as HTMLElement | null;
-			if (!timelineItemElement) return;
-
-			const timelineItemRect = timelineItemElement.getBoundingClientRect();
-
 			/** Determine the absolute center positions for the current and next steps. */
 			const currentCenterX = currentRect.left + currentRect.width / 2;
 			const nextCenterX = nextRect.left + nextRect.width / 2;
@@ -441,7 +435,7 @@ export function TimelineConnector({ className, ...props }: TimelineConnectorProp
 		<Container
 			{...props}
 			style={{ ...props.style, ...connectorStyles }}
-			className={cn('absolute shrink-0', isStepCompleted ? 'bg-success' : 'bg-muted', className)}
+			className={cn('absolute z-0 shrink-0', isStepCompleted ? 'bg-success' : 'bg-muted', className)}
 			data-slot="timeline-connector"
 			data-uid={timelineUid}
 			data-item-uid={connectorUid}

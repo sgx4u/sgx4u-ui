@@ -82,7 +82,6 @@ export function Tabs({
 	/** Controlled + Uncontrolled sync. */
 	const currentValue = value ?? internalValue;
 
-	/** Ref to store the trigger elements. */
 	const triggerElementsRef = useRef<Map<string | number, HTMLButtonElement>>(new Map());
 
 	const registerTrigger = (tabValue: string | number, element: HTMLButtonElement | null): void => {
@@ -190,7 +189,6 @@ export function TabList({
 		const activeTrigger = getTriggerElement(value);
 		if (!activeTrigger) return;
 
-		/** Get the bounding client rect of the active trigger and its parent. */
 		const rect = activeTrigger.getBoundingClientRect();
 		const parentRect = activeTrigger.parentElement?.getBoundingClientRect();
 
@@ -249,7 +247,6 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
 		tabTriggerCommonProps,
 	} = useContext(TabsContext);
 
-	/** Whether this tab is active. */
 	const isActive = activeValue === value;
 
 	/** Whether any tab is currently selected. */
@@ -296,7 +293,6 @@ export function TabTrigger({ value, onClick, onKeyDown, className, ...props }: T
 export function TabContent({ value, ...props }: TabContentPropsType): JSX.Element {
 	const { value: activeValue, baseId, tabContentCommonProps } = useContext(TabsContext);
 
-	/** Whether this tab content is active. */
 	const isActive = activeValue === value;
 
 	if (!isActive) return <></>;

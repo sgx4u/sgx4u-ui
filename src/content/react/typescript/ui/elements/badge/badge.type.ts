@@ -3,7 +3,7 @@ import { BadgeVariantTypes } from './Badge';
 
 /** Props type for the Badge component. */
 export type BadgePropsType = Omit<ContainerPropsType, 'as'> & {
-	/** Indicates if badge represents a status (e.g., "online", "error"). */
+	/** Indicates if badge represents a status (e.g., "online", "danger"). */
 	status?: boolean;
 
 	/** Visual style of the badge. Default - primary. */

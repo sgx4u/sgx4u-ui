@@ -85,7 +85,6 @@ export function Text({
 	children,
 	...props
 }: TextPropsType): JSX.Element {
-	/** The final tag name. */
 	const tagName = textTags[as] ?? 'p';
 
 	const componentProps = {
@@ -97,6 +96,5 @@ export function Text({
 	/** If asChild is true, merge props with the child element (no new DOM node). */
 	if (asChild) return <Slot {...componentProps}>{children}</Slot>;
 
-	/** Create the element dynamically. */
 	return createElement(tagName, componentProps, children);
 }

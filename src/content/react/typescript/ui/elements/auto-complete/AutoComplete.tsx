@@ -259,7 +259,7 @@ function AutoCompleteContent({
 	return (
 		<PopoverContent
 			{...dropdownContentProps}
-			className={cn('flex max-h-60 flex-col overflow-auto p-1', dropdownContentProps.className)}
+			className={cn('flex max-h-60 flex-col overflow-auto py-1 ps-1 pe-0', dropdownContentProps.className)}
 			role="listbox"
 		>
 			{options.map((option, index) => (

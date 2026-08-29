@@ -112,7 +112,7 @@ export function DropdownMenuContent({ className, ...props }: DropdownMenuContent
 	return (
 		<PopoverContent
 			{...props}
-			className={cn('flex flex-col gap-0.5 p-1', className)}
+			className={cn('flex flex-col gap-0.5 py-1 ps-1 pe-0', className)}
 			data-slot="dropdown-menu-content"
 			role="menu"
 		/>
@@ -312,7 +312,7 @@ export function DropdownMenuSubContent({ className, ...props }: DropdownMenuSubC
 	return (
 		<PopoverContent
 			{...props}
-			className={cn('flex flex-col gap-0.5 p-1', className)}
+			className={cn('flex flex-col gap-0.5 py-1 ps-1 pe-0', className)}
 			data-slot="dropdown-menu-sub-content"
 			role="menu"
 		/>

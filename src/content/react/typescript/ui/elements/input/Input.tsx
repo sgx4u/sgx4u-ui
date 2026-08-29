@@ -17,11 +17,12 @@ export const { variants: inputVariants, types: InputVariantTypes } = makeVariant
 			sm: 'max-w-48 px-2 py-1 text-sm',
 			default: 'max-w-60 px-2.5 py-1.5 text-sm',
 			lg: 'max-w-80 px-3 py-2 text-base',
+			xl: 'max-w-96 px-4 py-2.5 text-lg',
 			full: 'max-w-full px-2.5 py-1.5 text-sm',
 		},
 		state: {
 			default: '',
-			error: 'border-danger',
+			danger: 'border-danger',
 			success: 'border-success',
 			warn: 'border-warn',
 		},
@@ -51,7 +52,7 @@ export function Input({
 			data-slot="input"
 			{...props}
 			className={cn(inputVariants({ inputSize, variant, state }), className)}
-			aria-invalid={state === 'error' || props['aria-invalid']}
+			aria-invalid={state === 'danger' || props['aria-invalid']}
 		/>
 	);
 }

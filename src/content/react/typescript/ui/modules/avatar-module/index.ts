@@ -1,6 +1,6 @@
 /**
  * @name AvatarModule
- * @description An image element with a fallback for representing the user.
+ * @description Composed avatar with image, initials fallback, and stable color derived from the display name.
  */
 /** AvatarModule props type. */
 export * from './avatar-module.type';

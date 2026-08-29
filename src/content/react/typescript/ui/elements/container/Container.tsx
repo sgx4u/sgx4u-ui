@@ -43,6 +43,5 @@ export function Container({
 	/* Avoid createElement for common tags (micro-optimization). */
 	if (as === 'div') return <div {...componentProps}>{children}</div>;
 	if (as === 'span') return <span {...componentProps}>{children}</span>;
-	/** Use createElement to create the element dynamically. */
 	return createElement(as, componentProps, children);
 }

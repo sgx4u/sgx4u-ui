@@ -1,5 +1,5 @@
 /**
- * @name FileInput
+ * @name File Input
  * @description File input that supports click-to-select and drag-and-drop with validation.
  */
 /** FileInput props type. */

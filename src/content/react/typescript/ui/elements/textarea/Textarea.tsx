@@ -21,7 +21,7 @@ export const { variants: textareaVariants, types: TextareaVariantTypes } = makeV
 		},
 		state: {
 			default: '',
-			error: 'border-danger',
+			danger: 'border-danger',
 			success: 'border-success',
 			warn: 'border-warn',
 		},
@@ -55,7 +55,7 @@ export function Textarea({
 				className,
 			)}
 			data-slot="textarea"
-			aria-invalid={state === 'error' ? true : undefined}
+			aria-invalid={state === 'danger' ? true : undefined}
 			{...props}
 		/>
 	);

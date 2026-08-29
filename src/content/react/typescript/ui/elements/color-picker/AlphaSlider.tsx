@@ -2,15 +2,10 @@
 
 import { ChangeEvent, JSX, useRef, useState } from 'react';
 
+import { AlphaSliderPropsType } from './color-picker.type';
+
 import { Container } from '../container';
 import { Input } from '../input';
-
-/** Props for the AlphaSlider component. */
-type AlphaSliderPropsType = {
-	value: number;
-	color: string;
-	onChange: (value: number) => void;
-};
 
 /**
  * @description Alpha/transparency slider (0–1). Fires onChange only on mouse/pointer release.
@@ -56,8 +51,6 @@ export function AlphaSlider({ value, color, onChange }: AlphaSliderPropsType): J
 			onPointerLeave={handlePointerLeave}
 			onPointerCancel={handlePointerUp}
 			data-slot="alpha-slider"
-			aria-label="Alpha"
-			aria-valuetext={`Alpha ${Math.round(displayValue * 100)}%`}
 		>
 			{/* Checkerboard background (like transparent image preview). */}
 			<Container
@@ -78,6 +71,7 @@ export function AlphaSlider({ value, color, onChange }: AlphaSliderPropsType): J
 
 			<Input
 				ref={inputReference}
+				name="alpha"
 				type="range"
 				value={displayValue}
 				onPointerDown={handlePointerDown}

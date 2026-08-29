@@ -5,5 +5,8 @@
 /** Avatar props type. */
 export * from './avatar.type';
 
+/** Avatar helpers. */
+export * from './avatar.helper';
+
 /** Avatar component. */
 export * from './Avatar';

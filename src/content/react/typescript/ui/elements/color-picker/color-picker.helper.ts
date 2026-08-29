@@ -64,7 +64,6 @@ export function hexToRgb(hex: string): RGB {
 	const normalized = hex.replace(/^#/, '').trim();
 	const length = normalized.length;
 
-	/** If the length is not 3, 6, or 8, return 0, 0, 0. */
 	if (length !== 3 && length !== 6 && length !== 8) {
 		return { red: 0, green: 0, blue: 0 };
 	}
@@ -78,7 +77,6 @@ export function hexToRgb(hex: string): RGB {
 					.join('')
 			: normalized;
 
-	/** Parse the red, green, and blue values from the expanded hex string. */
 	const red = parseInt(expanded.slice(0, 2), 16) || 0;
 	const green = parseInt(expanded.slice(2, 4), 16) || 0;
 	const blue = parseInt(expanded.slice(4, 6), 16) || 0;
@@ -96,11 +94,9 @@ export function rgbToHsl(rgb: RGB): HSL {
 	const green = rgb.green / 255;
 	const blue = rgb.blue / 255;
 
-	/** Find the maximum and minimum values. */
 	const maximum = Math.max(red, green, blue);
 	const minimum = Math.min(red, green, blue);
 
-	/** Calculate the lightness. */
 	let hue = 0;
 	let saturation = 0;
 	const lightness = (maximum + minimum) / 2;
@@ -115,7 +111,6 @@ export function rgbToHsl(rgb: RGB): HSL {
 		else hue = ((red - green) / delta + 4) / 6;
 	}
 
-	/** Return the HSL values. */
 	return {
 		hue: Math.round(hue * 360),
 		saturation: Math.round(saturation * 100),
@@ -134,11 +129,9 @@ export function rgbToHsv(rgb: RGB): HSV {
 	const green = rgb.green / 255;
 	const blue = rgb.blue / 255;
 
-	/** Find the maximum and minimum values. */
 	const maximum = Math.max(red, green, blue);
 	const minimum = Math.min(red, green, blue);
 
-	/** Calculate the delta. */
 	const delta = maximum - minimum;
 	let hue = 0;
 
@@ -149,11 +142,9 @@ export function rgbToHsv(rgb: RGB): HSV {
 		else hue = ((red - green) / delta + 4) / 6;
 	}
 
-	/** Calculate the saturation and value. */
 	const saturation = maximum === 0 ? 0 : delta / maximum;
 	const value = maximum;
 
-	/** Return the HSV values. */
 	return {
 		hue: Math.round(hue * 360),
 		saturation: Math.round(saturation * 100),
@@ -176,7 +167,6 @@ export function rgbToCmyk(rgb: RGB): CMYK {
 	/** If the black value is 1, return 0, 0, 0, 100. */
 	if (black === 1) return { cyan: 0, magenta: 0, yellow: 0, black: 100 };
 
-	/** Calculate the cyan, magenta, and yellow values. */
 	const cyan = ((1 - red - black) / (1 - black)) * 100;
 	const magenta = ((1 - green - black) / (1 - black)) * 100;
 	const yellow = ((1 - blue - black) / (1 - black)) * 100;
@@ -506,7 +496,6 @@ export function hslToRgb(hsl: HSL): RGB {
 	const chromaSum = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
 	const minComponent = 2 * lightness - chromaSum;
 
-	/** Return the RGB values. */
 	return {
 		red: Math.round(hueToRgbComponent({ minComponent, maxComponent: chromaSum, hueComponent: hue + 1 / 3 }) * 255),
 		green: Math.round(hueToRgbComponent({ minComponent, maxComponent: chromaSum, hueComponent: hue }) * 255),
@@ -547,12 +536,10 @@ export function hsvToRgb(hsv: HSV): RGB {
 		return { red: component, green: component, blue: component };
 	}
 
-	/** Calculate the hue index and fractional part for HSV to RGB conversion. */
 	const hueIndex = hue * 6;
 	const hueSegment = Math.floor(hueIndex);
 	const hueFraction = hueIndex - hueSegment;
 
-	/** Calculate the intermediate RGB components from HSV. */
 	const minComponent = value * (1 - saturation);
 	const fractionalComponent = value * (1 - saturation * hueFraction);
 	const fractionalComplement = value * (1 - saturation * (1 - hueFraction));
@@ -620,7 +607,6 @@ export function rgbToHex({ rgb, includeAlpha = false }: { rgb: RGB; includeAlpha
 		.toString(16)
 		.padStart(2, '0');
 
-	/** Return the hex string. */
 	return `#${red}${green}${blue}${includeAlpha ? 'ff' : ''}`;
 }
 

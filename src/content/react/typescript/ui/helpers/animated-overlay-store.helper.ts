@@ -181,7 +181,6 @@ export function createAnimatedOverlayStore(
 
 		if (!(overlayId in state)) return;
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { [overlayId]: _removed, ...rest } = state;
 		state = rest as OverlayStateType;
 		emit();

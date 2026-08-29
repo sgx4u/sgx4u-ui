@@ -1,115 +1,115 @@
+'use client';
+
 import { JSX, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { InputModulePropsType } from './input-module.type';
 import { cn } from '../../utils/styles.util';
 
+import { Container } from '../../elements/container';
 import { Icons } from '../../elements/icons';
 import { Input } from '../../elements/input';
 import { Label } from '../../elements/label';
+import { Text } from '../../elements/text';
 
 /**
- * @description Input module component.
+ * @description Composed input with label, validation message, and optional password visibility toggle.
+ * @param {InputModulePropsType} props - The props for the InputModule component.
  * @returns {JSX.Element} The InputModule component.
  */
-export const InputModule = ({
+export function InputModule({
+	id,
 	control,
+	name,
+	type,
+	title,
+	state = 'default',
 
 	label,
 	labelClassName,
 
 	message,
 	messageClassName,
-	state,
 
+	className,
 	passwordIconClassName,
-
-	innerElement,
 	containerClassName,
 
+	innerElement,
 	labelProps,
 	passwordIconProps,
-	...props
-}: InputModulePropsType): JSX.Element => {
-	const { name, value, onChange, type, placeholder, className, ...inputProps } = props;
-
+	...inputProps
+}: InputModulePropsType): JSX.Element {
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-	const inputActiveClassName = cn(
-		'input',
-		`${state === 'error' ? 'input-error' : state === 'success' ? 'input-success' : 'input-default'}`,
-		className,
-	);
+	const inputId = id ?? name;
+	const messageId = message && inputId ? `${inputId}-message` : undefined;
+
+	/**
+	 * @description Renders the shared input element for both controlled and uncontrolled modes.
+	 * @param {object} [fieldProps] - Optional react-hook-form field props to merge onto the input.
+	 * @returns {JSX.Element} The input element.
+	 */
+	function renderInput(fieldProps?: Record<string, unknown>): JSX.Element {
+		return (
+			<Input
+				id={inputId}
+				name={name ?? 'input-module'}
+				type={type === 'password' && isPasswordVisible ? 'text' : type}
+				title={title ?? (typeof label === 'string' ? label : name)}
+				state={state}
+				aria-describedby={messageId}
+				className={cn(type === 'password' && 'pr-10', className)}
+				{...inputProps}
+				{...fieldProps}
+			/>
+		);
+	}
 
 	return (
-		<div className={cn('flex w-full flex-col gap-1', containerClassName)}>
+		<Container className={cn('flex w-full flex-col gap-1', containerClassName)}>
 			{label && (
 				<Label
-					title={name}
-					htmlFor={name}
-					className={cn('text-muted-foreground', labelClassName)}
+					variant="muted"
 					{...labelProps}
+					htmlFor={inputId}
+					required={inputProps.required}
+					className={labelClassName}
 				>
 					{label}
 				</Label>
 			)}
 
-			<div className="relative size-full">
+			<Container className="relative w-full">
 				{control && name ? (
-					<Controller
-						control={control}
-						name={name}
-						render={({ field }) => (
-							<Input
-								id={name}
-								type={type === 'password' && isPasswordVisible ? 'text' : type}
-								title={label && typeof label === 'string' ? label : name}
-								placeholder={placeholder}
-								state={state}
-								className={inputActiveClassName}
-								{...field}
-								{...inputProps}
-							/>
-						)}
-					/>
+					<Controller control={control} name={name} render={({ field }) => renderInput(field)} />
 				) : (
-					<Input
-						name={name}
-						value={value}
-						onChange={onChange}
-						type={type === 'password' && isPasswordVisible ? 'text' : type}
-						title={label && typeof label === 'string' ? label : name}
-						placeholder={placeholder}
-						className={inputActiveClassName}
-						{...inputProps}
-					/>
+					renderInput()
 				)}
 
 				{type === 'password' && (
 					<Icons
+						{...passwordIconProps}
 						variant="password-show-hide"
 						visible={isPasswordVisible}
 						onVisibleChange={setIsPasswordVisible}
-						className={cn('absolute inset-[0_10px_0_auto] my-auto size-5', passwordIconClassName)}
-						{...passwordIconProps}
+						className={cn('absolute inset-y-0 right-2.5 my-auto size-5', passwordIconClassName)}
 					/>
 				)}
 
 				{innerElement}
-			</div>
+			</Container>
 
 			{message && (
-				<p
-					id={state === 'error' ? `${name}-error` : `${name}-success`}
-					className={cn(
-						'input-message',
-						`${state === 'error' ? 'input-error-message' : state === 'success' ? 'input-success-message' : ''}`,
-						messageClassName,
-					)}
+				<Text
+					id={messageId}
+					as="body-small"
+					variant={state === 'default' ? 'muted' : state}
+					className={messageClassName}
 				>
 					{message}
-				</p>
+				</Text>
 			)}
-		</div>
+		</Container>
 	);
-};
+}

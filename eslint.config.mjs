@@ -24,7 +24,10 @@ export default defineConfig([
 		rules: {
 			'@next/next/no-img-element': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'warn',
-			'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{ args: 'all', argsIgnorePattern: '^_', varsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' },
+			],
 			'jsdoc/require-param': [
 				'error',
 				{

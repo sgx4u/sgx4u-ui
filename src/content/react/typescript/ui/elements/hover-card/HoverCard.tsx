@@ -53,7 +53,6 @@ export function HoverCard({
 	/** Controlled + Uncontrolled sync. */
 	const currentOpen = open ?? internalOpen;
 
-	/** Timer references. */
 	const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

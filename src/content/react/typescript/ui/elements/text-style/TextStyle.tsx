@@ -41,6 +41,5 @@ export function TextStyle({
 	/** If asChild is true, merge props with the child element (no new DOM node). */
 	if (asChild) return <Slot {...componentProps}>{children}</Slot>;
 
-	/** Use createElement to create the element dynamically. */
 	return createElement(tagName, componentProps, children);
 }

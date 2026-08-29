@@ -1,4 +1,5 @@
-import { ToastVariantTypes } from './Toaster';
+/** Visual variant of a toast. */
+export type ToastVariantType = 'default' | 'success' | 'warn' | 'danger' | 'info' | 'promise';
 
 /** Promise toast status (loading → fulfilled or rejected). */
 export type ToastPromiseStatus = 'pending' | 'fulfilled' | 'rejected';
@@ -25,7 +26,7 @@ export type ToastItemType = {
 	description?: string;
 
 	/** Visual variant. Default - default. */
-	variant: typeof ToastVariantTypes.variant;
+	variant: ToastVariantType;
 
 	/** Promise status (only when variant is 'promise'). */
 	promiseStatus?: ToastPromiseStatus;
@@ -36,8 +37,8 @@ export type ToastItemType = {
 	/** Whether to show a close button. */
 	dismissible: boolean;
 
-	/** Duration in milliseconds. */
-	duration?: number;
+	/** Duration in milliseconds. A value of 0 keeps the toast until dismissed. */
+	duration: number;
 
 	/** Timestamp when the toast was created. */
 	createdAt: number;
@@ -64,8 +65,16 @@ export type ToastOptionsType = {
 /** Default options for all toasts (passed to Toaster). */
 export type ToastDefaultOptionsType = Partial<Pick<ToastOptionsType, 'position' | 'dismissible' | 'duration'>>;
 
-/** Options for promise toast. */
-export type ToastPromiseOptionsType = ToastOptionsType & {
+/** Options accepted when updating an existing toast (e.g. resolving a loading toast). */
+export type ToastUpdateOptionsType = Partial<
+	Pick<ToastOptionsType, 'title' | 'description' | 'dismissible' | 'duration'>
+> & {
+	/** New visual variant. */
+	variant?: ToastVariantType;
+};
+
+/** Options for promise toast. The title is derived from loading, success and error instead. */
+export type ToastPromiseOptionsType = Omit<ToastOptionsType, 'title'> & {
 	/** Message shown while promise is pending. */
 	loading: string;
 
